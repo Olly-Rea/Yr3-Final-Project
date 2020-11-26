@@ -13,8 +13,12 @@ class CreateRecipesTable extends Migration
      */
     public function up()
     {
+        // Create the table for recipes
         Schema::create('recipes', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
+            $table->string('name');
+            $table->integer('serves');
             $table->timestamps();
         });
     }
