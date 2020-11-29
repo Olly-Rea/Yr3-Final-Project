@@ -1,0 +1,209 @@
+// Variables
+@import 'variables';
+
+// Body and HTML tags formatting
+body,
+html {
+    margin: 0 !important;
+    width: 100%;
+
+    font: $font-size-base $font-stack;
+    line-height: $line-height-base;
+    // font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    color: $foreColor;
+
+    background: linear-gradient(26deg, $backAccent 50%, $backColor 50%);
+    background-position: top;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+
+    scroll-behavior: smooth;
+}
+
+a {
+    text-decoration: none;
+    color: $foreColor;
+}
+
+main  {
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+
+    @include flexDisplay(column, center, flex-start);
+
+    padding: 4rem 0;
+    margin: 0;
+
+    width: 100%;
+    max-width: 1920px;
+}
+
+.recipe-panel {
+    width: 60%;
+    padding: 2.6rem;
+    border-radius: $panelCorner;
+    @include hasShadow();
+
+    margin: 2rem 0;
+
+    background-color: $panelBckColor;
+    overflow: hidden;
+
+    .recipe-title-panel {
+        @include flexDisplay(row, center, space-between);
+
+        margin: -2.6rem;
+        margin-bottom: 0;
+
+        width: 100%;
+        padding: 1.6rem 2.6rem;
+        background-color: $panelAccentColor;
+
+        h1, p {
+            margin: 0.5rem 0;
+        }
+
+        .quick-info {
+            @include flexDisplay(row, flex-end, center);
+
+            margin-top: 1%;
+
+            .spice-info,
+            .sweet-info,
+            .sour-info,
+            .time-info,
+            .challenge-info {
+                @include flexDisplay(column, center, flex-start);
+                width: 5.4rem;
+
+                .info-wheel {
+                    @include flexDisplay(column, center, center);
+
+                    height: 3rem;
+                    width: 3rem;
+                    border-radius: 50%;
+
+                    color: $backColor;
+
+                    * {
+                        margin: 0;
+                        padding: 0;
+                    }
+
+                    &.spice-wheel {
+                        background-color: rgba(200, 100, 100, 0.7);
+                    }
+                    &.sweet-wheel {
+                        background-color: rgba(100, 100, 200, 0.7);
+                    }
+                    &.sour-wheel {
+                        background-color: rgba(100, 200, 100, 0.7);
+                    }
+                    &.time-wheel {
+                        text-align: center;
+                        background-color: rgba(100, 100, 100, 0.7);
+
+                        .mins {
+                            font-size: 80%;
+                        }
+
+                    }
+                    &.challenge-wheel {
+                        background-color: rgba(200, 200, 100, 0.7);
+                    }
+                }
+
+            }
+
+
+        }
+
+    }
+
+}
+
+// Footer formatting
+footer {
+    @include flexDisplay(row, center, center);
+    height: 12rem;
+    background: linear-gradient(rgba(0,0,0,0) 0%, $footerColor 100%);
+
+    a {
+        font-size: 16pt;
+    }
+}
+
+
+
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ *        Media tags for different browser sizing          *
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+
+// Minimum aspect ratio - browsers > 16:9
+@media (min-aspect-ratio: 11/5) {
+
+
+}
+
+// Maximum aspect ratio - mobile/portrait browsers
+@media (max-aspect-ratio: 12/10) {
+
+    // body,
+    // html {
+    //     font-size: 1rem !important;
+    // }
+
+    main {
+        width: 90%;
+        max-width: 100%;
+    }
+
+    .recipe-panel {
+        width: 80%;
+        padding: 2rem;
+
+        margin: 1.6rem 0;
+
+        .recipe-title-panel {
+            @include flexDisplay(row, center, center);
+            flex-wrap: wrap;
+
+            padding: 2.6rem;
+            padding-bottom: 0.4rem;
+
+            .recipe-title {
+                width: 100%;
+                * {
+                    width: 100%;
+                    text-align: center;
+                }
+            }
+
+            .spice-info,
+            .sweet-info,
+            .sour-info,
+            .time-info,
+            .challenge-info {
+                margin-top: 1.6rem;
+                width: 4rem !important;
+
+                p {
+                    opacity: 0%;
+                    transition: opacity 0.2s ease-in-out,
+                }
+                &:hover {
+                    p {
+                        opacity: 100%;
+                    }
+                }
+
+            }
+
+
+        }
+
+    }
+
+}

@@ -1,0 +1,82 @@
+// Fonts
+@font-face {
+    // Regular
+    font-family: "C&L Regular";
+    src: url("/fonts/ChampagneAndLimousines-7KRB.ttf") format('truetype');
+}
+@font-face {
+    // Bold
+    font-family: "C&L Bold";
+    font-weight: bold;
+    src: url("/fonts/ChampagneAndLimousinesBold-myr2.ttf") format('truetype');
+}
+@font-face {
+    // Italics
+    font-family: "C&L Italics";
+    font-style: italic;
+    src: url("/fonts/ChampagneAndLimousinesItalic-PlRZ.ttf") format('truetype');
+}
+@font-face {
+    // Bold italics
+    font-family: "C&L BoldItalics";
+    font-style: italic;
+    font-weight: bold;
+    src: url("/fonts/ChampagneAndLimousinesBoldItalic-dqex.ttf") format('truetype');
+}
+
+$font-stack: "C&L Regular";
+$font-size-base: 1rem;
+$navFontSize: 24pt;
+$line-height-base: 1.2;
+
+// Foreground Colors
+$foreColor: rgb(10, 10, 10);
+$accentColor: rgba(162, 74, 94, 0.5);
+
+// Background colours
+$backColor: rgb(240, 236, 240);
+$backAccent: rgb(241, 239, 242);
+$footerColor: rgb(220, 220, 220);
+
+// Panel colours
+$panelBckColor: rgb(246,244,248);
+$panelAccentColor: rgb(236,234,238);
+
+// Border properties
+$borderThin: 2px;
+$borderMed: 3px;
+$borderThick: 4px;
+$borderRounded: 10rem;
+
+// Panel border properties
+$panelCorner: 1.6rem;
+
+// Shadow stuff
+$shdwClr: rgb(160, 160, 160);
+@mixin hasShadow() {
+    box-shadow: 0 0 1rem 0 $shdwClr;
+}
+
+// mixin formatting function for "display: flex"
+@mixin flexDisplay($direction, $horizontal, $vertical) {
+    display: flex;
+    flex-direction: $direction;
+    align-items: $horizontal;
+    justify-content: $vertical;
+}
+
+
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ *        Media tags for different browser sizing          *
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+
+// // Minimum aspect ratio - browsers > 16:9
+// @media (min-aspect-ratio: 11/5) {
+
+
+// }
+
+// Maximum aspect ratio - mobile/portrait browsers
+@media (max-aspect-ratio: 12/10) {
+    $font-size-base: 11pt !important;
+}

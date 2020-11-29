@@ -28,7 +28,7 @@ class Recipe extends Model
 
     // Ingredient Model relationship
     public function ingredients() {
-        return $this->belongsToMany('App\Models\Ingredient', 'recipe_ingredients');
+        return $this->belongsToMany('App\Models\Ingredient', 'recipe_ingredients')->withPivot('specifier', 'amount', 'measurement');
     }
 
     // Instruction Model relationship

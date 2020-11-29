@@ -24,6 +24,10 @@ class Ingredient extends Model
         'same_as'
     ];
 
+    public function alternatives() {
+        return $this->belongsToMany('App\Models\Ingredient', 'alternatives');
+    }
+
     // Recipe Model relationship
     public function recipes() {
         return $this->belongsToMany('App\Models\Recipe', 'recipe_ingredients');

@@ -18,9 +18,7 @@ class CreateCharacteristicsTable extends Migration
             $table->id();
             $table->string('name');
             $table->text('description')->nullable();
-            // $table->integer('intensity')->nullable();
         });
-
         // Create the pivot table for ingredient_characteristics
         Schema::create('ingredient_characteristics', function (Blueprint $table) {
             $table->foreignId('ingrdnt_id')->references('id')->on('ingredients')->onDelete('cascade')->onUpdate('cascade');

@@ -16,14 +16,17 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         echo("\n");
-        // Call on User Seeder
-        $this->call(UserSeeder::class);
-        // Call on Ingredient Seeder
-        $this->call(IngredientSeeder::class);
-        // Count ingredients (Debug)
-        echo("\n" . count(Ingredient::all()) . "\n");
+        // // Call on User Seeder
+        // $this->call(UserSeeder::class);
+
+        // // Call on Ingredient Seeder
+        // $this->call(IngredientSeeder::class);
+        // // Count ingredients (Debug)
+        // echo("\n" . count(Ingredient::all()) . "\n");
+
         // Call on Recipe Seeder
         $this->call(RecipeSeeder::class);
+
         // Count ingredients again (Debug)
         echo("\n" . count(Ingredient::all()) . "\n");
     }

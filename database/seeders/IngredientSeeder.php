@@ -30,6 +30,12 @@ class IngredientSeeder extends Seeder
                 'products' => $ingredient->products,
             ]);
         }
+        // Create placeholder ingredient
+        Ingredient::create([
+            'name' => 'placeholder',
+            'url' => null,
+            'products' => 0,
+        ]);
 
         // dd($ingredients);
 
