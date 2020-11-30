@@ -34,6 +34,14 @@ class CreateRecipesTable extends Migration
             $table->string('misc')->nullable();
             // $table->unique(['recipe_id', 'ingredient_id', 'amount', 'measurement']);
         });
+        // Create the pivot table for "alternative" ingredients
+        Schema::create('alternatives', function (Blueprint $table) {
+            $table->foreignId('recipe_id')->references('id')->on('recipes')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreignId('ingredient_id')->references('id')->on('ingredients')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreignId('alternative_id')->references('id')->on('ingredients')->onDelete('cascade')->onUpdate('cascade');
+            $table->unique(['recipe_id', 'ingredient_id', 'alternative_id']);
+        });
+
     }
 
     /**

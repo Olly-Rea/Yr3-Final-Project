@@ -21,13 +21,7 @@ class CreateIngredientsTable extends Migration
             $table->string('name');
             $table->text('url')->nullable();
             $table->integer('products')->nullable();
-        });
-        // Create the pivot table for "alternative" ingredients
-        Schema::create('alternatives', function (Blueprint $table) {
-            $table->foreignId('ingredient_id')->references('id')->on('ingredients')->onDelete('cascade')->onUpdate('cascade');
-            $table->foreignId('alternative')->references('id')->on('ingredients')->onDelete('cascade')->onUpdate('cascade');
-            $table->unique(['ingredient_id', 'alternative']);
-        });
+        });        
     }
 
     /**

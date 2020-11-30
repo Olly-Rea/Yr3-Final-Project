@@ -55,14 +55,29 @@
     @if($recipe->ingredients[0]->name == 'placeholder')
         <p><i>This recipe hasn't included any ingredients!</i></p>
     @else
+        <ul>
     @foreach($recipe->ingredients as $ingredient)
         @if($ingredient->pivot->specifier == "s")
-        <a href={{ $ingredient->url }} target="blank_">{{ $ingredient->pivot->amount }} {{ $ingredient->pivot->measurement }} - {{ $ingredient->name }}{{ $ingredient->pivot->specifier }}</a>
+            <a href={{ $ingredient->url }} target="blank_"><li>{{ $ingredient->pivot->amount }} {{ $ingredient->pivot->measurement }} - {{ $ingredient->name }}{{ $ingredient->pivot->specifier }}</li></a>
         @else
-        <a href={{ $ingredient->url }} target="blank_">{{ $ingredient->pivot->amount }} {{ $ingredient->pivot->measurement }} - {{ $ingredient->pivot->specifier }} {{ $ingredient->name }}</a>
+            <a href={{ $ingredient->url }} target="blank_"><li>{{ $ingredient->pivot->amount }} {{ $ingredient->pivot->measurement }} - {{ $ingredient->pivot->specifier }} {{ $ingredient->name }}</li></a>
         @endif
-        <br>
+            @if(count($ingredient->alternatives) > 0)
+            <ul>
+            @endif
+            @foreach($ingredient->alternatives as $alternative)
+                @if($ingredient->pivot->specifier == "s")
+                <li>OR <a href={{ $ingredient->url }} target="blank_">{{ $alternative->pivot->amount }} {{ $alternative->pivot->measurement }} - {{ $alternative->name }}{{ $alternative->pivot->specifier }}</a></li>
+                @else
+                <li>OR <a href={{ $ingredient->url }} target="blank_">{{ $alternative->pivot->amount }} {{ $alternative->pivot->measurement }} - {{ $alternative->pivot->specifier }} {{ $alternative->name }}</a></li>
+                @endif
+            @endforeach
+            @if(count($ingredient->alternatives) > 0)
+            </ul>
+            @endif
+            <br>
     @endforeach
+        </ul>
     @endif
         <h2>Instructions:</h2>
     @foreach($recipe->instructions as $instruction)

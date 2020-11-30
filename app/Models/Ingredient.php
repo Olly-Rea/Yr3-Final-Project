@@ -25,7 +25,7 @@ class Ingredient extends Model
     ];
 
     public function alternatives() {
-        return $this->belongsToMany('App\Models\Ingredient', 'alternatives');
+        return $this->belongsToMany('App\Models\Ingredient', 'alternatives', 'alternative_id', 'ingredient_id');
     }
 
     // Recipe Model relationship

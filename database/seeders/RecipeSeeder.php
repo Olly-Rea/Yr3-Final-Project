@@ -66,13 +66,16 @@ class RecipeSeeder extends Seeder
 
                     // Split into the name and amount of the ingredient (if an amount exists)
                     $alternatives = explode(" (OR) ", $ingredient);
+                    // // Initialise variable to hold main ingredient
+                    // $mainIngredient = $alternatives[0];
+
                     // Loop through the "alternatives" array
-                    foreach($alternatives as $alternative) {
-                        
-                        // echo("{".$alternative."},");
+                    foreach($alternatives as $key => $alternative) {
+
+                        // echo("{".$alternative."}\n");
 
                         // Split into the name and amount of the ingredient (if an amount exists)
-                        $ingredArr = explode(" | ", $ingredient);
+                        $ingredArr = explode(" | ", $alternative);
                         // If there is no amount given, return just the name of the ingredient
                         if(count($ingredArr) == 1) {
                             $name = $ingredArr[0];
@@ -98,7 +101,7 @@ class RecipeSeeder extends Seeder
                                     $measurement = 'g';
                                     $value = round($value * 453.592, -1);
                                 }
-                                // TODO Fix $measurement conversions 
+                                // TODO Fix $measurement conversions
                                 // (converting null measurements to grams?)
                             }
                             $name = $ingredArr[1];
@@ -107,7 +110,8 @@ class RecipeSeeder extends Seeder
                         // Check if ingredient has any "misc" info
                         $nameArr = explode(" (", $name);
                         // Assign name and (if exists) misc
-                        $name = ucwords($nameArr[0]);
+                        $name = rtrim(ucwords($nameArr[0]), "s");
+                        // $name = ucwords($nameArr[0]);
                         $misc = isset($nameArr[1]) ? str_replace(')', '', $nameArr[1]) : null;
 
                         // Check if ingredient (or more common variation of ingredient) exists
@@ -119,7 +123,7 @@ class RecipeSeeder extends Seeder
                         $bestPercent = 0;
                         // Set the atribute to store any specifics about the ingredient
                         $specifier = null;
-
+                        // Loop through all matches to find the best match
                         foreach($exists as $match) {
                             // Check if the match is a better fit than any previous matches
                             $matchPercent = 1-strlen(str_replace($match->name, "", $name))/$nameLen;
@@ -141,36 +145,58 @@ class RecipeSeeder extends Seeder
 
                             // echo("  match found!  |  ".$bestFit->name." -> ".$name." | Match: ".round($bestPercent*100, 1)."%\n");
 
-                            $duplicate = $newRecipe->ingredients->contains('name', $bestFit);
+                            // If ingredient is not alternative to other ingredient
+                            if($key == 0) {
 
-                            // $recipe = $newRecipe->load('ingredients');
+                                // Check the ingredient is not already in the Recipe's relations
+                                $duplicate = $newRecipe->ingredients->contains('name', $bestFit);
 
-                            // // Check the ingredient is not a duplicate
-                            // $duplicate = $recipe->where([
-                            //     ['recipe_id', '=', $newRecipe->id],
-                            //     ['ingredient_id', '=', $bestFit->id],
-                            //     ['amount', '=', $value],
-                            //     ['measurement', '=', $measurement],
-                            // ])->get();
+                                // $recipe = $newRecipe->load('ingredients');
 
-                            // $duplicate = $newRecipe->ingredients->where([
-                            //     // ['recipe_id', '=', $newRecipe->id],
-                            //     ['ingredient_id', '=', $bestFit->id],
-                            //     // ['amount', '=', $value],
-                            //     // ['measurement', '=', $measurement],
-                            // ]);
+                                // $duplicate = $recipe->where([
+                                //     ['recipe_id', '=', $newRecipe->id],
+                                //     ['ingredient_id', '=', $bestFit->id],
+                                //     ['amount', '=', $value],
+                                //     ['measurement', '=', $measurement],
+                                // ])->get();
 
-                            // echo(count($duplicate));
+                                // $duplicate = $newRecipe->ingredients->where([
+                                //     // ['recipe_id', '=', $newRecipe->id],
+                                //     ['ingredient_id', '=', $bestFit->id],
+                                //     // ['amount', '=', $value],
+                                //     // ['measurement', '=', $measurement],
+                                // ]);
 
-                            // And if not, add it to the Recipe's Ingredient relationships
-                            if(!$duplicate) {
-                                $newRecipe->ingredients()->attach($bestFit, ['specifier' => $specifier, 'misc' => $misc, 'amount' => $value, 'measurement' => $measurement]);
+                                // echo(count($duplicate));
+
+                                // And if not, add it to the Recipe's Ingredient relationships
+                                if(!$duplicate) {
+                                    // Define the ingredient as the main ingredient (not an alternative)
+                                    $mainIngredient = $bestFit;
+                                    // Add the ingredient to the recipe
+                                    $newRecipe->ingredients()->attach($bestFit, ['specifier' => $specifier, 'misc' => $misc, 'amount' => $value, 'measurement' => $measurement]);
+                                } else {
+                                    echo("duplicate found!\n");
+                                }
+
                             } else {
-                                echo("duplicate found!\n");
+                                // Check there are no duplicate alterntives under the main Ingredient
+                                $duplicate = $mainIngredient->alternatives->where('recipe_id', '=', $newRecipe->id)->contains('name', $bestFit);
+                                // And if not, add it to the Recipe's Ingredient relationships
+                                if(!$duplicate) {
+                                    // Define the ingredient as the main ingredient (not an alternative)
+                                    $mainIngredient = $bestFit;
+                                    // Add the ingredient to the list of the main Ingredients alternatives
+                                    $mainIngredient->alternatives()->attach($bestFit, ['recipe_id' => $newRecipe->id]);
+                                } else {
+                                    echo("duplicate found!\n");
+                                }
                             }
 
                         // Otherwise create a new ingredient...
                         } else {
+
+                            // echo("NO match found! |  ".$bestFit->name." -> ".$name." | Match: ".round($bestPercent*100, 1)."%\n");
 
                             // select * from t1 where 'ABCDEFG' LIKE CONCAT('%',column1,'%')
 
@@ -178,10 +204,6 @@ class RecipeSeeder extends Seeder
 
                             // $specifier = $nameArr[0];
                             // $name = substr($name, strlen($specifier)+1);
-
-
-                            // echo("NO match found! |  ".$bestFit->name." -> ".$name." | Match: ".round($bestPercent*100, 1)."%\n");
-
 
                             // $newIngredient = Ingredient::create([
                             //     'name' => ucwords($ingredient),
@@ -193,9 +215,7 @@ class RecipeSeeder extends Seeder
                         }
 
                     }
-                  
 
-                    
                 }
             // Otherwise add "Text Only" placeholder ingredient
             } else {
