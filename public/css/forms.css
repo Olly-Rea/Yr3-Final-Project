@@ -25,9 +25,9 @@
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  *        Media tags for different browser sizing          *
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-input:-webkit-autofill,
-textarea:-webkit-autofill,
-select:-webkit-autofill {
+input,
+textarea,
+select {
   font-family: inherit;
 }
 
@@ -46,9 +46,9 @@ select:-webkit-autofillfocus {
   font-family: inherit;
 }
 
-input:-webkit-autofill:focus,
-textarea:-webkit-autofill:focus,
-select:-webkit-autofill:focus {
+input:focus,
+textarea:focus,
+select:focus {
   outline: none;
 }
 /*# sourceMappingURL=forms.css.map */

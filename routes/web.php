@@ -13,7 +13,17 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', 'RecipeController@index');
+// Recipe routes
+Route::get('/', 'RecipeController@index')->name('feed');
+Route::get('/Recipe/{recipe}', 'RecipeController@show')->name('recipe');
+Route::get('/LuckyDip', 'RecipeController@random')->name('lucky_dip');
+
+// Ingredient routes
+Route::get('/Ingredient/{ingredient}', 'IngredientController@show')->name('ingredient');
+
+// Profile routes
+Route::get('/Profile/{profile}', 'ProfileController@show')->name('profile');
+Route::get('/Me', 'ProfileController@me')->name('me');
 
 // Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
 //     return view('dashboard');

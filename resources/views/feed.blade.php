@@ -1,7 +1,7 @@
-@extends('layouts.app')
+@extends('layouts.nav')
 
 @section("styles")
-<link href="{{ asset('css/global.css') }}" rel="stylesheet">
+<link href="{{ asset('css/feed_page.css') }}" rel="stylesheet">
 @endsection
 
 @section('title')
@@ -13,8 +13,8 @@
 <div class="recipe-panel">
     <div class="recipe-title-panel">
         <div class="recipe-title">
-            <p>{{ $recipe->user->first_name }} {{ $recipe->user->last_name }} • <i>{{ date("j F Y", strtotime($recipe->created_at)) }}</i></p>
-            <h1><b>{{ $recipe->name }}</b></h1>
+            <a href="{{ route('profile', $recipe->user->id) }}">{{ $recipe->user->first_name }} {{ $recipe->user->last_name }} • <i>{{ date("j F Y", strtotime($recipe->created_at)) }}</i></a>
+            <a href="{{ route('recipe', $recipe->id) }}"><h1><b>{{ $recipe->name }}</b></h1></a>
             <p><b>Serves:</b> {{ $recipe->serves }}</p>
         </div>
         <div class="quick-info">
@@ -49,35 +49,6 @@
                 <p>Difficulty</p>
             </div>
         </div>
-    </div>
-    <div class="ingredients-panel">
-        <h2>Ingredients:</h2>
-        @foreach($recipe->ingredients as $ingredient)
-            @if ($ingredient->pivot->misc_info != "")
-            <a href={{ $ingredient->references[0] }} target="blank_"><li>{{ $ingredient->pivot->amount }} {{ $ingredient->pivot->measure }} - {{ $ingredient->name }} ({{ $ingredient->pivot->misc_info }})</li></a>
-            @else
-            <a href={{ $ingredient->references[0] }} target="blank_"><li>{{ $ingredient->pivot->amount }} {{ $ingredient->pivot->measure }} - {{ $ingredient->name }}</li></a>
-            @endif
-            @if(count($ingredient->alternatives) > 0)
-            <ul>
-            @endif
-            @foreach($ingredient->alternatives as $alternative)
-                @if($ingredient->pivot->specifier == "s")
-                <li><a href={{ $alternative->references[0] }} target="blank_">{{ $alternative->pivot->amount }} {{ $alternative->pivot->measure }} - {{ $alternative->name }}{{ $alternative->pivot->specifier }}</a></li>
-                @else
-                <li><a href={{ $alternative->references[0] }} target="blank_">{{ $alternative->pivot->amount }} {{ $alternative->pivot->measure }} - {{ $alternative->pivot->specifier }} {{ $alternative->name }}</a></li>
-                @endif
-            @endforeach
-            @if(count($ingredient->alternatives) > 0)
-            </ul>
-            @endif
-            <br>
-        @endforeach
-        </ul>
-        <h2>Instructions:</h2>
-        @foreach($recipe->instructions as $instruction)
-        <p>{{ $instruction->content }}</p>
-        @endforeach
     </div>
 </div>
 @endforeach

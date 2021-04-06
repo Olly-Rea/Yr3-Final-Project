@@ -4,7 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 // Custom imports
-use App\Models\{Allergen, Ingredient, Label, Category};
+use App\Models\{Ingredient, Label, Category, Allergen, Trace};
 use Illuminate\Support\Facades\File;
 
 class IngredientSeeder extends Seeder
@@ -26,7 +26,7 @@ class IngredientSeeder extends Seeder
             // Create the Ingredient
             $newIngredient = Ingredient::create([
                 // Add ingredient name
-                'name' => ucwords($ingredient->name),
+                'name' => $ingredient->name,
                 // Add ingredient references
                 'references' => $ingredient->url,
                 // Add ingredients properties
@@ -46,10 +46,8 @@ class IngredientSeeder extends Seeder
                 $exists = Label::where('name', '=', $label)->first();
                 // If so, attach the existing Label to the Ingredient
                 if($exists != null) {
-                    // If the label hasn't already been assigned to this ingredient
-                    if (!$newIngredient->labels->contains($exists)) {
-                        $newIngredient->labels()->attach($exists);
-                    }
+                    // Add the label if it hasn't already been assigned to this ingredient
+                    $newIngredient->labels()->syncWithoutDetaching([$exists->id]);
                 // Otherwise, create and attach a new Label to the Ingredient
                 } else {
                     $newLabel = Label::create([
@@ -67,10 +65,8 @@ class IngredientSeeder extends Seeder
                 $exists = Category::where('name', '=', $category)->first();
                 // If so, attach the existing Category to the Ingredient
                 if($exists != null) {
-                    // If the category hasn't already been assigned to this ingredient
-                    if (!$newIngredient->categories->contains($exists)) {
-                        $newIngredient->categories()->attach($exists);
-                    }
+                    // Add the category if it hasn't already been assigned to this ingredient
+                    $newIngredient->categories()->syncWithoutDetaching([$exists->id]);
                 // Otherwise, create and attach a new Category to the Ingredient
                 } else {
                     $newCategory = Category::create([
@@ -88,10 +84,8 @@ class IngredientSeeder extends Seeder
                 $exists = Allergen::where('name', '=', $allergen)->first();
                 // If so, attach the existing Allergen to the Ingredient
                 if($exists != null) {
-                    // If the allergen hasn't already been assigned to this ingredient
-                    if (!$newIngredient->allergens->contains($exists)) {
-                        $newIngredient->allergens()->attach($exists);
-                    }
+                    // Add the allergen if it hasn't already been assigned to this ingredient
+                    $newIngredient->allergens()->syncWithoutDetaching([$exists->id]);
                 // Otherwise, create and attach a new Allergen to the Ingredient
                 } else {
                     $newAllergen = Allergen::create([
@@ -101,13 +95,33 @@ class IngredientSeeder extends Seeder
                 }
             }
 
+            // Check for (and add) traces
+            foreach($ingredient->traces as $trace) {
+                // Format trace string
+                $trace = ucwords(mb_strtolower($trace), '\' ');
+                // Check if the Trace already exists
+                $exists = Trace::where('name', '=', $trace)->first();
+                // If so, attach the existing Trace to the Ingredient
+                if($exists != null) {
+                    // Add the trace if it hasn't already been assigned to this ingredient
+                    $newIngredient->traces()->syncWithoutDetaching([$exists->id]);
+                // Otherwise, create and attach a new Trace to the Ingredient
+                } else {
+                    $newTrace = Trace::create([
+                        'name' => $trace
+                    ]);
+                    $newIngredient->traces()->attach($newTrace);
+                }
+            }
+
         }
 
-        // Debug
-        echo("There are " . Ingredient::all()->count() . " ingredients\n");
-        echo("There are " . Label::all()->count() . " labels\n");
-        echo("There are " . Category::all()->count() . " categories\n");
-        echo("There are " . Allergen::all()->count() . " allergens\n");
+        // // Debug
+        // echo("There are " . Ingredient::all()->count() . " ingredients\n");
+        // echo("There are " . Label::all()->count() . " labels\n");
+        // echo("There are " . Category::all()->count() . " categories\n");
+        // echo("There are " . Allergen::all()->count() . " allergens\n");
+        // echo("There are " . Trace::all()->count() . " traces\n");
 
     }
 

@@ -25,12 +25,10 @@
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  *        Media tags for different browser sizing          *
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-input {
+input,
+textarea,
+select {
   font-family: inherit;
-}
-
-input:focus {
-  outline: none;
 }
 
 input:-webkit-autofill:hover, input:-webkit-autofillfocus,
@@ -41,10 +39,17 @@ select:-webkit-autofillfocus {
   border: inherit;
   -webkit-text-fill-color: inherit;
   -webkit-box-shadow: inherit;
+          box-shadow: inherit;
   -webkit-transition: background-color 5000s ease-in-out 0s;
   transition: background-color 5000s ease-in-out 0s;
   font-size: inherit;
   font-family: inherit;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  outline: none;
 }
 
 body,
@@ -67,24 +72,163 @@ a {
   color: #0a0a0a;
 }
 
-nav {
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: 2;
-  width: 100%;
+svg {
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
 }
 
-nav #search-bar-container {
-  position: absolute;
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ *               Main view-window properties               *
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+nav {
   z-index: 5;
-  top: 2rem;
+  position: absolute;
+  top: 1.2rem;
   left: 50%;
   -webkit-transform: translateX(-50%);
           transform: translateX(-50%);
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  height: 4rem;
+  width: 90%;
+  max-width: 1920px;
+  -webkit-transition: background-color 0.14s ease-in-out;
+  transition: background-color 0.14s ease-in-out;
+}
+
+nav.scrolling {
+  background-color: #f894a4;
+}
+
+nav.scrolling svg#site-logo {
+  stroke: #f1eff2;
+}
+
+nav #search-bar-container,
+nav #nav-left {
+  position: relative;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+          transform: translateY(-50%);
+}
+
+nav #nav-left {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  width: 60%;
+  height: 100%;
+}
+
+nav #nav-left svg#site-logo {
+  height: 4.4rem;
+  width: 4.4rem;
+  stroke: #282828;
+  fill: #f894a4;
+  cursor: pointer;
+  -webkit-transition: stroke 0.14s ease-in-out, -webkit-transform 0.14s ease-in-out;
+  transition: stroke 0.14s ease-in-out, -webkit-transform 0.14s ease-in-out;
+  transition: stroke 0.14s ease-in-out, transform 0.14s ease-in-out;
+  transition: stroke 0.14s ease-in-out, transform 0.14s ease-in-out, -webkit-transform 0.14s ease-in-out;
+}
+
+nav #nav-left svg#site-logo:hover {
+  -webkit-transform: scale(1.06);
+          transform: scale(1.06);
+}
+
+nav #nav-left svg#site-logo:active {
+  -webkit-transform: scale(0.94);
+          transform: scale(0.94);
+}
+
+nav #nav-left #site-links {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  -ms-flex-wrap: nowrap;
+      flex-wrap: nowrap;
+  height: 100%;
+  margin-left: 2rem;
+}
+
+nav #nav-left #site-links a {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  height: 100%;
+  padding: 0 2rem;
+  margin: 0 1rem;
+  border-radius: 1rem;
+}
+
+nav #nav-left #site-links a b {
+  font-size: 1.6rem;
+}
+
+nav #nav-left #site-links a p.beta {
+  margin-left: 0.6rem;
+  font-size: 80%;
+  color: #f1eff2;
+  background-color: #282828;
+  padding: 0.32rem 0.4rem;
+  border-radius: 0.32rem;
+}
+
+nav #nav-left #site-links a:hover {
+  background-color: #e0e0e0;
+}
+
+nav #nav-left #site-links a:active {
+  background-color: #d8d8d8;
+}
+
+nav #search-bar-container {
   height: 3.2rem;
-  width: 50%;
-  max-width: 1080px;
+  width: 40%;
 }
 
 nav #search-bar-container svg#search-icon {
@@ -126,36 +270,6 @@ nav #search-bar-container input#search-bar {
           box-shadow: 0 0 0.4rem 0 #a0a0a0;
 }
 
-nav svg#site-logo {
-  position: absolute;
-  right: 1.2rem;
-  top: 1.2rem;
-  height: 4.4rem;
-  width: 4.4rem;
-  cursor: pointer;
-  -webkit-transition: -webkit-transform 0.14s ease-in-out;
-  transition: -webkit-transform 0.14s ease-in-out;
-  transition: transform 0.14s ease-in-out;
-  transition: transform 0.14s ease-in-out, -webkit-transform 0.14s ease-in-out;
-}
-
-nav svg#site-logo:hover {
-  -webkit-transform: scale(1.06);
-          transform: scale(1.06);
-}
-
-nav svg#site-logo:active {
-  -webkit-transform: scale(0.94);
-          transform: scale(0.94);
-}
-
-svg {
-  -webkit-user-select: none;
-     -moz-user-select: none;
-      -ms-user-select: none;
-          user-select: none;
-}
-
 main {
   position: relative;
   left: 50%;
@@ -179,162 +293,6 @@ main {
   width: 100%;
   max-width: 1920px;
   min-height: 90vh;
-}
-
-.recipe-panel {
-  width: 60%;
-  padding: 2.6rem;
-  border-radius: 1.6rem;
-  -webkit-box-shadow: 0 0 0.4rem 0 #a0a0a0;
-          box-shadow: 0 0 0.4rem 0 #a0a0a0;
-  margin: 2rem 0;
-  background-color: #f6f4f8;
-  overflow: hidden;
-}
-
-.recipe-panel .recipe-title-panel {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: row;
-          flex-direction: row;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
-  margin: -2.6rem;
-  margin-bottom: 0;
-  width: 100%;
-  padding: 1.6rem 2.6rem;
-  background-color: #eceaee;
-}
-
-.recipe-panel .recipe-title-panel h1, .recipe-panel .recipe-title-panel p {
-  margin: 0.5rem 0;
-}
-
-.recipe-panel .recipe-title-panel .quick-info {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: row;
-          flex-direction: row;
-  -webkit-box-align: end;
-      -ms-flex-align: end;
-          align-items: flex-end;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  margin-top: 1%;
-}
-
-.recipe-panel .recipe-title-panel .quick-info .spice-info,
-.recipe-panel .recipe-title-panel .quick-info .sweet-info,
-.recipe-panel .recipe-title-panel .quick-info .sour-info,
-.recipe-panel .recipe-title-panel .quick-info .time-info,
-.recipe-panel .recipe-title-panel .quick-info .difficulty-info {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  -webkit-box-pack: start;
-      -ms-flex-pack: start;
-          justify-content: flex-start;
-  width: 5.4rem;
-}
-
-.recipe-panel .recipe-title-panel .quick-info .spice-info .info-wheel,
-.recipe-panel .recipe-title-panel .quick-info .sweet-info .info-wheel,
-.recipe-panel .recipe-title-panel .quick-info .sour-info .info-wheel,
-.recipe-panel .recipe-title-panel .quick-info .time-info .info-wheel,
-.recipe-panel .recipe-title-panel .quick-info .difficulty-info .info-wheel {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  height: 3rem;
-  width: 3rem;
-  border-radius: 50%;
-  color: #f0ecf0;
-}
-
-.recipe-panel .recipe-title-panel .quick-info .spice-info .info-wheel *,
-.recipe-panel .recipe-title-panel .quick-info .sweet-info .info-wheel *,
-.recipe-panel .recipe-title-panel .quick-info .sour-info .info-wheel *,
-.recipe-panel .recipe-title-panel .quick-info .time-info .info-wheel *,
-.recipe-panel .recipe-title-panel .quick-info .difficulty-info .info-wheel * {
-  margin: 0;
-  padding: 0;
-}
-
-.recipe-panel .recipe-title-panel .quick-info .spice-info .info-wheel.spice-wheel,
-.recipe-panel .recipe-title-panel .quick-info .sweet-info .info-wheel.spice-wheel,
-.recipe-panel .recipe-title-panel .quick-info .sour-info .info-wheel.spice-wheel,
-.recipe-panel .recipe-title-panel .quick-info .time-info .info-wheel.spice-wheel,
-.recipe-panel .recipe-title-panel .quick-info .difficulty-info .info-wheel.spice-wheel {
-  background-color: rgba(200, 100, 100, 0.7);
-}
-
-.recipe-panel .recipe-title-panel .quick-info .spice-info .info-wheel.sweet-wheel,
-.recipe-panel .recipe-title-panel .quick-info .sweet-info .info-wheel.sweet-wheel,
-.recipe-panel .recipe-title-panel .quick-info .sour-info .info-wheel.sweet-wheel,
-.recipe-panel .recipe-title-panel .quick-info .time-info .info-wheel.sweet-wheel,
-.recipe-panel .recipe-title-panel .quick-info .difficulty-info .info-wheel.sweet-wheel {
-  background-color: rgba(100, 100, 200, 0.7);
-}
-
-.recipe-panel .recipe-title-panel .quick-info .spice-info .info-wheel.sour-wheel,
-.recipe-panel .recipe-title-panel .quick-info .sweet-info .info-wheel.sour-wheel,
-.recipe-panel .recipe-title-panel .quick-info .sour-info .info-wheel.sour-wheel,
-.recipe-panel .recipe-title-panel .quick-info .time-info .info-wheel.sour-wheel,
-.recipe-panel .recipe-title-panel .quick-info .difficulty-info .info-wheel.sour-wheel {
-  background-color: rgba(100, 200, 100, 0.7);
-}
-
-.recipe-panel .recipe-title-panel .quick-info .spice-info .info-wheel.time-wheel,
-.recipe-panel .recipe-title-panel .quick-info .sweet-info .info-wheel.time-wheel,
-.recipe-panel .recipe-title-panel .quick-info .sour-info .info-wheel.time-wheel,
-.recipe-panel .recipe-title-panel .quick-info .time-info .info-wheel.time-wheel,
-.recipe-panel .recipe-title-panel .quick-info .difficulty-info .info-wheel.time-wheel {
-  text-align: center;
-  background-color: rgba(100, 100, 100, 0.7);
-}
-
-.recipe-panel .recipe-title-panel .quick-info .spice-info .info-wheel.time-wheel .mins,
-.recipe-panel .recipe-title-panel .quick-info .sweet-info .info-wheel.time-wheel .mins,
-.recipe-panel .recipe-title-panel .quick-info .sour-info .info-wheel.time-wheel .mins,
-.recipe-panel .recipe-title-panel .quick-info .time-info .info-wheel.time-wheel .mins,
-.recipe-panel .recipe-title-panel .quick-info .difficulty-info .info-wheel.time-wheel .mins {
-  font-size: 80%;
-}
-
-.recipe-panel .recipe-title-panel .quick-info .spice-info .info-wheel.difficulty-wheel,
-.recipe-panel .recipe-title-panel .quick-info .sweet-info .info-wheel.difficulty-wheel,
-.recipe-panel .recipe-title-panel .quick-info .sour-info .info-wheel.difficulty-wheel,
-.recipe-panel .recipe-title-panel .quick-info .time-info .info-wheel.difficulty-wheel,
-.recipe-panel .recipe-title-panel .quick-info .difficulty-info .info-wheel.difficulty-wheel {
-  background-color: rgba(200, 200, 100, 0.7);
 }
 
 footer {

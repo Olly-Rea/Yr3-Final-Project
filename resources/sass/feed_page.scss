@@ -1,0 +1,86 @@
+// Import from forms
+@import 'global';
+
+.recipe-panel {
+    width: 60%;
+    padding: 2.6rem;
+    border-radius: $panelCorner;
+    @include hasShadow();
+
+    margin: 2rem 0;
+
+    background-color: $panelBckColor;
+    overflow: hidden;
+
+    .recipe-title-panel {
+        @include flexDisplay(row, center, space-between);
+
+        margin: -2.6rem;
+        margin-bottom: 0;
+
+        width: 100%;
+        padding: 1.6rem 2.6rem;
+        background-color: $panelAccentColor;
+
+        h1, p {
+            margin: 0.5rem 0;
+        }
+
+        .quick-info {
+            @include flexDisplay(row, flex-end, center);
+
+            margin-top: 1%;
+
+            .spice-info,
+            .sweet-info,
+            .sour-info,
+            .time-info,
+            .difficulty-info {
+                @include flexDisplay(column, center, flex-start);
+                width: 5.4rem;
+
+                .info-wheel {
+                    @include flexDisplay(column, center, center);
+
+                    height: 3rem;
+                    width: 3rem;
+                    border-radius: 50%;
+
+                    color: $backColor;
+
+                    * {
+                        margin: 0;
+                        padding: 0;
+                    }
+
+                    &.spice-wheel {
+                        background-color: rgba(200, 100, 100, 0.7);
+                    }
+                    &.sweet-wheel {
+                        background-color: rgba(100, 100, 200, 0.7);
+                    }
+                    &.sour-wheel {
+                        background-color: rgba(100, 200, 100, 0.7);
+                    }
+                    &.time-wheel {
+                        text-align: center;
+                        background-color: rgba(100, 100, 100, 0.7);
+
+                        .mins {
+                            font-size: 80%;
+                        }
+
+                    }
+                    &.difficulty-wheel {
+                        background-color: rgba(200, 200, 100, 0.7);
+                    }
+                }
+
+            }
+
+
+        }
+
+    }
+
+}

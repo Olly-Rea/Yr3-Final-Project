@@ -11,8 +11,9 @@ use Exception;
 use Illuminate\Support\Facades\{DB, File};
 
 
-// SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '12868-2526-4211' for key 'alternatives.alternatives_recipe_id_ingred_id_altrnt_id_unique'
-// (SQL: insert into `alternatives` (`altrnt_id`, `ingred_id`, `recipe_id`) values (4211, 2526, 12868))
+// SQLSTATE[22001]: String data, right truncated: 1406 Data too long for column 'misc_info' at row 1
+// (SQL: insert into `recipe_ingredients` (`amount`, `ingred_id`, `measure`, `misc_info`, `recipe_id`)
+// values (6, 8459, , minutes until they are soft and dry. shake and stir constantly to prevent them from burning if necessary, reduce or remove from occassionally to let it cool for a few moments before returning it to . stir in kebbeh and when it begins to splutter add ginger, fenugreek, cardamom, 15968))
 
 
 class RecipeSeeder extends Seeder {
@@ -21,14 +22,19 @@ class RecipeSeeder extends Seeder {
     private $ingred_count = 0;
     private $successes = 0;
 
-    // Method to check if an ingredient exists in the database
+    //  Conversion measurements
+    private $measures = ['ozs' => 28.3495, 'ounces' => 28.3495, 'lbs' => 453.592, 'pounds' => 453.592];
+
+    /**
+     * Method to check if an ingredient exists in the database
+     */
     private function checkExists($name) {
         // Increment counter (FOR DEBUG)
         $this->ingred_count++;
 
         // Store the length of the ingredient name
         $nameLen = strlen($name);
-
+        // Change ' characters to \' (prevents issues with SQL statements)
         $name = str_replace('\'', '\\\'', $name);
 
         // Check if ingredient (or more common variation of ingredient) exists (refresh the list each time)
@@ -55,8 +61,8 @@ class RecipeSeeder extends Seeder {
         // Ensure bestFit has a minimum declaration of null
         $bestFit = isset($bestFit) ? $bestFit : null;
 
-        // if ingredient already exists in database (and the best match length is > 50% the length of the full ingredient name)
-        if ($bestFit != null && $bestPercent > 0.5) {
+        // if ingredient already exists in database (and the best match length is > 70% the length of the full ingredient name)
+        if ($bestFit != null && $bestPercent > 0.7) {
             // Increment Successes and output message (DEBUG)
             $this->successes++;
             // echo("  match found!  |  " . $name . " -> " . $bestFit->name . " | Match: " . round($bestPercent*100, 1) . "%\n");
@@ -70,6 +76,34 @@ class RecipeSeeder extends Seeder {
 
         // Return the ingredient's bestFit (or null)
         return $bestFit;
+    }
+
+    /**
+     * Method to tweak the amount and measure data where required
+     */
+    private function getAmountandMeasure($data) {
+
+        // Convert amount from string to int - Also check for fractions (and convert to doubles if required)
+        $numbers = explode(" ", $data->amount);
+        $amount = (double) $numbers[0];
+        if (count($numbers) > 1) {
+            $fraction = explode("/", $numbers[1]);
+            $amount += (count($fraction) == 2) ? round($fraction[0] / $fraction[1], 6) : $fraction[0];
+        }
+
+        // Perform conversion from imperial to metric
+        if(isset($this->measures[$data->measure])) {
+            $data->amount = round($amount * $this->measures[$data->measure], -1);
+            $data->measure = 'g';
+        // Check singulars
+        } elseif(isset($this->measures[$data->measure.'s'])) {
+            $data->amount = round($amount * $this->measures[$data->measure.'s'], -1);
+            $data->measure = 'g';
+        // If no measurement conversion made, just set data->amount as the pre-converted amount
+        } else {
+            $data->amount = $amount;
+        }
+
     }
 
     /**
@@ -115,42 +149,12 @@ class RecipeSeeder extends Seeder {
                     // Check if the ingredient already exists in database (and the best match length is > 50% the length of the full ingredient name)
                     if (($bestFit = $this->checkExists($prim_name)) != null) {
 
-                        // Convert from string to int - Also check for fractions (and convert to doubles if required)
-                        $numbers = explode(" ", $prim_data->amount);
-                        $amount = (double) $numbers[0];
-                        if (count($numbers) > 1) {
-                            $fraction = explode("/", $numbers[1]);
-                            $amount += (count($fraction) == 2) ? round($fraction[0] / $fraction[1], 6) : $fraction[0];
-                        }
-
-                        // // Convert from imperial to metric measurements (because sense?)
-                        // $amountArr = explode(' ', $ingredArr[0]);
-                        // // If no measurement given, return just the amount
-                        // if (count($amountArr) == 1) {
-                        //     $value = intval($amountArr[0]);
-                        //     // Otherwise, convert where appropriate
-                        // } else {
-                        //     $value = intval($amountArr[0]);
-                        //     $measurement = $amountArr[1];
-                        //     // Checks to convert from imperial to metric
-                        //     if ($measurement == 'ounces' || $measurement == 'ounce') {
-                        //         $measurement = 'g';
-                        //         $value = round($value * 28.3495, -1);
-                        //     }
-                        //     if ($measurement == 'lb') {
-                        //         $measurement = 'g';
-                        //         $value = round($value * 453.592, -1);
-                        //     }
-                        //     // TODO Fix measurement conversions
-                        //     // (converting null measurements to grams?)
-                        // }
-                        // $name = $ingredArr[1];
+                        // Update the amount (and measure if required) values
+                        $this->getAmountandMeasure($prim_data);
 
                         // Attach the ingredient
-                        $newRecipe->ingredients()->attach($bestFit, [
-                            'misc_info' => $prim_data->misc_info,
-                            'amount' => $amount,
-                            'measure' => $prim_data->measure
+                        $newRecipe->ingredients()->syncWithoutDetaching([
+                            $bestFit->id => ['misc_info' => $prim_data->misc_info, 'amount' => $prim_data->amount, 'measure' => $prim_data->measure]
                         ]);
 
                         // Loop through the ingredients alternatives
@@ -161,7 +165,15 @@ class RecipeSeeder extends Seeder {
                                 $duplicate = $bestFit->alternatives->contains('name', $alternative->name) && $alternative != $bestFit;
                                 // And if not, add the ingredient to the list of the main Ingredient's alternatives
                                 if(!$duplicate) {
-                                    $bestFit->alternatives()->attach($alternative, ['recipe_id' => $newRecipe->id]);
+
+                                    // Update the amount (and measure if required) values
+                                    $this->getAmountandMeasure($alt_data);
+
+                                    // Make the alterative ingredient link
+                                    $bestFit->alternatives()->syncWithoutDetaching([
+                                        $alternative->id => ['recipe_id' => $newRecipe->id, 'misc_info' => $alt_data->misc_info,
+                                            'amount' => $alt_data->amount, 'measure' => $alt_data->measure]
+                                    ]);
                                 }
                             }
                         }

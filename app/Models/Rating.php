@@ -16,8 +16,10 @@ class Rating extends Model {
     protected $fillable = [
         'user_id',
         'recipe_id',
-        'rating_type',
-        'value'
+        'spice_value',
+        'sweet_value',
+        'sour_value',
+        'difficulty_value'
     ];
 
     // User Model relationship
@@ -28,19 +30,6 @@ class Rating extends Model {
     // Recipe Model relationship
     public function recipe() {
         return $this->belongsTo('App\Models\Recipe');
-    }
-
-    // SpiceRating Model relationship
-    public function spice() {
-        return $this->hasOne('App\Models\Ratings\SpiceRating');
-    }
-    // SweetRating Model relationship
-    public function sweet() {
-        return $this->hasOne('App\Models\Ratings\SweetRating');
-    }
-    // SourRating Model relationship
-    public function sour() {
-        return $this->hasOne('App\Models\Ratings\SourRating');
     }
 
 }

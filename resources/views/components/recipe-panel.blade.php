@@ -2,8 +2,8 @@
 <div class="recipe-panel">
     <div class="recipe-title-panel">
         <div class="recipe-title">
-            <p>{{ $recipe->user->first_name }} {{ $recipe->user->last_name }} • <i>{{ date("j F Y", strtotime($recipe->created_at)) }}</i></p>
-            <h1><b>{{ $recipe->name }}</b></h1>
+            <a href="{{ route('profile', $recipe->user->id) }}">{{ $recipe->user->first_name }} {{ $recipe->user->last_name }} • <i>{{ date("j F Y", strtotime($recipe->created_at)) }}</i></a>
+            <a href="{{ route('recipe', $recipe->id) }}"><h1><b>{{ $recipe->name }}</b></h1></a>
             <p><b>Serves:</b> {{ $recipe->serves }}</p>
         </div>
         <div class="quick-info">
@@ -43,9 +43,9 @@
         <h2>Ingredients:</h2>
         @foreach($recipe->ingredients as $ingredient)
             @if ($ingredient->pivot->misc_info != "")
-            <a href={{ $ingredient->references[0] }} target="blank_"><li>{{ $ingredient->pivot->amount }} {{ $ingredient->pivot->measure }} - {{ $ingredient->name }} ({{ $ingredient->pivot->misc_info }})</li></a>
+            <a href="{{ route('ingredient', $ingredient->id) }}"><li>{{ $ingredient->pivot->amount }} {{ $ingredient->pivot->measure }} - {{ $ingredient->name }} ({{ $ingredient->pivot->misc_info }})</li></a>
             @else
-            <a href={{ $ingredient->references[0] }} target="blank_"><li>{{ $ingredient->pivot->amount }} {{ $ingredient->pivot->measure }} - {{ $ingredient->name }}</li></a>
+            <a href="{{ route('ingredient', $ingredient->id) }}"><li>{{ $ingredient->pivot->amount }} {{ $ingredient->pivot->measure }} - {{ $ingredient->name }}</li></a>
             @endif
             @if(count($ingredient->alternatives) > 0)
             <ul>

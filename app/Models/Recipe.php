@@ -29,6 +29,11 @@ class Recipe extends Model {
     // Ingredient Model relationship
     public function ingredients() {
         return $this->belongsToMany('App\Models\Ingredient', 'recipe_ingredients', 'recipe_id', 'ingred_id')->withPivot('misc_info', 'amount', 'measure');
+
+        // $users = Ingredient::with(['ingredients' => function ($query) {
+        //     $query->where('title', 'like', '%first%');
+        // }])->get();
+
     }
 
     // Instruction Model relationship

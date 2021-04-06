@@ -34,7 +34,6 @@ class Ingredient extends Model
     // 'Category' Model relationship
     public function categories() {
         return $this->morphToMany('App\Models\Category', 'categorical');
-        // return $this->belongsToMany('App\Models\Category', 'ingredient_categories');
     }
     // 'Label' Model relationship
     public function labels() {
@@ -43,7 +42,17 @@ class Ingredient extends Model
 
     // 'Allergen' Model relationship
     public function allergens() {
+
+        // $users = Allergen::with(['allergens' => function ($query) {
+        //     $query->where('title', 'like', '%first%');
+        // }])->get();
+
         return $this->belongsToMany('App\Models\Allergen', 'ingredient_allergens');
+    }
+
+    // 'Trace' Model relationship
+    public function traces() {
+        return $this->belongsToMany('App\Models\Trace', 'ingredient_traces');
     }
 
     // Recipe Model relationship

@@ -32,11 +32,16 @@ $line-height-base: 1.2;
 // Foreground Colors
 $foreColor: rgb(10, 10, 10);
 $foreAccent: rgb(40, 40, 40);
-$accentColor: rgb(232, 154, 174);
+$accentColor: rgb(248, 148, 164);
 
 // Background colours
 $backColor: rgb(240, 236, 240);
 $backAccent: rgb(241, 239, 242);
+
+$backFocus: rgb(224, 224, 224);
+$backActive: rgb(216, 216, 216);
+
+// Footer colours
 $footerColor: rgb(220, 220, 220);
 
 // Panel colours
@@ -51,6 +56,7 @@ $borderThin: 2px;
 $borderMed: 3px;
 $borderThick: 4px;
 $borderRounded: 10rem;
+$smallRounded: 1rem;
 
 // Panel border properties
 $panelCorner: 1.6rem;

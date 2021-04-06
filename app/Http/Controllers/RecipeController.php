@@ -7,8 +7,7 @@ use Illuminate\Http\Request;
 // Custom import
 use App\Models\Recipe;
 
-class RecipeController extends Controller
-{
+class RecipeController extends Controller {
     // Number of items to show per page
     var $paginate = 30;
 
@@ -28,7 +27,7 @@ class RecipeController extends Controller
             // If $recipes != null and is > 0...
             if($recipes != null && count($recipes) > 0) {
                 // ...render the recipes and return them to the feed
-                return view('paginations.recipes', ['recipes' => $recipes])->render();
+                return view('components.recipe-panel', ['recipes' => $recipes])->render();
             } else {
                 return null;
             }
@@ -36,6 +35,13 @@ class RecipeController extends Controller
         } else {
             abort(404);
         }
+    }
+
+    /**
+     * Method to display a single recipe page
+     */
+    public function show(Recipe $recipe) {
+        return view('recipe', ['recipe' => $recipe]);
     }
 
 }

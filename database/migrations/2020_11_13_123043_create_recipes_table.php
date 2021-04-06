@@ -28,8 +28,7 @@ class CreateRecipesTable extends Migration {
             $table->foreignId('ingred_id')->references('id')->on('ingredients')->onDelete('cascade')->onUpdate('cascade');
             $table->string('misc_info')->nullable();
             $table->double('amount');
-            $table->string('measure')->nullable(); // 0 for g, 1 for ml, 2 for tsp, 3 for tbsp
-            // $table->unique(['recipe_id', 'ingred_id', 'amount', 'measurement']);
+            $table->string('measure')->nullable();
         });
         // Create the pivot table for "alternative" ingredients
         Schema::create('alternatives', function (Blueprint $table) {
@@ -37,6 +36,10 @@ class CreateRecipesTable extends Migration {
             $table->foreignId('ingred_id')->references('id')->on('ingredients')->onDelete('cascade')->onUpdate('cascade');
             $table->foreignId('altrnt_id')->references('id')->on('ingredients')->onDelete('cascade')->onUpdate('cascade');
             $table->unique(['recipe_id', 'ingred_id', 'altrnt_id']);
+            // Add additional information to the pairing
+            $table->string('misc_info')->nullable();
+            $table->double('amount')->nullable();
+            $table->string('measure')->nullable();
         });
     }
 

@@ -22,7 +22,7 @@ class Allergen extends Model {
 
     // Ingredient Model relationship
     public function ingredients() {
-        return $this->belongsToMany('App\Models\Ingredient');
+        return $this->belongsToMany('App\Models\Ingredient', 'ingredient_allergens');
     }
 
 }
