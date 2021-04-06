@@ -16,7 +16,15 @@
     </head>
     <body>
         <nav>
-
+            <form id="search-bar-container" action="">
+                <svg id="search-icon">
+                    <use xlink:href="{{ asset('images/search.svg#icon') }}"></use>
+                </svg>
+                <input id="search-bar" type="text" name="search" placeholder="I'm looking for..." onfocus="this.placeholder = ''" onfocusout="this.placeholder = 'I\'m looking for...'" />
+            </form>
+            <svg id="site-logo">
+                <use xlink:href="{{ asset('images/logo.svg#icon') }}"></use>
+            </svg>
         </nav>
         <main>
             @yield("content")

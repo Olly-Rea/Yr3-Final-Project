@@ -31,7 +31,8 @@ $line-height-base: 1.2;
 
 // Foreground Colors
 $foreColor: rgb(10, 10, 10);
-$accentColor: rgba(162, 74, 94, 0.5);
+$foreAccent: rgb(40, 40, 40);
+$accentColor: rgb(232, 154, 174);
 
 // Background colours
 $backColor: rgb(240, 236, 240);
@@ -41,6 +42,9 @@ $footerColor: rgb(220, 220, 220);
 // Panel colours
 $panelBckColor: rgb(246,244,248);
 $panelAccentColor: rgb(236,234,238);
+
+// Transition properties
+$transitionTime: 0.14s;
 
 // Border properties
 $borderThin: 2px;
@@ -54,7 +58,7 @@ $panelCorner: 1.6rem;
 // Shadow stuff
 $shdwClr: rgb(160, 160, 160);
 @mixin hasShadow() {
-    box-shadow: 0 0 1rem 0 $shdwClr;
+    box-shadow: 0 0 0.4rem 0 $shdwClr;
 }
 
 // mixin formatting function for "display: flex"

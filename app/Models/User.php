@@ -10,8 +10,7 @@ use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Sanctum\HasApiTokens;
 
-class User extends Authenticatable
-{
+class User extends Authenticatable {
     use HasApiTokens;
     use HasFactory;
     use HasProfilePhoto;
@@ -60,9 +59,19 @@ class User extends Authenticatable
         'profile_photo_url',
     ];
 
+    // Fridge Model relationship
+    public function fridge() {
+        return $this->hasOne('App\Models\Fridge');
+    }
+
     // Recipe Model relationship
     public function recipes() {
         return $this->hasMany('App\Models\Recipe');
+    }
+
+    // Rating Model relationship
+    public function ratings() {
+        return $this->hasMany('App\Models\Rating');
     }
 
 }

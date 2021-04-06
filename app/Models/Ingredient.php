@@ -20,12 +20,30 @@ class Ingredient extends Model
     protected $fillable = [
         'name',
         'url',
-        'products',
-        'same_as'
     ];
 
+    protected $casts = [
+        'references' => 'array'
+    ];
+
+    // Ingredient (alternative) Model relationship
     public function alternatives() {
-        return $this->belongsToMany('App\Models\Ingredient', 'alternatives', 'alternative_id', 'ingredient_id');
+        return $this->belongsToMany('App\Models\Ingredient', 'alternatives', 'altrnt_id', 'ingred_id');
+    }
+
+    // 'Category' Model relationship
+    public function categories() {
+        return $this->morphToMany('App\Models\Category', 'categorical');
+        // return $this->belongsToMany('App\Models\Category', 'ingredient_categories');
+    }
+    // 'Label' Model relationship
+    public function labels() {
+        return $this->morphToMany('App\Models\Label', 'labelable');
+    }
+
+    // 'Allergen' Model relationship
+    public function allergens() {
+        return $this->belongsToMany('App\Models\Allergen', 'ingredient_allergens');
     }
 
     // Recipe Model relationship

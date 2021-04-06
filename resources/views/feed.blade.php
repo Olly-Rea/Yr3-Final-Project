@@ -42,47 +42,42 @@
                 </div>
                 <p>Timeframe</p>
             </div>
-            <div class="challenge-info">
-                <div class="challenge-wheel info-wheel">
+            <div class="difficulty-info">
+                <div class="difficulty-wheel info-wheel">
                     <h4>{{ rand(1, 10) }}</h4>
                 </div>
-                <p>Challenge</p>
+                <p>Difficulty</p>
             </div>
         </div>
     </div>
     <div class="ingredients-panel">
         <h2>Ingredients:</h2>
-    @if($recipe->ingredients[0]->name == 'placeholder')
-        <p><i>This recipe hasn't included any ingredients!</i></p>
-    @else
-        <ul>
-    @foreach($recipe->ingredients as $ingredient)
-        @if($ingredient->pivot->specifier == "s")
-            <a href={{ $ingredient->url }} target="blank_"><li>{{ $ingredient->pivot->amount }} {{ $ingredient->pivot->measurement }} - {{ $ingredient->name }}{{ $ingredient->pivot->specifier }}</li></a>
-        @else
-            <a href={{ $ingredient->url }} target="blank_"><li>{{ $ingredient->pivot->amount }} {{ $ingredient->pivot->measurement }} - {{ $ingredient->pivot->specifier }} {{ $ingredient->name }}</li></a>
-        @endif
+        @foreach($recipe->ingredients as $ingredient)
+            @if ($ingredient->pivot->misc_info != "")
+            <a href={{ $ingredient->references[0] }} target="blank_"><li>{{ $ingredient->pivot->amount }} {{ $ingredient->pivot->measure }} - {{ $ingredient->name }} ({{ $ingredient->pivot->misc_info }})</li></a>
+            @else
+            <a href={{ $ingredient->references[0] }} target="blank_"><li>{{ $ingredient->pivot->amount }} {{ $ingredient->pivot->measure }} - {{ $ingredient->name }}</li></a>
+            @endif
             @if(count($ingredient->alternatives) > 0)
             <ul>
             @endif
             @foreach($ingredient->alternatives as $alternative)
                 @if($ingredient->pivot->specifier == "s")
-                <li>OR <a href={{ $ingredient->url }} target="blank_">{{ $alternative->pivot->amount }} {{ $alternative->pivot->measurement }} - {{ $alternative->name }}{{ $alternative->pivot->specifier }}</a></li>
+                <li><a href={{ $alternative->references[0] }} target="blank_">{{ $alternative->pivot->amount }} {{ $alternative->pivot->measure }} - {{ $alternative->name }}{{ $alternative->pivot->specifier }}</a></li>
                 @else
-                <li>OR <a href={{ $ingredient->url }} target="blank_">{{ $alternative->pivot->amount }} {{ $alternative->pivot->measurement }} - {{ $alternative->pivot->specifier }} {{ $alternative->name }}</a></li>
+                <li><a href={{ $alternative->references[0] }} target="blank_">{{ $alternative->pivot->amount }} {{ $alternative->pivot->measure }} - {{ $alternative->pivot->specifier }} {{ $alternative->name }}</a></li>
                 @endif
             @endforeach
             @if(count($ingredient->alternatives) > 0)
             </ul>
             @endif
             <br>
-    @endforeach
+        @endforeach
         </ul>
-    @endif
         <h2>Instructions:</h2>
-    @foreach($recipe->instructions as $instruction)
+        @foreach($recipe->instructions as $instruction)
         <p>{{ $instruction->content }}</p>
-    @endforeach
+        @endforeach
     </div>
 </div>
 @endforeach

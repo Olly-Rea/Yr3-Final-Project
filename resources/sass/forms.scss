@@ -1,0 +1,30 @@
+// Variables
+@import 'variables';
+
+input:-webkit-autofill,
+textarea:-webkit-autofill,
+select:-webkit-autofill {
+
+    font-family: inherit;
+
+    &:hover,
+    &focus {
+        border: inherit;
+        -webkit-text-fill-color: inherit;
+        box-shadow: inherit;
+        transition: background-color 5000s ease-in-out 0s;
+        font-size: inherit;
+        font-family: inherit;
+    }
+
+    &:focus {
+        outline: none;
+    }
+}
+
+// input {
+
+// }
+
+
+

@@ -1,0 +1,54 @@
+@font-face {
+  font-family: "C&L Regular";
+  src: url("/fonts/ChampagneAndLimousines-7KRB.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "C&L Bold";
+  font-weight: bold;
+  src: url("/fonts/ChampagneAndLimousinesBold-myr2.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "C&L Italics";
+  font-style: italic;
+  src: url("/fonts/ChampagneAndLimousinesItalic-PlRZ.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "C&L BoldItalics";
+  font-style: italic;
+  font-weight: bold;
+  src: url("/fonts/ChampagneAndLimousinesBoldItalic-dqex.ttf") format("truetype");
+}
+
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ *        Media tags for different browser sizing          *
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+input:-webkit-autofill,
+textarea:-webkit-autofill,
+select:-webkit-autofill {
+  font-family: inherit;
+}
+
+input:-webkit-autofill:hover, input:-webkit-autofillfocus,
+textarea:-webkit-autofill:hover,
+textarea:-webkit-autofillfocus,
+select:-webkit-autofill:hover,
+select:-webkit-autofillfocus {
+  border: inherit;
+  -webkit-text-fill-color: inherit;
+  -webkit-box-shadow: inherit;
+          box-shadow: inherit;
+  -webkit-transition: background-color 5000s ease-in-out 0s;
+  transition: background-color 5000s ease-in-out 0s;
+  font-size: inherit;
+  font-family: inherit;
+}
+
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill:focus,
+select:-webkit-autofill:focus {
+  outline: none;
+}
+/*# sourceMappingURL=forms.css.map */
