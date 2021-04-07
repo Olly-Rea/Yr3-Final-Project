@@ -14,7 +14,9 @@ use Illuminate\Support\Facades\Route;
 */
 
 // Recipe routes
-Route::get('/', 'RecipeController@index')->name('feed');
+Route::get('/', 'StartController@show')->name('welcome');
+
+Route::get('/IdeasBoard', 'RecipeController@index')->name('feed');
 Route::get('/Recipe/{recipe}', 'RecipeController@show')->name('recipe');
 Route::get('/LuckyDip', 'RecipeController@random')->name('lucky_dip');
 
@@ -24,6 +26,8 @@ Route::get('/Ingredient/{ingredient}', 'IngredientController@show')->name('ingre
 // Profile routes
 Route::get('/Profile/{profile}', 'ProfileController@show')->name('profile');
 Route::get('/Me', 'ProfileController@me')->name('me');
+
+Route::get('/TheAiChef', 'RecipeController@showAI')->name('ai_chef');
 
 // Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
 //     return view('dashboard');

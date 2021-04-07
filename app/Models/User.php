@@ -10,6 +10,9 @@ use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Sanctum\HasApiTokens;
 
+// Custom Import
+use App\Http\Controllers\ProfileController;
+
 class User extends Authenticatable {
     use HasApiTokens;
     use HasFactory;
@@ -72,6 +75,11 @@ class User extends Authenticatable {
     // Rating Model relationship
     public function ratings() {
         return $this->hasMany('App\Models\Rating');
+    }
+
+    // Function to call on the profile loadImage method
+    public function profileImage() {
+        return ProfileController::loadImage($this->profile_image);
     }
 
 }

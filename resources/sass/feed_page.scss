@@ -1,86 +1,98 @@
 // Import from forms
 @import 'global';
 
-.recipe-panel {
-    width: 60%;
-    padding: 2.6rem;
-    border-radius: $panelCorner;
-    @include hasShadow();
+main {
 
-    margin: 2rem 0;
+    h2 {
+        user-select: none;
+        color: $foreLight;
+    }
 
-    background-color: $panelBckColor;
-    overflow: hidden;
-
-    .recipe-title-panel {
-        @include flexDisplay(row, center, space-between);
-
-        margin: -2.6rem;
-        margin-bottom: 0;
-
+    .recipe-panel {
         width: 100%;
-        padding: 1.6rem 2.6rem;
-        background-color: $panelAccentColor;
+        padding: 2.6rem;
+        border-radius: $panelCorner;
+        @include hasShadow();
 
-        h1, p {
-            margin: 0.5rem 0;
-        }
+        margin: 2rem 0;
 
-        .quick-info {
-            @include flexDisplay(row, flex-end, center);
+        background-color: $panelBckColor;
+        overflow: hidden;
 
-            margin-top: 1%;
+        .recipe-title-panel {
+            @include flexDisplay(row, center, space-between);
 
-            .spice-info,
-            .sweet-info,
-            .sour-info,
-            .time-info,
-            .difficulty-info {
-                @include flexDisplay(column, center, flex-start);
-                width: 5.4rem;
+            margin: -2.6rem;
+            margin-bottom: 0;
 
-                .info-wheel {
-                    @include flexDisplay(column, center, center);
+            width: 100%;
+            padding: 1.6rem 2.6rem;
+            background-color: $panelAccentColor;
 
-                    height: 3rem;
-                    width: 3rem;
-                    border-radius: 50%;
-
-                    color: $backColor;
-
-                    * {
-                        margin: 0;
-                        padding: 0;
-                    }
-
-                    &.spice-wheel {
-                        background-color: rgba(200, 100, 100, 0.7);
-                    }
-                    &.sweet-wheel {
-                        background-color: rgba(100, 100, 200, 0.7);
-                    }
-                    &.sour-wheel {
-                        background-color: rgba(100, 200, 100, 0.7);
-                    }
-                    &.time-wheel {
-                        text-align: center;
-                        background-color: rgba(100, 100, 100, 0.7);
-
-                        .mins {
-                            font-size: 80%;
-                        }
-
-                    }
-                    &.difficulty-wheel {
-                        background-color: rgba(200, 200, 100, 0.7);
-                    }
-                }
-
+            h1, p {
+                margin: 0.5rem 0;
             }
 
+            .quick-info {
+                @include flexDisplay(row, flex-end, center);
+
+                margin-top: 1%;
+
+                .spice-info,
+                .sweet-info,
+                .sour-info,
+                .time-info,
+                .difficulty-info {
+                    @include flexDisplay(column, center, flex-start);
+                    width: 5.4rem;
+
+                    user-select: none;
+
+                    .info-wheel {
+                        @include flexDisplay(column, center, center);
+
+                        height: 3rem;
+                        width: 3rem;
+                        border-radius: 50%;
+
+                        color: $backColor;
+
+                        * {
+                            margin: 0;
+                            padding: 0;
+                        }
+
+                        &.spice-wheel {
+                            background-color: rgba(200, 100, 100, 0.7);
+                        }
+                        &.sweet-wheel {
+                            background-color: rgba(100, 100, 200, 0.7);
+                        }
+                        &.sour-wheel {
+                            background-color: rgba(100, 200, 100, 0.7);
+                        }
+                        &.time-wheel {
+                            text-align: center;
+                            background-color: rgba(100, 100, 100, 0.7);
+
+                            .mins {
+                                font-size: 80%;
+                            }
+
+                        }
+                        &.difficulty-wheel {
+                            background-color: rgba(200, 200, 100, 0.7);
+                        }
+                    }
+
+                }
+
+
+            }
 
         }
 
     }
 
 }
+

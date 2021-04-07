@@ -5,12 +5,39 @@
 @endsection
 
 @section('title')
-<title>{{ config('app.name', 'Laravel') }}</title>
+{{ config('app.name', 'Laravel') }}
 @endsection
 
 @section('content')
 
+<div class="profile-image-container">
+    <div class="profile-image">
+        <img src="{{ $user->profileImage() }}" alt="{{ $user->first_name }} {{ $user->last_name }}">
+    </div>
+</div>
 
+<h1>{{ $user->first_name }} {{ $user->last_name }}</h1>
+
+<div id="user-recipes">
+@foreach ($user->recipes as $recipe)
+
+    <div>{{ $recipe->name }}</div>
+
+@endforeach
+</div>
+
+<div id="user-ratings">
+@foreach ($user->ratings as $rating)
+
+@endforeach
+</div>
+
+{{-- Show User 'fridge' (if active User's profile) --}}
+@if(Request::is('/Me'))
+<div id="user-fridge">
+
+</div>
+@endif
 
 @endsection
 

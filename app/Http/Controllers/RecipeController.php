@@ -4,16 +4,17 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-// Custom import
+// Custom imports
+use Illuminate\Support\Facades\Auth;
 use App\Models\Recipe;
 
 class RecipeController extends Controller {
     // Number of items to show per page
-    var $paginate = 30;
+    var $paginate = 7;
 
-    // Method to show all recipes (paginated)
+    // Method to show 7 random recipes in the user feed
     public function index() {
-        return view('feed', ['recipes' => Recipe::paginate($this->paginate)]);
+        return view('feed', ['recipes' => Recipe::inRandomOrder()->get()->take($this->paginate)]);
     }
 
     /**
@@ -41,7 +42,33 @@ class RecipeController extends Controller {
      * Method to display a single recipe page
      */
     public function show(Recipe $recipe) {
-        return view('recipe', ['recipe' => $recipe]);
+        // Eager load the Recipe's Ingredient Alternatives - specific to this recipe
+        $ingredients = $recipe->ingredients()->with(['alternatives' => function ($query) use ($recipe) {
+            $query->where('recipe_id', '=', $recipe->id);
+        }])->get();
+        //Return the recipe with it's included ingredients
+        return view('recipe', ['recipe' => $recipe, 'ingredients' => $ingredients]);
+    }
+
+    /**
+     * Method to allow a user to be given a "surprise" recipe - personalised if user is logged in
+     */
+    public function surprise() {
+        // Check to see if a User is logged in
+        if(Auth::check()) {
+
+
+
+        } else {
+
+        }
+    }
+
+    /**
+     * Method to return the page for the AI chef results
+     */
+    public function showAI() {
+        return view('ai-chef');
     }
 
 }

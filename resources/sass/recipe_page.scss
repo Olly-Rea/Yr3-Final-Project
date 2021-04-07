@@ -1,74 +1,164 @@
 @import 'global';
 
-.recipe-title-panel {
-    @include flexDisplay(row, center, space-between);
-
-    margin: -2.6rem;
-    margin-bottom: 0;
-
-    width: 100%;
-    padding: 1.6rem 2.6rem;
-    background-color: $panelAccentColor;
-
-    h1, p {
-        margin: 0.5rem 0;
+main {
+    #recipe-title,
+    .recipe-title-panel,
+    #ingredients-panel,
+    #instructions-panel {
+        width: 100%;
     }
 
-    .quick-info {
-        @include flexDisplay(row, flex-end, center);
+    #recipe-title {
+        margin: 2rem 0;
 
-        margin-top: 1%;
+        h1, p {
+            margin: 0;
+        }
 
-        .spice-info,
-        .sweet-info,
-        .sour-info,
-        .time-info,
-        .difficulty-info {
-            @include flexDisplay(column, center, flex-start);
-            width: 5.4rem;
+        h1 {
+            font-size: 4rem;
+            font-weight: bold;
+        }
+        p {
+            font-size: 1.6rem;
+            text-indent: 2rem;
+            margin-bottom: 4rem;
+        }
+    }
 
-            .info-wheel {
-                @include flexDisplay(column, center, center);
+    .recipe-title-panel {
+        @include flexDisplay(row, center, space-between);
 
-                height: 3rem;
-                width: 3rem;
-                border-radius: 50%;
+        margin: -2.6rem;
+        margin-bottom: 0;
 
-                color: $backColor;
 
-                * {
-                    margin: 0;
-                    padding: 0;
-                }
+        padding: 1.6rem 2.6rem;
+        background-color: $panelAccentColor;
+        border-radius: $panelCorner;
 
-                &.spice-wheel {
-                    background-color: rgba(200, 100, 100, 0.7);
-                }
-                &.sweet-wheel {
-                    background-color: rgba(100, 100, 200, 0.7);
-                }
-                &.sour-wheel {
-                    background-color: rgba(100, 200, 100, 0.7);
-                }
-                &.time-wheel {
-                    text-align: center;
-                    background-color: rgba(100, 100, 100, 0.7);
+        h1, p {
+            margin: 0.5rem 0;
+        }
 
-                    .mins {
-                        font-size: 80%;
-                    }
+        .author-info {
+            @include flexDisplay(row, flex-end, center);
 
-                }
-                &.difficulty-wheel {
-                    background-color: rgba(200, 200, 100, 0.7);
-                }
+            .profile-image-container {
+                width: 6rem;
             }
 
         }
 
+        .quick-info {
+            @include flexDisplay(row, flex-end, center);
 
+            margin-top: 1%;
+
+            .spice-info,
+            .sweet-info,
+            .sour-info,
+            .time-info,
+            .difficulty-info {
+                @include flexDisplay(column, center, flex-start);
+                width: 5.4rem;
+
+                user-select: none;
+
+                .info-wheel {
+                    @include flexDisplay(column, center, center);
+
+                    height: 3rem;
+                    width: 3rem;
+                    border-radius: 50%;
+
+                    color: $backColor;
+
+                    * {
+                        margin: 0;
+                        padding: 0;
+                    }
+
+                    &.spice-wheel {
+                        background-color: rgba(200, 100, 100, 0.7);
+                    }
+                    &.sweet-wheel {
+                        background-color: rgba(100, 100, 200, 0.7);
+                    }
+                    &.sour-wheel {
+                        background-color: rgba(100, 200, 100, 0.7);
+                    }
+                    &.time-wheel {
+                        text-align: center;
+                        background-color: rgba(100, 100, 100, 0.7);
+
+                        .mins {
+                            font-size: 80%;
+                        }
+
+                    }
+                    &.difficulty-wheel {
+                        background-color: rgba(200, 200, 100, 0.7);
+                    }
+                }
+
+            }
+        }
+    }
+
+    #ingredients-panel,
+    #instructions-panel {
+        font-size: 110%;
+    }
+
+    #ingredients-panel {
+
+        &,
+        .alternative-container {
+            @include flexDisplay(column, flex-start, center);
+        }
+
+        > a,
+        .alternative-container > a {
+            position: relative;
+            margin: 0.6rem 0;
+
+            min-width: 60%;
+
+            padding: 1rem;
+            border-radius: $smallRounded;
+
+        }
+
+        > a {
+            background-color: $panelAccentColor;
+        }
+
+        .alternative-container {
+            margin-left: 1.6rem;
+
+            width: 100%;
+            max-width: calc(100% - 3.6rem); // 1.6rem margin + 2rem (combined) padding
+
+            > a {
+                background-color: $panelAccentColor;
+            }
+        }
+    }
+
+    #instructions-panel {
+        p {
+            padding: 2rem 1rem;
+
+            min-width: 60%;
+            max-width: calc(100% - 2rem);
+            border-radius: $smallRounded;
+
+            background-color: $panelAccentColor;
+        }
     }
 
 }
+
 
 

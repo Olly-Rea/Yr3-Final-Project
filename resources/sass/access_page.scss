@@ -1,0 +1,43 @@
+@import 'global';
+
+nav {
+    #site-links {
+        margin-right: 4rem;
+    }
+}
+
+main {
+    padding: 0;
+
+    height: 100vh;
+    min-height: auto;
+
+    #register-form,
+    #login-form {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+
+        width: 100%;
+        max-width: 32rem;
+
+        a {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+
+            margin-top: 3.2rem;
+        }
+
+        form {
+            button,
+            input[type="submit"] {
+                margin: 3.2rem 0;
+            }
+        }
+
+    }
+
+}
+

@@ -4,15 +4,14 @@
 <link href="{{ asset('css/ingredient_page.css') }}" rel="stylesheet">
 @endsection
 
-@section('title')
-<title>{{ config('app.name', 'Laravel') }}</title>
-@endsection
+@section('title')Recipe App - {{ $ingredient->name }}@endsection
+
 
 @section('content')
 
 <h1>{{ $ingredient->name }}</h1>
 
-<div>
+<div id="stats-container">
     <h2>Ingredient Stats:</h2>
     <p>energy (kcal) per 100g: <b>{{ $ingredient->energy_kcal_100g }}g</b></p>
     <p>carbohydrates per 100g: <b>{{ $ingredient->carbohydrates_100g }}g</b></p>
@@ -22,7 +21,7 @@
     <p>salt per 100g: <b>{{ $ingredient->salt_100g }}g</b></p>
 </div>
 
-<div>
+<div id="category-container">
     <h2>Categories:</h2>
     @forelse ($ingredient->categories as $category)
     <p>{{ $category->name }}</p>
@@ -31,7 +30,7 @@
     @endforelse
 </div>
 
-<div>
+<div id="allergen-container">
     <h2>Known Allergens:</h2>
     @forelse ($ingredient->allergens as $allergen)
     <p>{{ $allergen->name }}</p>
@@ -40,7 +39,7 @@
     @endforelse
 </div>
 
-<div>
+<div id="trace-container">
     <h2>Known Traces:</h2>
     @forelse ($ingredient->traces as $trace)
     <p>{{ $trace->name }}</p>
@@ -49,7 +48,7 @@
     @endforelse
 </div>
 
-<div>
+<div id="label-container">
     <h2>Labels:</h2>
     @forelse ($ingredient->labels as $label)
     <p>{{ $label->name }}</p>

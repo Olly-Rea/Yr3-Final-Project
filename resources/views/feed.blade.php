@@ -4,11 +4,12 @@
 <link href="{{ asset('css/feed_page.css') }}" rel="stylesheet">
 @endsection
 
-@section('title')
-<title>{{ config('app.name', 'Laravel') }}</title>
-@endsection
+@section('title')Ideas Board @endsection
 
 @section('content')
+
+<h2>Some suggestions for you!</h2>
+
 @foreach($recipes as $recipe)
 <div class="recipe-panel">
     <div class="recipe-title-panel">

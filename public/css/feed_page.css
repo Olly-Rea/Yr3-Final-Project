@@ -25,6 +25,117 @@
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  *        Media tags for different browser sizing          *
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+form {
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+}
+
+form a,
+form button,
+form input {
+  -ms-flex-item-align: center;
+      -ms-grid-row-align: center;
+      align-self: center;
+}
+
+form a {
+  margin: 2vh 0;
+}
+
+form p.form-error-msg {
+  -ms-flex-item-align: start;
+      align-self: flex-start;
+  margin: 1.4rem 0;
+  margin-top: -1.2rem;
+  color: #f57d91;
+}
+
+form .form-box {
+  position: relative;
+  height: 4rem;
+  width: 100%;
+}
+
+form .form-box svg,
+form .form-box input {
+  position: absolute;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+          transform: translateY(-50%);
+}
+
+form .form-box svg {
+  z-index: 2;
+  left: 0.9rem;
+  height: 1.8rem;
+  width: 1.8rem;
+  -webkit-transition: -webkit-transform 0.14s ease-in-out;
+  transition: -webkit-transform 0.14s ease-in-out;
+  transition: transform 0.14s ease-in-out;
+  transition: transform 0.14s ease-in-out, -webkit-transform 0.14s ease-in-out;
+}
+
+form .form-box input:not([type="checkbox"]) {
+  left: 0;
+  text-indent: 2.7rem;
+}
+
+form .form-box:hover svg {
+  -webkit-transform: translateY(-50%) scale(1.05);
+          transform: translateY(-50%) scale(1.05);
+}
+
+form .form-box:active svg {
+  -webkit-transform: translateY(-50%) scale(1);
+          transform: translateY(-50%) scale(1);
+}
+
+form .form-row {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  width: 100%;
+}
+
+form .form-row textarea,
+form .form-row input:not([type="checkbox"]) {
+  width: 49%;
+}
+
+form .form-row textarea:first-child,
+form .form-row input:not([type="checkbox"]):first-child {
+  margin-right: 2%;
+}
+
+form label {
+  -ms-flex-item-align: start;
+      align-self: flex-start;
+  margin-top: 1rem;
+  margin-left: 0.4rem;
+}
+
 input,
 textarea,
 select {
@@ -48,15 +159,157 @@ select:-webkit-autofillfocus {
 
 input:focus,
 textarea:focus,
-select:focus {
+select:focus,
+button:focus {
   outline: none;
+}
+
+textarea,
+input:not([type="submit"], [type="checkbox"]) {
+  width: 100%;
+  height: 3.2rem;
+  border: none;
+  border-radius: 1.6rem;
+  font-size: 1.2rem;
+  text-indent: 1.6rem;
+  font-weight: bold;
+}
+
+textarea {
+  padding: 1.6rem;
+}
+
+button,
+input[type="submit"] {
+  min-width: 8rem;
+  padding: 1vh 2vh;
+  margin: 1rem;
+  border-width: 0.24rem;
+  border-color: #0a0a0a;
+  border-radius: 1.6rem;
+  background-color: #f894a4;
+  -webkit-box-shadow: 0 0 0.4rem 0 #a0a0a0;
+          box-shadow: 0 0 0.4rem 0 #a0a0a0;
+  color: inherit;
+  font-family: inherit;
+  font-size: 1.2rem;
+  font-weight: bold;
+  cursor: pointer;
+  -webkit-transition: all 0.14s ease-in-out;
+  transition: all 0.14s ease-in-out;
+}
+
+button:hover,
+input[type="submit"]:hover {
+  -webkit-box-shadow: 0 0 0.4rem 0 #a0a0a0;
+          box-shadow: 0 0 0.4rem 0 #a0a0a0;
+  -webkit-transform: scale(1.04);
+          transform: scale(1.04);
+}
+
+button:active,
+input[type="submit"]:active {
+  -webkit-box-shadow: 0 0 0.4rem 0 #a0a0a0;
+          box-shadow: 0 0 0.4rem 0 #a0a0a0;
+  background-color: #40c894;
+  -webkit-transform: scale(1);
+          transform: scale(1);
+}
+
+label {
+  margin-bottom: 0.2rem;
+}
+
+label.locked {
+  color: gray !important;
+}
+
+label.checkOption, label.subOption {
+  display: inline-block;
+  position: relative;
+  margin: 0;
+  margin-bottom: 0.6vh;
+  height: 1.4rem;
+  width: 0;
+  font-weight: normal;
+  color: inherit;
+  white-space: nowrap;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  cursor: pointer;
+}
+
+label.checkOption input, label.subOption input {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 0;
+  width: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+
+label.checkOption input:checked ~ .checkbox svg,
+label.checkOption input:checked ~ .checkbox svg, label.subOption input:checked ~ .checkbox svg,
+label.subOption input:checked ~ .checkbox svg {
+  stroke: #f0ecf0;
+  fill: #4be4a9;
+}
+
+label.checkOption:hover input ~ .checkbox svg,
+label.checkOption:hover input ~ .checkbox svg, label.subOption:hover input ~ .checkbox svg,
+label.subOption:hover input ~ .checkbox svg {
+  stroke: #40c894;
+  fill: #f0ecf0;
+}
+
+label.checkOption:hover input:checked ~ .checkbox svg,
+label.checkOption:hover input:checked ~ .checkbox svg, label.subOption:hover input:checked ~ .checkbox svg,
+label.subOption:hover input:checked ~ .checkbox svg {
+  stroke: #f0ecf0;
+  fill: #4be4a9;
+}
+
+label.subOption {
+  -webkit-transform: translate(3.4vh);
+          transform: translate(3.4vh);
+}
+
+.checkbox {
+  position: absolute;
+  left: 0;
+  border-radius: 0.2rem;
+  text-indent: 1.4rem;
+}
+
+.checkbox svg {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+          transform: translateY(-50%);
+  height: 1.2rem;
+  width: 1.2rem;
+  fill: #f0ecf0;
+  stroke: #f0ecf0;
+  -webkit-transition: fill 0.14s ease-in-out, stroke 0.14s ease-in-out;
+  transition: fill 0.14s ease-in-out, stroke 0.14s ease-in-out;
+}
+
+input[type="checkbox"] {
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
 }
 
 body,
 html {
   margin: 0 !important;
   width: 100%;
-  font: 1rem "C&L Regular";
+  font: 12pt "C&L Regular";
   line-height: 1.2;
   color: #0a0a0a;
   background: linear-gradient(26deg, #f1eff2 50%, #f0ecf0 50%);
@@ -102,7 +355,7 @@ nav {
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
-  height: 4rem;
+  height: 5rem;
   width: 90%;
   max-width: 1920px;
   -webkit-transition: background-color 0.14s ease-in-out;
@@ -120,12 +373,6 @@ nav.scrolling svg#site-logo {
 nav #search-bar-container,
 nav #nav-left {
   position: relative;
-  top: 50%;
-  -webkit-transform: translateY(-50%);
-          transform: translateY(-50%);
-}
-
-nav #nav-left {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -139,8 +386,14 @@ nav #nav-left {
   -webkit-box-pack: start;
       -ms-flex-pack: start;
           justify-content: flex-start;
-  width: 60%;
   height: 100%;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+          transform: translateY(-50%);
+}
+
+nav #nav-left {
+  width: 58%;
 }
 
 nav #nav-left svg#site-logo {
@@ -165,7 +418,52 @@ nav #nav-left svg#site-logo:active {
           transform: scale(0.94);
 }
 
-nav #nav-left #site-links {
+nav #nav-left #search-bar-container {
+  margin-left: 2rem;
+  width: 50%;
+}
+
+nav #nav-left #search-bar-container svg#search-icon {
+  position: absolute;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+          transform: translateY(-50%);
+  left: 1.2rem;
+  z-index: 2;
+  height: 1.8rem;
+  width: 1.8rem;
+  stroke: #3c3c3c;
+  cursor: pointer;
+  -webkit-transition: -webkit-transform 0.14s ease-in-out;
+  transition: -webkit-transform 0.14s ease-in-out;
+  transition: transform 0.14s ease-in-out;
+  transition: transform 0.14s ease-in-out, -webkit-transform 0.14s ease-in-out;
+}
+
+nav #nav-left #search-bar-container svg#search-icon:hover {
+  -webkit-transform: translateY(-50%) scale(1.06);
+          transform: translateY(-50%) scale(1.06);
+}
+
+nav #nav-left #search-bar-container svg#search-icon:active {
+  -webkit-transform: translateY(-50%) scale(0.94);
+          transform: translateY(-50%) scale(0.94);
+}
+
+nav #nav-left #search-bar-container input#search-bar {
+  text-indent: 3.6rem;
+  font-size: 1.4rem;
+  -webkit-box-shadow: 0 0 0.4rem 0 #a0a0a0;
+          box-shadow: 0 0 0.4rem 0 #a0a0a0;
+}
+
+nav #nav-left #search-bar-container #results-container .results-panel {
+  height: 3.2rem;
+  width: 100%;
+  background-color: #f1eff2;
+}
+
+nav #site-links {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -181,11 +479,10 @@ nav #nav-left #site-links {
           justify-content: flex-start;
   -ms-flex-wrap: nowrap;
       flex-wrap: nowrap;
-  height: 100%;
-  margin-left: 2rem;
+  height: 70%;
 }
 
-nav #nav-left #site-links a {
+nav #site-links a {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -200,16 +497,20 @@ nav #nav-left #site-links a {
       -ms-flex-pack: center;
           justify-content: center;
   height: 100%;
-  padding: 0 2rem;
-  margin: 0 1rem;
+  padding: 0 1.2rem;
+  margin: 0 0.5rem;
   border-radius: 1rem;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
 }
 
-nav #nav-left #site-links a b {
-  font-size: 1.6rem;
+nav #site-links a b {
+  font-size: 1.2rem;
 }
 
-nav #nav-left #site-links a p.beta {
+nav #site-links a p.beta {
   margin-left: 0.6rem;
   font-size: 80%;
   color: #f1eff2;
@@ -218,56 +519,16 @@ nav #nav-left #site-links a p.beta {
   border-radius: 0.32rem;
 }
 
-nav #nav-left #site-links a:hover {
+nav #site-links a.active {
   background-color: #e0e0e0;
 }
 
-nav #nav-left #site-links a:active {
+nav #site-links a:hover {
+  background-color: #e0e0e0;
+}
+
+nav #site-links a:active {
   background-color: #d8d8d8;
-}
-
-nav #search-bar-container {
-  height: 3.2rem;
-  width: 40%;
-}
-
-nav #search-bar-container svg#search-icon {
-  position: absolute;
-  top: 50%;
-  -webkit-transform: translateY(-50%);
-          transform: translateY(-50%);
-  left: 1rem;
-  z-index: 2;
-  height: 1.8rem;
-  width: 1.8rem;
-  stroke: #282828;
-  cursor: pointer;
-  -webkit-transition: -webkit-transform 0.14s ease-in-out;
-  transition: -webkit-transform 0.14s ease-in-out;
-  transition: transform 0.14s ease-in-out;
-  transition: transform 0.14s ease-in-out, -webkit-transform 0.14s ease-in-out;
-}
-
-nav #search-bar-container svg#search-icon:hover {
-  -webkit-transform: translateY(-50%) scale(1.06);
-          transform: translateY(-50%) scale(1.06);
-}
-
-nav #search-bar-container svg#search-icon:active {
-  -webkit-transform: translateY(-50%) scale(0.94);
-          transform: translateY(-50%) scale(0.94);
-}
-
-nav #search-bar-container input#search-bar {
-  width: 100%;
-  height: 100%;
-  border: none;
-  border-radius: 10rem;
-  text-indent: 3.2rem;
-  font-size: 1.4rem;
-  font-weight: bold;
-  -webkit-box-shadow: 0 0 0.4rem 0 #a0a0a0;
-          box-shadow: 0 0 0.4rem 0 #a0a0a0;
 }
 
 main {
@@ -288,11 +549,36 @@ main {
   -webkit-box-pack: start;
       -ms-flex-pack: start;
           justify-content: flex-start;
-  padding: 10vh 0;
   margin: 0;
-  width: 100%;
-  max-width: 1920px;
+  padding: 10rem 0;
+  width: 70%;
+  max-width: 960px;
   min-height: 90vh;
+}
+
+main .profile-image-container {
+  border-radius: 50%;
+}
+
+main .profile-image-container .profile-image {
+  position: relative;
+  width: 100%;
+  padding-top: 100%;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+main .profile-image-container .profile-image > img {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  padding: 0;
+  margin: 0;
+  height: 102%;
+  -o-object-fit: cover;
+     object-fit: cover;
 }
 
 footer {
@@ -383,8 +669,16 @@ footer a {
   }
 }
 
-.recipe-panel {
-  width: 60%;
+main h2 {
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  color: #b4b4b4;
+}
+
+main .recipe-panel {
+  width: 100%;
   padding: 2.6rem;
   border-radius: 1.6rem;
   -webkit-box-shadow: 0 0 0.4rem 0 #a0a0a0;
@@ -394,7 +688,7 @@ footer a {
   overflow: hidden;
 }
 
-.recipe-panel .recipe-title-panel {
+main .recipe-panel .recipe-title-panel {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -415,11 +709,11 @@ footer a {
   background-color: #eceaee;
 }
 
-.recipe-panel .recipe-title-panel h1, .recipe-panel .recipe-title-panel p {
+main .recipe-panel .recipe-title-panel h1, main .recipe-panel .recipe-title-panel p {
   margin: 0.5rem 0;
 }
 
-.recipe-panel .recipe-title-panel .quick-info {
+main .recipe-panel .recipe-title-panel .quick-info {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -436,11 +730,11 @@ footer a {
   margin-top: 1%;
 }
 
-.recipe-panel .recipe-title-panel .quick-info .spice-info,
-.recipe-panel .recipe-title-panel .quick-info .sweet-info,
-.recipe-panel .recipe-title-panel .quick-info .sour-info,
-.recipe-panel .recipe-title-panel .quick-info .time-info,
-.recipe-panel .recipe-title-panel .quick-info .difficulty-info {
+main .recipe-panel .recipe-title-panel .quick-info .spice-info,
+main .recipe-panel .recipe-title-panel .quick-info .sweet-info,
+main .recipe-panel .recipe-title-panel .quick-info .sour-info,
+main .recipe-panel .recipe-title-panel .quick-info .time-info,
+main .recipe-panel .recipe-title-panel .quick-info .difficulty-info {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -455,13 +749,17 @@ footer a {
       -ms-flex-pack: start;
           justify-content: flex-start;
   width: 5.4rem;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
 }
 
-.recipe-panel .recipe-title-panel .quick-info .spice-info .info-wheel,
-.recipe-panel .recipe-title-panel .quick-info .sweet-info .info-wheel,
-.recipe-panel .recipe-title-panel .quick-info .sour-info .info-wheel,
-.recipe-panel .recipe-title-panel .quick-info .time-info .info-wheel,
-.recipe-panel .recipe-title-panel .quick-info .difficulty-info .info-wheel {
+main .recipe-panel .recipe-title-panel .quick-info .spice-info .info-wheel,
+main .recipe-panel .recipe-title-panel .quick-info .sweet-info .info-wheel,
+main .recipe-panel .recipe-title-panel .quick-info .sour-info .info-wheel,
+main .recipe-panel .recipe-title-panel .quick-info .time-info .info-wheel,
+main .recipe-panel .recipe-title-panel .quick-info .difficulty-info .info-wheel {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -481,61 +779,61 @@ footer a {
   color: #f0ecf0;
 }
 
-.recipe-panel .recipe-title-panel .quick-info .spice-info .info-wheel *,
-.recipe-panel .recipe-title-panel .quick-info .sweet-info .info-wheel *,
-.recipe-panel .recipe-title-panel .quick-info .sour-info .info-wheel *,
-.recipe-panel .recipe-title-panel .quick-info .time-info .info-wheel *,
-.recipe-panel .recipe-title-panel .quick-info .difficulty-info .info-wheel * {
+main .recipe-panel .recipe-title-panel .quick-info .spice-info .info-wheel *,
+main .recipe-panel .recipe-title-panel .quick-info .sweet-info .info-wheel *,
+main .recipe-panel .recipe-title-panel .quick-info .sour-info .info-wheel *,
+main .recipe-panel .recipe-title-panel .quick-info .time-info .info-wheel *,
+main .recipe-panel .recipe-title-panel .quick-info .difficulty-info .info-wheel * {
   margin: 0;
   padding: 0;
 }
 
-.recipe-panel .recipe-title-panel .quick-info .spice-info .info-wheel.spice-wheel,
-.recipe-panel .recipe-title-panel .quick-info .sweet-info .info-wheel.spice-wheel,
-.recipe-panel .recipe-title-panel .quick-info .sour-info .info-wheel.spice-wheel,
-.recipe-panel .recipe-title-panel .quick-info .time-info .info-wheel.spice-wheel,
-.recipe-panel .recipe-title-panel .quick-info .difficulty-info .info-wheel.spice-wheel {
+main .recipe-panel .recipe-title-panel .quick-info .spice-info .info-wheel.spice-wheel,
+main .recipe-panel .recipe-title-panel .quick-info .sweet-info .info-wheel.spice-wheel,
+main .recipe-panel .recipe-title-panel .quick-info .sour-info .info-wheel.spice-wheel,
+main .recipe-panel .recipe-title-panel .quick-info .time-info .info-wheel.spice-wheel,
+main .recipe-panel .recipe-title-panel .quick-info .difficulty-info .info-wheel.spice-wheel {
   background-color: rgba(200, 100, 100, 0.7);
 }
 
-.recipe-panel .recipe-title-panel .quick-info .spice-info .info-wheel.sweet-wheel,
-.recipe-panel .recipe-title-panel .quick-info .sweet-info .info-wheel.sweet-wheel,
-.recipe-panel .recipe-title-panel .quick-info .sour-info .info-wheel.sweet-wheel,
-.recipe-panel .recipe-title-panel .quick-info .time-info .info-wheel.sweet-wheel,
-.recipe-panel .recipe-title-panel .quick-info .difficulty-info .info-wheel.sweet-wheel {
+main .recipe-panel .recipe-title-panel .quick-info .spice-info .info-wheel.sweet-wheel,
+main .recipe-panel .recipe-title-panel .quick-info .sweet-info .info-wheel.sweet-wheel,
+main .recipe-panel .recipe-title-panel .quick-info .sour-info .info-wheel.sweet-wheel,
+main .recipe-panel .recipe-title-panel .quick-info .time-info .info-wheel.sweet-wheel,
+main .recipe-panel .recipe-title-panel .quick-info .difficulty-info .info-wheel.sweet-wheel {
   background-color: rgba(100, 100, 200, 0.7);
 }
 
-.recipe-panel .recipe-title-panel .quick-info .spice-info .info-wheel.sour-wheel,
-.recipe-panel .recipe-title-panel .quick-info .sweet-info .info-wheel.sour-wheel,
-.recipe-panel .recipe-title-panel .quick-info .sour-info .info-wheel.sour-wheel,
-.recipe-panel .recipe-title-panel .quick-info .time-info .info-wheel.sour-wheel,
-.recipe-panel .recipe-title-panel .quick-info .difficulty-info .info-wheel.sour-wheel {
+main .recipe-panel .recipe-title-panel .quick-info .spice-info .info-wheel.sour-wheel,
+main .recipe-panel .recipe-title-panel .quick-info .sweet-info .info-wheel.sour-wheel,
+main .recipe-panel .recipe-title-panel .quick-info .sour-info .info-wheel.sour-wheel,
+main .recipe-panel .recipe-title-panel .quick-info .time-info .info-wheel.sour-wheel,
+main .recipe-panel .recipe-title-panel .quick-info .difficulty-info .info-wheel.sour-wheel {
   background-color: rgba(100, 200, 100, 0.7);
 }
 
-.recipe-panel .recipe-title-panel .quick-info .spice-info .info-wheel.time-wheel,
-.recipe-panel .recipe-title-panel .quick-info .sweet-info .info-wheel.time-wheel,
-.recipe-panel .recipe-title-panel .quick-info .sour-info .info-wheel.time-wheel,
-.recipe-panel .recipe-title-panel .quick-info .time-info .info-wheel.time-wheel,
-.recipe-panel .recipe-title-panel .quick-info .difficulty-info .info-wheel.time-wheel {
+main .recipe-panel .recipe-title-panel .quick-info .spice-info .info-wheel.time-wheel,
+main .recipe-panel .recipe-title-panel .quick-info .sweet-info .info-wheel.time-wheel,
+main .recipe-panel .recipe-title-panel .quick-info .sour-info .info-wheel.time-wheel,
+main .recipe-panel .recipe-title-panel .quick-info .time-info .info-wheel.time-wheel,
+main .recipe-panel .recipe-title-panel .quick-info .difficulty-info .info-wheel.time-wheel {
   text-align: center;
   background-color: rgba(100, 100, 100, 0.7);
 }
 
-.recipe-panel .recipe-title-panel .quick-info .spice-info .info-wheel.time-wheel .mins,
-.recipe-panel .recipe-title-panel .quick-info .sweet-info .info-wheel.time-wheel .mins,
-.recipe-panel .recipe-title-panel .quick-info .sour-info .info-wheel.time-wheel .mins,
-.recipe-panel .recipe-title-panel .quick-info .time-info .info-wheel.time-wheel .mins,
-.recipe-panel .recipe-title-panel .quick-info .difficulty-info .info-wheel.time-wheel .mins {
+main .recipe-panel .recipe-title-panel .quick-info .spice-info .info-wheel.time-wheel .mins,
+main .recipe-panel .recipe-title-panel .quick-info .sweet-info .info-wheel.time-wheel .mins,
+main .recipe-panel .recipe-title-panel .quick-info .sour-info .info-wheel.time-wheel .mins,
+main .recipe-panel .recipe-title-panel .quick-info .time-info .info-wheel.time-wheel .mins,
+main .recipe-panel .recipe-title-panel .quick-info .difficulty-info .info-wheel.time-wheel .mins {
   font-size: 80%;
 }
 
-.recipe-panel .recipe-title-panel .quick-info .spice-info .info-wheel.difficulty-wheel,
-.recipe-panel .recipe-title-panel .quick-info .sweet-info .info-wheel.difficulty-wheel,
-.recipe-panel .recipe-title-panel .quick-info .sour-info .info-wheel.difficulty-wheel,
-.recipe-panel .recipe-title-panel .quick-info .time-info .info-wheel.difficulty-wheel,
-.recipe-panel .recipe-title-panel .quick-info .difficulty-info .info-wheel.difficulty-wheel {
+main .recipe-panel .recipe-title-panel .quick-info .spice-info .info-wheel.difficulty-wheel,
+main .recipe-panel .recipe-title-panel .quick-info .sweet-info .info-wheel.difficulty-wheel,
+main .recipe-panel .recipe-title-panel .quick-info .sour-info .info-wheel.difficulty-wheel,
+main .recipe-panel .recipe-title-panel .quick-info .time-info .info-wheel.difficulty-wheel,
+main .recipe-panel .recipe-title-panel .quick-info .difficulty-info .info-wheel.difficulty-wheel {
   background-color: rgba(200, 200, 100, 0.7);
 }
 /*# sourceMappingURL=feed_page.css.map */

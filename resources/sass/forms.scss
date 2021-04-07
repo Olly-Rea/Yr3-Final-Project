@@ -1,6 +1,93 @@
 // Variables
 @import 'variables';
 
+// Form formatting
+form {
+    position: relative;
+
+    @include flexDisplay(column, center, flex-start);
+
+    a,
+    button,
+    input {
+        align-self: center;
+    }
+    a {
+        margin: 2vh 0;
+    }
+
+    p.form-error-msg {
+        align-self: flex-start;
+
+        margin: 1.4rem 0;
+        margin-top: -1.2rem;
+        color: $accentDark;
+    }
+
+    .form-box {
+        position: relative;
+
+        height: 4rem;
+        width: 100%;
+
+        svg,
+        input {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        svg {
+            z-index: 2;
+            left: 0.9rem;
+
+            height: 1.8rem;
+            width: 1.8rem;
+
+            transition: transform $transitionTime ease-in-out;
+        }
+
+        input:not([type="checkbox"]) {
+            left: 0;
+            text-indent: 2.7rem;
+        }
+
+        &:hover {
+            svg {
+                transform: translateY(-50%) scale(1.05);
+            }
+        }
+        &:active {
+            svg {
+                transform: translateY(-50%) scale(1);
+            }
+        }
+
+    }
+    .form-row {
+        @include flexDisplay(row, center, center);
+
+        width: 100%;
+
+        textarea,
+        input:not([type="checkbox"]) {
+            width: 49%;
+
+            &:first-child {
+                margin-right: 2%;
+            }
+        }
+
+    }
+
+    label {
+        align-self: flex-start;
+        margin-top: 1rem;
+        margin-left: 0.4rem;
+    }
+
+}
+
 input,
 textarea,
 select {
@@ -18,15 +105,203 @@ select {
             font-family: inherit;
         }
     }
-
+}
+input,
+textarea,
+select,
+button {
     &:focus {
         outline: none;
     }
-
 }
-// input {
 
+textarea,
+input:not([type="submit"],[type="checkbox"]) {
+    width: 100%;
+    height: 3.2rem;
+
+    border: none;
+    border-radius: $panelCorner;
+
+    font-size: 1.2rem;
+
+    text-indent: 1.6rem;
+
+    font-weight: bold;
+}
+
+// textarea,
+// input:not([type="checkbox"]) {
+//     width: calc(100% - 1.44rem);
+
+//     padding: 0.72rem;
+//     margin-bottom: 2vh;
+
+//     font-size: 1.28rem;
+
+//     color: inherit;
+//     font-family: inherit;
+//     background-color: $inputColor;
+
+//     box-shadow: 0 0 0.1rem 0 $shdwClr;
+
+//     border: none;
+//     border-radius: $inputCorner;
+
+//     transition: box-shadow $transitionTime ease-in-out;
+
+//     &:hover {
+//         box-shadow: 0 0 0.2rem 0 $shdwClr;
+//     }
 // }
 
+textarea {
+    padding: 1.6rem;
+}
+
+button,
+input[type="submit"] {
+    min-width: 8rem;
+
+    padding: 1vh 2vh;
+    margin: 1rem;
+
+    border-width: 0.24rem;
+    border-color: $foreColor;
+    border-radius: $panelCorner;
+
+    background-color: $accentColor;
+    @include hasShadow();
+
+    color: inherit;
+    font-family: inherit;
+    font-size: 1.2rem;
+    font-weight: bold;
+
+    cursor: pointer;
+
+    transition: all $transitionTime ease-in-out;
+
+    &:hover {
+        box-shadow: 0 0 0.4rem 0 $shdwClr;
+
+        transform: scale(1.04);
+    }
+    &:active {
+        box-shadow: 0 0 0.4rem 0 $shdwClr;
+
+        background-color: $appGreenDark;
+        transform: scale(1);
+    }
+}
+
+// Checkbox formatting
+label {
+    margin-bottom: 0.2rem;
+
+    // Locked form properties
+    &.locked {
+        color: gray !important;
+    }
+
+    // Checkbox formatting
+    &.checkOption,
+    &.subOption {
+        display: inline-block;
+        position: relative;
+        margin: 0;
+        margin-bottom: 0.6vh;
+
+        height: 1.4rem;
+        width: 0;
+
+        font-weight: normal;
+        color: inherit;
+        white-space: nowrap;
+
+        user-select: none;
+        cursor: pointer;
+
+        input {
+            position: absolute;
+            top: 0;
+            left: 0;
+
+            height: 0;
+            width: 0;
+
+            opacity: 0;
+
+            cursor: pointer;
+
+            // label.check/subOption input:checked ~ .checkbox,
+            &:checked {
+                ~ .checkbox,
+                ~ .checkbox {
+                    svg {
+                        stroke: $backColor;
+                        fill: $appGreen;
+                    }
+                }
+            }
+        }
+
+        &:hover {
+            input {
+                // label.check/subOption:hover input ~ .checkbox,
+                ~ .checkbox,
+                ~ .checkbox {
+                    svg {
+                        stroke: $appGreenDark;
+                        fill: $backColor;
+                    }
+                }
+                // label.check/subOption:hover input:checked ~ .checkbox,
+                &:checked {
+                    ~ .checkbox,
+                    ~ .checkbox {
+                        svg {
+                            stroke: $backColor;
+                            fill: $appGreen;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    &.subOption {
+        transform: translate(3.4vh);
+    }
+
+}
+.checkbox {
+    position: absolute;
+    left: 0;
+
+    border-radius: 0.2rem;
+
+    text-indent: 1.4rem;
+
+    svg {
+        position: absolute;
+        left: 0;
+        top: 50%;
+        transform: translateY(-50%);
+
+        height: 1.2rem;
+        width: 1.2rem;
+
+        fill: $backColor;
+        stroke: $backColor;
+
+        transition: fill $transitionTime ease-in-out,
+                    stroke $transitionTime ease-in-out;
+    }
+
+}
+input[type="checkbox"] {
+    user-select: none;
+}
 
 
