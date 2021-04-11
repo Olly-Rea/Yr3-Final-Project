@@ -3,9 +3,18 @@
 
 main {
 
-    h2 {
+    h2,
+    h3 {
         user-select: none;
         color: $foreLight;
+        text-align: center;
+    }
+
+    div.centered {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
     }
 
     .recipe-panel {

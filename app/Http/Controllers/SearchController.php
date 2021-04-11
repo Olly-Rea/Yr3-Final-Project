@@ -19,17 +19,20 @@ class SearchController extends Controller {
         // Check that the request is AJAX
         if ($request->ajax()) {
 
+            $pagination = 20;
+
             // Get any relevent recipes/ingredients from the databases
-            $recipes = Recipe::where("name", "LIKE", "%".$request->search."%")->get();//->where('last_name', 'LIKE', $request->search . '%')->get();
-            $ingredients = Ingredient::where("name", "LIKE", "%".$request->search . "%")->get();//->where('last_name', 'LIKE', $request->search . '%')->get();
+            $recipes = Recipe::where("name", "LIKE", "%".$request->search."%")->limit($pagination);//->where('last_name', 'LIKE', $request->search . '%')->get();
+            $ingredients = Ingredient::where("name", "LIKE", "%".$request->search . "%")->limit($pagination);//->where('last_name', 'LIKE', $request->search . '%')->get();
+
             // Split the results based on the number of results returned per collection
-            $recipeCount = (count($ingredients) > 5) ? 5 : (10 - count($ingredients));
-            $ingredCount = (count($recipes) > 5) ? 5 : (10 - count($recipes));
+            $recipeCount = (count($ingredients->get()) > 5) ? 5 : 10 - count($ingredients->get());
+            $ingredCount = (count($recipes->get()) > 5) ? 5 : 10 - count($recipes->get());
 
-            // Get the top 10 merged results
-            $results = $recipes[$recipeCount]->join($ingredients[$ingredCount]);
+            // Get the top 10 results (merged / 'concatenated')
+            $results = $recipes->paginate($recipeCount)->concat($ingredients->paginate($ingredCount));
 
-            dd($results);
+            // dd($results);
 
             // return the paginated list of recipes matching the user's search
             return view('components.search-result', ['results' => $results])->render();

@@ -11,47 +11,102 @@
 
 <h1>{{ $ingredient->name }}</h1>
 
+<h2>Ingredient Stats:</h2>
 <div id="stats-container">
-    <h2>Ingredient Stats:</h2>
-    <p>energy (kcal) per 100g: <b>{{ $ingredient->energy_kcal_100g }}g</b></p>
-    <p>carbohydrates per 100g: <b>{{ $ingredient->carbohydrates_100g }}g</b></p>
-    <p>sugars per 100g: <b>{{ $ingredient->sugars_100g }}g</b></p>
-    <p>proteins per 100g: <b>{{ $ingredient->proteins_100g }}g</b></p>
-    <p>fiber per 100g: <b>{{ $ingredient->fiber_100g }}g</b></p>
-    <p>salt per 100g: <b>{{ $ingredient->salt_100g }}g</b></p>
+    <div>
+        <div class="info-graphic">
+            <h2>Energy</h2>
+            <p>(kcal)</p>
+        </div>
+        <p>@if($ingredient->energy_kcal_100g > 0){{ $ingredient->energy_kcal_100g }}@else()<i>No data</i>@endif</p>
+    </div>
+    <div>
+        <div class="info-graphic">
+            <h2>Carbs</h2>
+            <p>(Carbohydrates)</p>
+        </div>
+        <p>@if($ingredient->carbohydrates_100g > 0){{ $ingredient->carbohydrates_100g }}g @else()<i>No data</i>@endif</p>
+    </div>
+    <div>
+        <div class="info-graphic">
+            <h2>Sugars</h2>
+        </div>
+        <p>@if($ingredient->sugars_100g > 0){{ $ingredient->sugars_100g }}g @else()<i>No data</i>@endif</p>
+    </div>
+    <div>
+        <div class="info-graphic">
+            <h2>Proteins</h2>
+        </div>
+        <p>@if($ingredient->proteins_100g > 0){{ $ingredient->proteins_100g }}g @else()<i>No data</i>@endif</p>
+    </div>
+    <div>
+        <div class="info-graphic">
+            <h2>Fiber</h2>
+        </div>
+        <p>@if($ingredient->fiber_100g > 0){{ $ingredient->fiber_100g }}g @else()<i>No data</i>@endif</p>
+    </div>
+    <div>
+        <div class="info-graphic">
+            <h2>Salt</h2>
+        </div>
+        <p>@if($ingredient->salt_100g > 0){{ $ingredient->salt_100g }}g @else()<i>No data</i>@endif</p>
+    </div>
+    <div id="small-print-info">
+        <p>*per 100g</p>
+        <p>**based on open-source data from <a href="https://world.openfoodfacts.org/" target="_blank">world.openfoodfacts.org</a></p>
+    </div>
 </div>
 
-<div id="category-container">
-    <h2>Categories:</h2>
-    @forelse ($ingredient->categories as $category)
-    <p>{{ $category->name }}</p>
-    @empty
-    <p>None</p>
-    @endforelse
-</div>
-
+<h2>Known Allergens:</h2>
 <div id="allergen-container">
-    <h2>Known Allergens:</h2>
     @forelse ($ingredient->allergens as $allergen)
-    <p>{{ $allergen->name }}</p>
+    <div class="info-panel">
+        <p>{{ $allergen->name }}</p>
+    </div>
     @empty
     <p>None</p>
     @endforelse
 </div>
 
+<h2>Known Traces:</h2>
 <div id="trace-container">
-    <h2>Known Traces:</h2>
     @forelse ($ingredient->traces as $trace)
-    <p>{{ $trace->name }}</p>
+    <div class="info-panel">
+        <p>{{ $trace->name }}</p>
+    </div>
     @empty
     <p>None</p>
     @endforelse
 </div>
 
+
+<h2>Categories:</h2>
+<div id="category-container">
+    @forelse ($ingredient->categories as $category)
+    <div class="info-panel">
+        <p>{{ $category->name }}</p>
+    </div>
+    @empty
+    <p>None</p>
+    @endforelse
+</div>
+
+<h2>Labels:</h2>
 <div id="label-container">
-    <h2>Labels:</h2>
     @forelse ($ingredient->labels as $label)
-    <p>{{ $label->name }}</p>
+    <div class="info-panel">
+        <p>{{ $label->name }}</p>
+    </div>
+    @empty
+    <p>None</p>
+    @endforelse
+</div>
+
+<h2>References:</h2>
+<p>All data collated from / based on the following <a href="https://world.openfoodfacts.org/" target="_blank">world.openfoodfacts.org</a> links</p>
+<div id="references-container">
+    @forelse ($ingredient->references as $reference)
+    <a href="{{ $reference }}" target="_blank">{{ $reference }}</a>
     @empty
     <p>None</p>
     @endforelse

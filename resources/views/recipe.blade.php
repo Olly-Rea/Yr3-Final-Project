@@ -9,21 +9,27 @@
 @section('content')
 {{-- Top bar for all recipe quick-info --}}
 
-<div id="recipe-title">
-    <h1><b>{{ $recipe->name }}</b></h1>
-    <p><b>Serves: </b>{{ $recipe->serves }}</p>
-</div>
-
-<div class="recipe-title-panel">
-    <a href="{{ route('profile', $recipe->user->id) }}" class="author-info">
+<div id="recipe-title-container">
+    <div id="recipe-title">
+        <h1><b>{{ $recipe->name }}</b></h1>
+        <p><b>Serves: </b>{{ $recipe->serves }}</p>
+    </div>
+    <a href="{{ route('profile', $recipe->user->id) }}" id="author-info">
         <div class="profile-image-container">
             <div class="profile-image">
                 <img src="{{ $recipe->user->profileImage() }}" alt="{{ $recipe->user->first_name }} {{ $recipe->user->last_name }}">
             </div>
         </div>
-        <h3>{{ $recipe->user->first_name }} {{ $recipe->user->last_name }} • <i>{{ date("j F Y", strtotime($recipe->created_at)) }}</i></h3>
+        <div id="name-date-info">
+            <h2>{{ $recipe->user->first_name }} {{ $recipe->user->last_name }}</h2>
+            <h4><i>{{ date("j F Y", strtotime($recipe->created_at)) }}</i></h4>
+        </div>
     </a>
-    <div class="quick-info">
+</div>
+
+<div id="quick-info-container">
+    <h2>Based on User reviews:</h2>
+    <div>
         <div class="spice-info">
             <div class="spice-wheel info-wheel">
                 <h4>{{ rand(1, 100) }}</h4>
@@ -57,22 +63,32 @@
     </div>
 </div>
 
-<div id="ingredients-panel">
-    <h2>Ingredients:</h2>
+<h2>Ingredients:</h2>
+<div id="ingredients-container">
     @foreach($ingredients as $ingredient)
-        <a href="{{ route('ingredient', $ingredient->id) }}">@if($ingredient->pivot->measure != ""){{ $ingredient->pivot->amount }} {{ $ingredient->pivot->measure }} - @else{{ $ingredient->pivot->amount }}@endif {{ $ingredient->name }}@if($ingredient->pivot->misc_info != "") ({{ $ingredient->pivot->misc_info }})@endif</a>
+        <a href="{{ route('ingredient', $ingredient->id) }}" class="ingredient-panel">
+            <h3 class="amount">@if($ingredient->pivot->measure != ""){{ $ingredient->pivot->amount }} {{ $ingredient->pivot->measure }}@else{{ $ingredient->pivot->amount }}@endif</h3>
+            <h3 class="name">{{ $ingredient->name }}@if($ingredient->pivot->misc_info != "") <span>({{ $ingredient->pivot->misc_info }})</span>@endif</h3>
+        </a>
         @forelse($ingredient->alternatives as $alternative)
             <div class="alternative-container">
-                <a href="{{ route('ingredient', $alternative->id) }}">@if($alternative->pivot->measure != ""){{ $alternative->pivot->amount }} {{ $alternative->pivot->measure }} - @else{{ $alternative->pivot->amount }}@endif {{ $alternative->name }}@if($alternative->pivot->misc_info != "") ({{ $alternative->pivot->misc_info }})@endif</a>
+                <a href="{{ route('ingredient', $alternative->id) }}" class="alternative-panel">
+                    <h3 class="amount">@if($alternative->pivot->measure != ""){{ $alternative->pivot->amount }} {{ $alternative->pivot->measure }}@else{{ $alternative->pivot->amount }}@endif</h3>
+                    <h3 class="name">{{ $alternative->name }}@if($alternative->pivot->misc_info != "") <span>({{ $alternative->pivot->misc_info }})</span>@endif</h3>
+                </a>
             </div>
         @empty
         @endforelse
     @endforeach
 </div>
-<div id="instructions-panel">
-    <h2>Instructions:</h2>
-    @foreach($recipe->instructions as $instruction)
-    <p>{{ $instruction->content }}</p>
+
+<h2>Instructions:</h2>
+<div id="directions-container">
+    @foreach($recipe->instructions as $key => $instruction)
+    <div class="directions-panel">
+        <h3 class="step">{{ $key }}</h3>
+        <p class="content">{{ $instruction->content }}</p>
+    </div>
     @endforeach
 </div>
 @endsection

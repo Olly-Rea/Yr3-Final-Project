@@ -13,6 +13,6 @@ class UserSeeder extends Seeder
      */
     public function run() {
         // Seed User Database
-        \App\Models\User::factory(200)->create();
+        \App\Models\User::factory(500)->create();
     }
 }

@@ -40,4 +40,15 @@ class ProfileController extends Controller {
         }
     }
 
+    /**
+     * Method to show the Auth User's profile
+     */
+    public static function me() {
+        if(Auth::check()) {
+            return view('profile.show', ['user' => Auth::user()]);
+        } else {
+            abort(404);
+        }
+    }
+
 }

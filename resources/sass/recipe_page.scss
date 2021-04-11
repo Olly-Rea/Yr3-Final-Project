@@ -1,59 +1,90 @@
 @import 'global';
 
 main {
-    #recipe-title,
-    .recipe-title-panel,
-    #ingredients-panel,
-    #instructions-panel {
+    #recipe-title-container,
+    #ingredients-container,
+    #directions-container {
         width: 100%;
     }
 
-    #recipe-title {
-        margin: 2rem 0;
-
-        h1, p {
-            margin: 0;
-        }
-
-        h1 {
-            font-size: 4rem;
-            font-weight: bold;
-        }
-        p {
-            font-size: 1.6rem;
-            text-indent: 2rem;
-            margin-bottom: 4rem;
-        }
-    }
-
-    .recipe-title-panel {
+    #recipe-title-container {
         @include flexDisplay(row, center, space-between);
 
-        margin: -2.6rem;
-        margin-bottom: 0;
+        width: 100%;
 
+        #recipe-title {
+            margin: 2rem 0;
+            max-width: 70%;
 
-        padding: 1.6rem 2.6rem;
-        background-color: $panelAccentColor;
-        border-radius: $panelCorner;
+            h1, p {
+                margin: 0.5rem 0;
+            }
 
-        h1, p {
-            margin: 0.5rem 0;
+            h1 {
+                font-size: 4rem;
+                font-weight: bold;
+            }
+            p {
+                font-size: 1.6rem;
+                text-indent: 2rem;
+                margin-bottom: 4rem;
+            }
         }
 
-        .author-info {
-            @include flexDisplay(row, flex-end, center);
+        #author-info {
+            @include flexDisplay(row, center, flex-start);
+
+            max-width: 30%;
+            height: 100%;
+
+            padding: 1rem;
+            border-radius: $panelCorner;
+            background-color: $panelBckColor;
 
             .profile-image-container {
-                width: 6rem;
+                width: 5rem;
+            }
+
+            #name-date-info {
+                margin-left: 1rem;
+                white-space: nowrap;
+
+                h2,
+                h4 {
+                    margin: 0.4rem;
+                }
+
             }
 
         }
+    }
 
-        .quick-info {
+    > h2 {
+        align-self: flex-start;
+        margin-top: 4rem;
+
+        font-size: 2rem;
+    }
+
+    #quick-info-container {
+        margin-top: 1%;
+
+        width: calc(100% - 5.2rem);
+
+        padding: 1.6rem 2.6rem;
+        background-color: $panelBckColor;
+        border-radius: $panelCorner;
+
+        font-size: 1.2rem;
+
+        > h2 {
+            margin: 0;
+        }
+
+        > div {
             @include flexDisplay(row, flex-end, center);
 
-            margin-top: 1%;
+            margin-top: 2rem;
 
             .spice-info,
             .sweet-info,
@@ -63,13 +94,14 @@ main {
                 @include flexDisplay(column, center, flex-start);
                 width: 5.4rem;
 
+                margin: 0 1rem;
                 user-select: none;
 
                 .info-wheel {
                     @include flexDisplay(column, center, center);
 
-                    height: 3rem;
-                    width: 3rem;
+                    height: 5rem;
+                    width: 5rem;
                     border-radius: 50%;
 
                     color: $backColor;
@@ -103,59 +135,81 @@ main {
                 }
 
             }
+
         }
+
+
     }
 
-    #ingredients-panel,
-    #instructions-panel {
-        font-size: 110%;
-    }
+    #ingredients-container {
+        @include flexDisplay(row, flex-start, flex-start);
+        flex-wrap: wrap;
 
-    #ingredients-panel {
+        width: 100%;
 
-        &,
-        .alternative-container {
-            @include flexDisplay(column, flex-start, center);
-        }
+        .ingredient-panel,
+        #alternative-container .alternative-panel {
+            @include flexDisplay(row, flex-start, flex-start);
 
-        > a,
-        .alternative-container > a {
-            position: relative;
-            margin: 0.6rem 0;
+            min-width: calc(50% - 1.4rem);
 
-            min-width: 60%;
+            margin: 0.7rem;
 
-            padding: 1rem;
-            border-radius: $smallRounded;
-
-        }
-
-        > a {
-            background-color: $panelAccentColor;
-        }
-
-        .alternative-container {
-            margin-left: 1.6rem;
-
-            width: 100%;
-            max-width: calc(100% - 3.6rem); // 1.6rem margin + 2rem (combined) padding
-
-            > a {
+            .amount,
+            .name {
+                margin: 0;
+                padding: 1rem;
+                border-radius: $smallRounded;
+            }
+            .amount {
+                margin-right: 0.4rem;
                 background-color: $panelAccentColor;
+                white-space: nowrap;
+            }
+            .name {
+                background-color: $panelBckColor;
+                width: 100%;
+
+                span {
+                    color: $foreGray;
+                }
+
             }
         }
+        #alternative-container {
+            margin-left: 1.6rem;
+        }
     }
 
-    #instructions-panel {
-        p {
-            padding: 2rem 1rem;
+    #directions-container {
+        .directions-panel {
+            @include flexDisplay(row, flex-start, flex-start);
 
-            min-width: 60%;
-            max-width: calc(100% - 2rem);
-            border-radius: $smallRounded;
+            width: calc(100% - 0.4rem);
 
-            background-color: $panelAccentColor;
+            margin: 0.7rem 0;
+
+            .step,
+            .content {
+                margin: 0;
+                padding: 1rem 2rem;
+                border-radius: $smallRounded;
+            }
+
+            .step {
+                margin-right: 0.4rem;
+                background-color: $panelAccentColor;
+                white-space: nowrap;
+                user-select: none;
+            }
+            .content {
+                background-color: $panelBckColor;
+                width: 100%;
+            }
+
         }
+
+
     }
 
 }

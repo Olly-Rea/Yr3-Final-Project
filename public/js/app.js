@@ -15,4 +15,13 @@ $.ajaxSetup({
 // Methods and Handlers to be called on or added to elements on page load/pageshow
 $(window).on("load, pageshow", function() {
 
+    $("#site-overlay-background").on("click", function() {
+        // Clear the search bar if it contains a value
+        if ($("#search-bar").val() != "") {
+            $("#search-bar").val("");
+        }
+        // Fade out the site overlay
+        $("#site-overlay, #results-container").fadeOut(transitionTime);
+    });
+
 });

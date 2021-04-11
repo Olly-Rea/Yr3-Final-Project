@@ -23,22 +23,19 @@ $(window).on("load, pageshow", function() {
             }
         }
 
-        // Only start searching if searchBar value > 0
-        if($searchBar.val().length > 0) {
-            // Hide the "quick search shortcut" links and
-            $("#search-items, #search-content > .screen-seperator").fadeOut(menuTransitionTime);
-
+        // Only start searching if searchBar value > 2
+        if($searchBar.val().length > 2) {
             // Start the search Timeout
             searchTimeout = setTimeout(function () {
                 // When user has finished typing, search databases and show relevent data
                 $.ajax({
                     type : 'get',
-                    url : "/search",
+                    url : "/Search",
                     data: {'search': $searchBar.val()},
                     success: function(data) {
                         setTimeout(function () {
                             $('#results-container').html(data);
-                            $(".search-panel").fadeIn(transitionTime);
+                            $("#site-overlay, #results-container").fadeIn(transitionTime);
                         }, transitionTime+1);
                     }
                 });
@@ -46,12 +43,11 @@ $(window).on("load, pageshow", function() {
         // Else reset the results output
         } else {
             // Hide any currently shown search-panels
-            $(".search-panel").fadeOut(transitionTime);
+            $("#site-overlay, #results-container").fadeOut(transitionTime);
             // Start the search Timeout
             searchTimeout = setTimeout(function () {
-                if ($('#results-container > p').length == 0) {
-                    $('#results-container').html("<p style=\"display:none\">Start typing to search profiles!</p>");
-                    $("#results-container > p, #search-items, #search-content > .screen-seperator").fadeIn(menuTransitionTime);
+                if ($('.results-panel').length == 0) {
+                    $("#site-overlay, #results-container").fadeIn(menuTransitionTime);
                 }
             }, transitionTime+1);
         }

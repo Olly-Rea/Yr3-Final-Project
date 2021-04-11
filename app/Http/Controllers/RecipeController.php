@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\MLContainer;
 use Illuminate\Http\Request;
 
 // Custom imports
@@ -14,7 +15,7 @@ class RecipeController extends Controller {
 
     // Method to show 7 random recipes in the user feed
     public function index() {
-        return view('feed', ['recipes' => Recipe::inRandomOrder()->get()->take($this->paginate)]);
+        return view('feed', ['recipes' => Recipe::inRandomOrder()->limit($this->paginate)->get()]);
     }
 
     /**
@@ -67,8 +68,14 @@ class RecipeController extends Controller {
     /**
      * Method to return the page for the AI chef results
      */
-    public function showAI() {
-        return view('ai-chef');
+    public function showAI(MLContainer $mlContainer) {
+        // Get the recipe from the machine learning container
+        $recipe = $mlContainer->getRecipe();
+
+        dd($recipe);
+
+        // Return it to the view
+        return view('ai-chef', ['recipe' => $recipe]);
     }
 
 }

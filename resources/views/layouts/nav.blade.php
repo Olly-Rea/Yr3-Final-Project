@@ -12,11 +12,11 @@
             <use xlink:href="{{ asset('images/graphics/logo.svg#icon') }}"></use>
         </svg>
         <form id="search-bar-container" action="">
+            <div id="results-container" style="display: none"></div>
+            <input id="search-bar" type="text" name="search" placeholder="I'm looking for..." onfocus="this.placeholder = ''" onfocusout="this.placeholder = 'I\'m looking for...'"/>
             <svg id="search-icon">
                 <use xlink:href="{{ asset('images/graphics/search.svg#icon') }}"></use>
             </svg>
-            <input id="search-bar" type="text" name="search" placeholder="I'm looking for..." onfocus="this.placeholder = ''" onfocusout="this.placeholder = 'I\'m looking for...'"/>
-            <div id="results-container"></div>
         </form>
     </div>
     <div id="site-links">

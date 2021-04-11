@@ -8,9 +8,8 @@
 
 @section('content')
 
-<h2>Some suggestions for you!</h2>
-
-@foreach($recipes as $recipe)
+@if(count($recipes))<h2>Some suggestions for you!</h2>@endif
+@forelse($recipes as $recipe)
 <div class="recipe-panel">
     <div class="recipe-title-panel">
         <div class="recipe-title">
@@ -52,7 +51,14 @@
         </div>
     </div>
 </div>
-@endforeach
+@empty
+
+<div class="centered">
+    <h2>No recipes could be found!</h2>
+    <h3>- Try reloading the page -</h3>
+</div>
+
+@endforelse
 
 {{-- <div _id="screen-split"></div>
 <nav>

@@ -107,25 +107,15 @@ class RecipeSeeder extends Seeder {
     }
 
     /**
-     * Run the database seeds.
-     *
-     * @return void
+     * Method to seed the Recipes database using each JSON data file
      */
-    public function run() {
-
-        // Remove all recipes (debug)
-        DB::table('recipes')->delete();
-        DB::table('recipe_ingredients')->delete();
-
+    public function seedFromFile($filePath) {
         // Get the Recipes JSON file to seed the database with
-        $json = File::get('database/data/recipes.json');
+        $json = File::get($filePath);
         $recipes = json_decode($json);
-
-        echo(count($recipes) . "\n");
 
         // Seed Recipe Database
         foreach($recipes as $count => $recipe) {
-
             // get the 'author' of the recipe
             $author = User::inRandomOrder()->first();
 
@@ -140,7 +130,7 @@ class RecipeSeeder extends Seeder {
                 // Create the new recipe
                 $newRecipe = Recipe::create([
                     'user_id' => $author->id,
-                    'name' => ucwords($recipe->title, '\' '),
+                    'name' => $recipe->title,
                     'serves' => isset($recipe->serves) ? $recipe->serves : 1,
                 ]);
 
@@ -196,7 +186,25 @@ class RecipeSeeder extends Seeder {
 
             }
         }
+    }
 
+    /**
+     * Run the database seeds.
+     *
+     * @return void
+     */
+    public function run() {
+        // Remove all recipes (needed while debugging)
+        DB::table('recipes')->delete();
+        DB::table('recipe_ingredients')->delete();
+
+        // The list of filenames to use
+        $fileNames = ['recipes_1.json','recipes_2.json','recipes_3.json','recipes_4 (wip).json'];
+        // Loop through and seed from each JSON file provided
+        foreach($fileNames as $fileName) {
+            echo("Seeding from ".$fileName."\n");
+            $this->seedFromFile('database/data/'.$fileName);
+        }
     }
 
 }

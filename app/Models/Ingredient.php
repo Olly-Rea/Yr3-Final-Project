@@ -42,11 +42,6 @@ class Ingredient extends Model
 
     // 'Allergen' Model relationship
     public function allergens() {
-
-        // $users = Allergen::with(['allergens' => function ($query) {
-        //     $query->where('title', 'like', '%first%');
-        // }])->get();
-
         return $this->belongsToMany('App\Models\Allergen', 'ingredient_allergens');
     }
 

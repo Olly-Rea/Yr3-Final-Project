@@ -18,15 +18,19 @@
         @yield("scripts-app")
     </head>
     <body>
-        <div id="site-overlay">
-            @yield('site-overlay')
-        </div>
         @yield('nav')
         <main>
             @yield("content")
         </main>
+        <div id="site-overlay" style="display: none">
+            <div id="site-overlay-background"></div>
+            @yield('site-overlay')
+        </div>
         <footer>
-            <a href="https://ollyrea.co.uk" target="_blank">Olly Rea - 950659</a>
+            <div id="footer-content">
+                <p>{{ number_format(App\Models\Recipe::all()->count()) }} recipes in our database so far!</p>
+                <a href="https://ollyrea.co.uk" target="_blank">Olly Rea - 950659</a>
+            </div>
         </footer>
     </body>
 </html>

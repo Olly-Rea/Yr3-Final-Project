@@ -27,6 +27,10 @@ a {
     color: $foreColor;
 }
 
+p > a:hover {
+    text-decoration: underline;
+}
+
 svg {
     user-select: none;
 }
@@ -35,217 +39,293 @@ svg {
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  *               Main view-window properties               *
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+body {
 
-nav {
-    z-index: 5;
+    nav {
+        z-index: 5;
 
-    position: absolute;
-    top: 1.2rem;
-    left: 50%;
-    transform: translateX(-50%);
+        position: absolute;
+        top: 1.2rem;
+        left: 50%;
+        transform: translateX(-50%);
 
-    @include flexDisplay(row, center, space-between);
+        @include flexDisplay(row, center, space-between);
 
-    height: 5rem;
-    width: 90%;
-    max-width: 1920px;
+        height: 5rem;
+        width: 90%;
+        max-width: 1920px;
 
-    transition: background-color $transitionTime ease-in-out;
+        transition: background-color $transitionTime ease-in-out;
 
-    &.scrolling {
-        background-color: $accentColor;
+        &.scrolling {
+            background-color: $accentColor;
 
-        svg#site-logo {
-            stroke: $backAccent;
-        }
-    }
-
-    #search-bar-container,
-    #nav-left {
-        position: relative;
-
-        @include flexDisplay(row, center, flex-start);
-        height: 100%;
-
-        top: 50%;
-        transform: translateY(-50%);
-    }
-
-    #nav-left {
-        width: 58%;
-
-        svg#site-logo {
-            height: 4.4rem;
-            width: 4.4rem;
-
-            stroke: $foreAccent;
-            fill: $accentColor;
-
-            cursor: pointer;
-
-            transition: stroke $transitionTime ease-in-out,
-                        transform $transitionTime ease-in-out;
-
-            &:hover {
-                transform: scale(1.06);
-            }
-            &:active {
-                transform: scale(0.94);
+            svg#site-logo {
+                stroke: $backAccent;
             }
         }
 
-        #search-bar-container {
-            margin-left: 2rem;
+        #search-bar-container,
+        #nav-left {
+            position: relative;
 
-            width: 50%;
+            @include flexDisplay(row, center, flex-start);
+            height: 100%;
 
-            svg#search-icon {
-                position: absolute;
-                top: 50%;
-                transform: translateY(-50%);
-                left: 1.2rem;
+            top: 50%;
+            transform: translateY(-50%);
+        }
 
-                z-index: 2;
+        #nav-left {
+            width: 58%;
 
-                height: 1.8rem;
-                width: 1.8rem;
-                stroke: $foreGray;
+            svg#site-logo {
+                height: 4.4rem;
+                width: 4.4rem;
+
+                stroke: $foreAccent;
+                fill: $accentColor;
 
                 cursor: pointer;
 
-                transition: transform $transitionTime ease-in-out;
+                transition: stroke $transitionTime ease-in-out,
+                            transform $transitionTime ease-in-out;
 
                 &:hover {
-                    transform: translateY(-50%) scale(1.06);
+                    transform: scale(1.06);
                 }
                 &:active {
-                    transform: translateY(-50%) scale(0.94);
+                    transform: scale(0.94);
                 }
             }
 
-            input#search-bar {
-                text-indent: 3.6rem;
-                font-size: 1.4rem;
+            #search-bar-container {
+                margin-left: 2rem;
 
-                @include hasShadow();
-            }
+                width: 50%;
 
-            #results-container {
+                svg#search-icon {
+                    z-index: 1;
 
-                .results-panel {
-                    height: 3.2rem;
+                    position: absolute;
+                    top: 50%;
+                    transform: translateY(-50%);
+                    left: 1.2rem;
+
+                    height: 1.8rem;
+                    width: 1.8rem;
+                    stroke: $foreGray;
+
+                    cursor: pointer;
+
+                    transition: transform $transitionTime ease-in-out;
+
+                    &:hover {
+                        transform: translateY(-50%) scale(1.06);
+                    }
+                    &:active {
+                        transform: translateY(-50%) scale(0.94);
+                    }
+                }
+
+                input#search-bar {
+                    z-index: 1;
+
+                    position: relative;
+
+                    text-indent: 3.6rem;
+                    font-size: 1.4rem;
+
+                    @include hasShadow();
+                }
+
+                #results-container {
+                    z-index: 0;
+
+                    position: absolute;
+                    top: 1.2rem;
+                    left: 0;
+
+                    padding-top: 3.2rem;
+
+                    background-color: $panelAccentColor;
+                    border-radius: $panelCorner;
+
+                    min-height: 3.2rem;
                     width: 100%;
 
-                    background-color: $backAccent;
+                    > p {
+                        width: 100%;
+                        text-align: center;
+                    }
+
+                    .results-panel {
+                        position: relative;
+
+                        height: 3.2rem;
+                        width: 100%;
+
+                        background-color: $backAccent;
+
+                        > h1,
+                        > p.label {
+                            position: relative;
+                            top: 50%;
+                            transform: translateY(-50%);
+                        }
+
+                        > h1 {
+                            width: fit-content;
+                            left: 0;
+                        }
+
+                        > p.label {
+                            right: 0;
+
+                            font-size: 80%;
+                            color: $panelBckColor;
+
+                            background-color: $foreColor;
+                            padding: 0.32rem 0.4rem;
+                            border-radius: 0.32rem;
+                        }
+
+                    }
+                }
+
+            }
+        }
+
+        #site-links {
+
+            @include flexDisplay(row, flex-start, flex-start);
+            flex-wrap: nowrap;
+
+            height: 70%;
+
+            a {
+                @include flexDisplay(row, center, center);
+
+                height: 100%;
+
+                padding: 0 1.2rem;
+                margin: 0 0.5rem;
+                border-radius: $smallRounded;
+
+                user-select: none;
+
+                b {
+                    font-size: 1.2rem;
+                }
+
+                p.beta {
+                    margin-left: 0.6rem;
+
+                    font-size: 80%;
+                    color: $backAccent;
+
+                    background-color: $foreAccent;
+                    padding: 0.32rem 0.4rem;
+                    border-radius: 0.32rem;
+                }
+
+                &.active {
+                    background-color: $backFocus;
+                }
+
+                &:hover {
+                    background-color: $backFocus;
+                }
+                &:active {
+                    background-color: $backActive;
                 }
             }
-
         }
+
     }
 
-    #site-links {
+    main,
+    footer #footer-content {
+        position: relative;
+        left: 50%;
+        transform: translateX(-50%);
 
-        @include flexDisplay(row, flex-start, flex-start);
-        flex-wrap: nowrap;
+        width: 70%;
+        max-width: 960px;
+    }
 
-        height: 70%;
+    main  {
+        @include flexDisplay(column, center, flex-start);
 
-        a {
-            @include flexDisplay(row, center, center);
+        margin: 0;
+        padding: 10rem 0;
+
+        min-height: calc(100vh - 20rem);
+
+        .profile-image-container {
+            border-radius: 50%;
+
+            .profile-image {
+                position: relative;
+
+                width: 100%;
+                padding-top: 100%; // Force 1:1 Aspect Ratio (little squished for some reason, hence 99%)
+                border-radius: 50%;
+
+                overflow: hidden;
+
+                > img {
+                    position: absolute;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%, -50%);
+
+                    padding: 0;
+                    margin: 0;
+
+                    height: 102%;
+
+                    object-fit: cover;
+                }
+            }
+        }
+
+    }
+
+    #site-overlay {
+        position: fixed;
+        z-index: 1;
+        top: 0;
+        left: 0;
+
+        height: 100%;
+        width: 100%;
+
+        #site-overlay-background {
+            height: 100%;
+            width: 100%;
+            background-color: rgba(0,0,0,0.4);
+        }
+
+    }
+
+    // Footer formatting
+    footer {
+        height: 12rem;
+        background: linear-gradient(rgba(0,0,0,0) 0%, $footerColor 100%);
+
+        #footer-content {
+            @include flexDisplay(row, center, space-between);
 
             height: 100%;
 
-            padding: 0 1.2rem;
-            margin: 0 0.5rem;
-            border-radius: $smallRounded;
-
-            user-select: none;
-
-            b {
-                font-size: 1.2rem;
-            }
-
-            p.beta {
-                margin-left: 0.6rem;
-
-                font-size: 80%;
-                color: $backAccent;
-
-                background-color: $foreAccent;
-                padding: 0.32rem 0.4rem;
-                border-radius: 0.32rem;
-            }
-
-            &.active {
-                background-color: $backFocus;
-            }
-
-            &:hover {
-                background-color: $backFocus;
-            }
-            &:active {
-                background-color: $backActive;
+            a {
+                font-size: 16pt;
             }
         }
+
     }
 
-}
-
-
-main  {
-    position: relative;
-    left: 50%;
-    transform: translateX(-50%);
-
-    @include flexDisplay(column, center, flex-start);
-
-    margin: 0;
-    padding: 10rem 0;
-
-    width: 70%;
-    max-width: 960px;
-
-    min-height: 90vh;
-
-    .profile-image-container {
-        border-radius: 50%;
-
-        .profile-image {
-            position: relative;
-
-            width: 100%;
-            padding-top: 100%; // Force 1:1 Aspect Ratio (little squished for some reason, hence 99%)
-            border-radius: 50%;
-
-            overflow: hidden;
-
-            > img {
-                position: absolute;
-                top: 50%;
-                left: 50%;
-                transform: translate(-50%, -50%);
-
-                padding: 0;
-                margin: 0;
-
-                height: 102%;
-
-                object-fit: cover;
-            }
-        }
-    }
-
-}
-
-// Footer formatting
-footer {
-    @include flexDisplay(row, center, center);
-    height: 12rem;
-    background: linear-gradient(rgba(0,0,0,0) 0%, $footerColor 100%);
-
-    a {
-        font-size: 16pt;
-    }
 }
 
 

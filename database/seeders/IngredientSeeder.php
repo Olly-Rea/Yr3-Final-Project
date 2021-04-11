@@ -116,13 +116,6 @@ class IngredientSeeder extends Seeder
 
         }
 
-        // // Debug
-        // echo("There are " . Ingredient::all()->count() . " ingredients\n");
-        // echo("There are " . Label::all()->count() . " labels\n");
-        // echo("There are " . Category::all()->count() . " categories\n");
-        // echo("There are " . Allergen::all()->count() . " allergens\n");
-        // echo("There are " . Trace::all()->count() . " traces\n");
-
     }
 
 }
