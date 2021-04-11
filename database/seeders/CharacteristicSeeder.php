@@ -18,7 +18,7 @@ class CharacteristicSeeder extends Seeder {
 
         // Add each characteristic to the database
         foreach($characteristics as $characteristic) {
-            Characteristic::new([
+            Characteristic::create([
                 'name' => $characteristic
             ]);
         }

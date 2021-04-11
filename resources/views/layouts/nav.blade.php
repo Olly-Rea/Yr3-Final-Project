@@ -8,9 +8,11 @@
 @section('nav')
 <nav>
     <div id="nav-left">
-        <svg id="site-logo">
-            <use xlink:href="{{ asset('images/graphics/logo.svg#icon') }}"></use>
-        </svg>
+        <a href="@auth{{ route('lucky_dip') }}@else()/@endauth" id="site-logo">
+            <svg>
+                <use xlink:href="{{ asset('images/graphics/logo.svg#icon') }}"></use>
+            </svg>
+        </a>
         <form id="search-bar-container" action="">
             <div id="results-container" style="display: none"></div>
             <input id="search-bar" type="text" name="search" placeholder="I'm looking for..." onfocus="this.placeholder = ''" onfocusout="this.placeholder = 'I\'m looking for...'"/>

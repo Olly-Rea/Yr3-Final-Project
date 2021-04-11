@@ -60,4 +60,9 @@ class Ingredient extends Model
         return $this->belongsToMany('App\Models\Characteristic');
     }
 
+    // Fridge Model relationship
+    public function fridges() {
+        return $this->belongsToMany('App\Models\Fridge', 'fridge_ingredients');
+    }
+
 }

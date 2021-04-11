@@ -15,7 +15,7 @@ class RecipeController extends Controller {
 
     // Method to show 7 random recipes in the user feed
     public function index() {
-        return view('feed', ['recipes' => Recipe::inRandomOrder()->limit($this->paginate)->get()]);
+        return view('feed', ['recipes' => Recipe::all()->random(7)]);
     }
 
     /**
@@ -56,12 +56,10 @@ class RecipeController extends Controller {
      */
     public function surprise() {
         // Check to see if a User is logged in
-        if(Auth::check()) {
-
-
-
+        if(count(Auth::user()->fridge->ingredients) == 0) {
+            return $this->show(Recipe::all()->random(1)->first());
         } else {
-
+            return $this->show(Recipe::all()->random(1)->first());
         }
     }
 

@@ -2,6 +2,7 @@
 
 namespace App\Actions\Fortify;
 
+use App\Models\Fridge;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -42,6 +43,12 @@ class CreateNewUser implements CreatesNewUsers
             'password' => Hash::make($input['password']),
             'site_admin' => false,
         ]);
+
+        $user->fridge()->save(
+            Fridge::create([
+                'name' => 'Default'
+            ])
+        );
 
         // return the User
         return $user;

@@ -9,9 +9,11 @@
 @section('nav')
 <nav>
     <div id="nav-left">
-        <svg id="site-logo">
-            <use xlink:href="{{ asset('images/graphics/logo.svg#icon') }}"></use>
-        </svg>
+        <a href="#" id="site-logo">
+            <svg>
+                <use xlink:href="{{ asset('images/graphics/logo.svg#icon') }}"></use>
+            </svg>
+        </a>
     </div>
     <div id="site-links">
         <a @if(Request::is('IdeasBoard'))class="active"@else href="{{ route('feed') }}"@endif><b>Home</b></a>
@@ -23,6 +25,7 @@
 
 @section("content")
     <div id="register-form"  class="content-panel">
+        <h1>Start your culinary journey here!</h1>
         <form method="POST" action="{{ route('register') }}">
             @csrf
             <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Name') }}</label>

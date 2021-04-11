@@ -17,15 +17,21 @@
 </div>
 
 <h1>{{ $user->first_name }} {{ $user->last_name }}</h1>
+<div id="about-user">
+    <p>About User - coming soon</p>
+</div>
 
+<h2>@if(Request::is('Me'))My @else{{ $user->first_name }}'s @endif()Public Recipes</h2>
 <div id="user-recipes">
 @foreach ($user->recipes as $recipe)
-
-    <div>{{ $recipe->name }}</div>
-
+    <a href="{{ route('recipe', $recipe->id) }}" class="recipe-panel">
+        <h2>{{ $recipe->name }}</h2>
+        <p><b>Serves: </b>{{ $recipe->serves }}</p>
+    </a>
 @endforeach
 </div>
 
+<h2>@if(Request::is('Me'))My @else{{ $user->first_name }}'s @endif()ratings</h2>
 <div id="user-ratings">
 @foreach ($user->ratings as $rating)
 
@@ -33,11 +39,28 @@
 </div>
 
 {{-- Show User 'fridge' (if active User's profile) --}}
-@if(Request::is('/Me'))
+@if(Request::is('Me'))
+<h2>My Fridge</h2>
 <div id="user-fridge">
-
+    @foreach ($user->fridge->ingredients as $ingredient)
+    <div class="fridge-ingredient">
+        <h3 class="amount">@if($ingredient->pivot->measure != ""){{ $ingredient->pivot->amount }} {{ $ingredient->pivot->measure }}@else{{ $inredient->pivot->amount }}@endif</h3>
+        <a href="{{ route('ingredient', $ingredient->id) }}" class="name">{{ $ingredient->name }}</a>
+    </div>
+    @endforeach
+    <form action="">
+        <button type="button">Add Ingredient</button>
+    </form>
 </div>
 @endif
+
+@if (Request::is('Me'))
+<button onclick="window.location.href='{{ route('logout') }}'; document.getElementById('logout-form').submit();">Logout</button>
+<form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none" hidden>
+    @csrf
+</form>
+@endif
+
 
 @endsection
 

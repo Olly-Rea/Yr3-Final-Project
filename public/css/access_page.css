@@ -58,7 +58,7 @@ form p.form-error-msg {
   -ms-flex-item-align: start;
       align-self: flex-start;
   margin: 1.4rem 0;
-  margin-top: -1.2rem;
+  margin-top: 0.2rem;
   color: #f57d91;
 }
 
@@ -211,7 +211,7 @@ button:active,
 input[type="submit"]:active {
   -webkit-box-shadow: 0 0 0.4rem 0 #a0a0a0;
           box-shadow: 0 0 0.4rem 0 #a0a0a0;
-  background-color: #40c894;
+  background-color: #f57d91;
   -webkit-transform: scale(1);
           transform: scale(1);
 }
@@ -254,22 +254,22 @@ label.checkOption input, label.subOption input {
 label.checkOption input:checked ~ .checkbox svg,
 label.checkOption input:checked ~ .checkbox svg, label.subOption input:checked ~ .checkbox svg,
 label.subOption input:checked ~ .checkbox svg {
-  stroke: #f0ecf0;
-  fill: #4be4a9;
+  stroke: #f6f4f8;
+  fill: #f894a4;
 }
 
 label.checkOption:hover input ~ .checkbox svg,
 label.checkOption:hover input ~ .checkbox svg, label.subOption:hover input ~ .checkbox svg,
 label.subOption:hover input ~ .checkbox svg {
-  stroke: #40c894;
-  fill: #f0ecf0;
+  stroke: #f57d91;
+  fill: #f6f4f8;
 }
 
 label.checkOption:hover input:checked ~ .checkbox svg,
 label.checkOption:hover input:checked ~ .checkbox svg, label.subOption:hover input:checked ~ .checkbox svg,
 label.subOption:hover input:checked ~ .checkbox svg {
-  stroke: #f0ecf0;
-  fill: #4be4a9;
+  stroke: #f6f4f8;
+  fill: #f894a4;
 }
 
 label.subOption {
@@ -292,8 +292,8 @@ label.subOption {
           transform: translateY(-50%);
   height: 1.2rem;
   width: 1.2rem;
-  fill: #f0ecf0;
-  stroke: #f0ecf0;
+  fill: #f6f4f8;
+  stroke: #f6f4f8;
   -webkit-transition: fill 0.14s ease-in-out, stroke 0.14s ease-in-out;
   transition: fill 0.14s ease-in-out, stroke 0.14s ease-in-out;
 }
@@ -370,7 +370,7 @@ body nav.scrolling {
   background-color: #f894a4;
 }
 
-body nav.scrolling svg#site-logo {
+body nav.scrolling #site-logo svg {
   stroke: #f1eff2;
 }
 
@@ -400,9 +400,14 @@ body nav #nav-left {
   width: 58%;
 }
 
-body nav #nav-left svg#site-logo {
+body nav #nav-left #site-logo {
   height: 4.4rem;
   width: 4.4rem;
+}
+
+body nav #nav-left #site-logo svg {
+  height: 100%;
+  width: 100%;
   stroke: #282828;
   fill: #f894a4;
   cursor: pointer;
@@ -412,12 +417,12 @@ body nav #nav-left svg#site-logo {
   transition: stroke 0.14s ease-in-out, transform 0.14s ease-in-out, -webkit-transform 0.14s ease-in-out;
 }
 
-body nav #nav-left svg#site-logo:hover {
+body nav #nav-left #site-logo svg:hover {
   -webkit-transform: scale(1.06);
           transform: scale(1.06);
 }
 
-body nav #nav-left svg#site-logo:active {
+body nav #nav-left #site-logo svg:active {
   -webkit-transform: scale(0.94);
           transform: scale(0.94);
 }
@@ -428,7 +433,7 @@ body nav #nav-left #search-bar-container {
 }
 
 body nav #nav-left #search-bar-container svg#search-icon {
-  z-index: 1;
+  z-index: 2;
   position: absolute;
   top: 50%;
   -webkit-transform: translateY(-50%);
@@ -455,7 +460,7 @@ body nav #nav-left #search-bar-container svg#search-icon:active {
 }
 
 body nav #nav-left #search-bar-container input#search-bar {
-  z-index: 1;
+  z-index: 2;
   position: relative;
   text-indent: 3.6rem;
   font-size: 1.4rem;
@@ -464,7 +469,7 @@ body nav #nav-left #search-bar-container input#search-bar {
 }
 
 body nav #nav-left #search-bar-container #results-container {
-  z-index: 0;
+  z-index: 1;
   position: absolute;
   top: 1.2rem;
   left: 0;
@@ -610,6 +615,7 @@ body main {
 
 body main .profile-image-container {
   border-radius: 50%;
+  min-width: 6rem;
 }
 
 body main .profile-image-container .profile-image {
@@ -745,7 +751,8 @@ nav #site-links {
 }
 
 main #register-form,
-main #login-form {
+main #login-form,
+main #help-form {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -755,8 +762,9 @@ main #login-form {
   max-width: 32rem;
 }
 
-main #register-form a,
-main #login-form a {
+main #register-form > a,
+main #login-form > a,
+main #help-form > a {
   position: absolute;
   left: 50%;
   -webkit-transform: translateX(-50%);
@@ -764,10 +772,44 @@ main #login-form a {
   margin-top: 3.2rem;
 }
 
+main #register-form > h1,
+main #login-form > h1,
+main #help-form > h1 {
+  width: 100%;
+  text-align: center;
+}
+
 main #register-form form button,
 main #register-form form input[type="submit"],
 main #login-form form button,
-main #login-form form input[type="submit"] {
+main #login-form form input[type="submit"],
+main #help-form form button,
+main #help-form form input[type="submit"] {
   margin: 3.2rem 0;
+}
+
+main #register-form form > a,
+main #login-form form > a,
+main #help-form form > a {
+  margin: 1rem 0;
+}
+
+main #back-btn {
+  position: absolute;
+  bottom: 7.2rem;
+  -webkit-transition: -webkit-transform 0.14s ease-in-out;
+  transition: -webkit-transform 0.14s ease-in-out;
+  transition: transform 0.14s ease-in-out;
+  transition: transform 0.14s ease-in-out, -webkit-transform 0.14s ease-in-out;
+}
+
+main #back-btn:hover {
+  -webkit-transform: scale(1.1);
+          transform: scale(1.1);
+}
+
+main #back-btn:active {
+  -webkit-transform: scale(1);
+          transform: scale(1);
 }
 /*# sourceMappingURL=access_page.css.map */

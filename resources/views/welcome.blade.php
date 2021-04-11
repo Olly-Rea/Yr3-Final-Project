@@ -9,9 +9,11 @@
 @section('nav')
 <nav>
     <div id="nav-left">
-        <svg id="site-logo">
-            <use xlink:href="{{ asset('images/graphics/logo.svg#icon') }}"></use>
-        </svg>
+        <a href="@auth{{ route('lucky_dip') }}@else(){{ route('register') }}@endauth" id="site-logo">
+            <svg>
+                <use xlink:href="{{ asset('images/graphics/logo.svg#icon') }}"></use>
+            </svg>
+        </a>
     </div>
     <div id="site-links">
         @auth
@@ -29,8 +31,15 @@
 @section('content')
 <h1>Welcome to the 'Recipe App'!</h1>
 
-<h3>What are you in the mood for today?</h3>
+<div id="quick-launch-categories">
+    @foreach ($categories as $category)
+    <div class="graphic-circle">
+        <h3>{{ $category->name }}</h3>
+    </div>
+    @endforeach
+</div>
 
+<h3>What are you in the mood for today?</h3>
 <form id="search-bar-container" action="">
     <svg id="search-icon">
         <use xlink:href="{{ asset('images/graphics/search.svg#icon') }}"></use>

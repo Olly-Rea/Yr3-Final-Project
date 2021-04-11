@@ -24,18 +24,24 @@ main {
     #category-container,
     #allergen-container,
     #trace-container,
+    #label-container {
+        position: relative;
+        @include flexDisplay(row, center, space-between);
+    }
+
+    #category-container,
+    #allergen-container,
+    #trace-container,
     #label-container,
     #references-container {
-        position: relative;
-
-        @include flexDisplay(row, center, space-between);
-
-        width: calc(100% - 4rem);
+        width: 100%;
     }
 
     #stats-container {
         background-color: $panelBckColor;
         border-radius: $panelCorner;
+
+        width: calc(100% - 4rem);
 
         padding: 2rem;
         padding-bottom: 6rem;
@@ -87,28 +93,36 @@ main {
         flex-wrap: wrap;
 
         .info-panel {
+            flex-grow: 1;
+
             margin: 0.4rem;
 
-            width: calc(50% - 2.8rem); // padding + margin = 2.8rem
-            padding: 0.2rem 1rem;
+            width: calc(40% - 3.6rem); // padding + margin = 3.6rem
+            padding: 1.4rem;
 
             border-radius: $panelCorner;
             background-color: $panelBckColor;
 
             font-size: 1.2rem;
+
+            p {
+                margin: 0
+            }
         }
 
     }
 
     #references-container {
-        flex-direction: column;
+        @include flexDisplay(column, flex-start, space-between);
 
         max-height: 30rem;
-        overflow-y: scroll;
+        overflow-y: auto;
 
         a {
             margin: 0.4rem 0;
             padding: 1rem;
+
+            min-width: calc(60% - 2rem);
 
             background-color: $panelBckColor;
             border-radius: $smallRounded;

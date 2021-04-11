@@ -105,11 +105,15 @@
 <h2>References:</h2>
 <p>All data collated from / based on the following <a href="https://world.openfoodfacts.org/" target="_blank">world.openfoodfacts.org</a> links</p>
 <div id="references-container">
+    @if(is_countable($ingredient->references))
     @forelse ($ingredient->references as $reference)
     <a href="{{ $reference }}" target="_blank">{{ $reference }}</a>
     @empty
     <p>None</p>
     @endforelse
+    @else
+    <a href="{{ $ingredient->references }}" target="_blank">{{ $ingredient->references }}</a>
+    @endif
 </div>
 
 @endsection

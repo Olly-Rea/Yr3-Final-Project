@@ -3,10 +3,102 @@
 main {
     padding-top: 12rem;
 
-    .profile-image-container {
+    .profile-image-container,
+    > h1,
+    > h2 {
+        align-self: flex-start;
+    }
 
-        width: 20%;
+    > h1 {
+        font-size: 4rem;
+        margin: 1rem 0;
+    }
+
+    .profile-image-container {
+        width: 24%;
         max-width: 20rem;
+    }
+
+    > h2 {
+        margin: 1rem 0;
+
+        &:not(:first-child) {
+            margin-top: 4rem;
+        }
+    }
+
+    #user-recipes,
+    #user-ratings,
+    #user-fridge {
+        width: 100%;
+        min-height: 4rem;
+    }
+
+    #about-user {
+        padding: 2rem;
+        width: calc(100% - 4rem);
+
+        border-radius: $panelCorner;
+        background-color: $panelBckColor;
+
+        p {
+            margin: 0;
+        }
 
     }
+
+    #user-recipes {
+        @include flexDisplay(row, flex-start, flex-start);
+        flex-wrap: wrap;
+
+        .recipe-panel {
+            flex-grow: 1;
+
+            margin: 0.4rem;
+            padding: 1rem 2rem;
+
+            min-width: calc(44% - 4.8rem); // padding + margin = 4.8rem
+
+            background-color: $panelBckColor;
+            border-radius: $panelCorner;
+
+            h2, p {
+                margin: 0.2rem;
+            }
+
+        }
+    }
+
+    #user-fridge {
+        @include flexDisplay(row, flex-start, flex-start);
+        flex-wrap: wrap;
+
+        .fridge-ingredient {
+            @include flexDisplay(row, flex-start, flex-start);
+
+            min-width: calc(50% - 1.4rem);
+
+            margin: 0.7rem;
+
+            .amount,
+            .name {
+                margin: 0;
+                padding: 1rem;
+                border-radius: $smallRounded;
+            }
+            .amount {
+                margin-right: 0.4rem;
+                background-color: $panelAccentColor;
+                white-space: nowrap;
+            }
+            .name {
+                background-color: $panelBckColor;
+                width: 100%;
+
+                font-size: 1.2rem;
+                font-weight: bold;
+            }
+        }
+    }
+
 }

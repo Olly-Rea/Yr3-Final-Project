@@ -7,8 +7,7 @@ use Illuminate\Database\Seeder;
 use App\Models\{Ingredient, Label, Category, Allergen, Trace};
 use Illuminate\Support\Facades\File;
 
-class IngredientSeeder extends Seeder
-{
+class IngredientSeeder extends Seeder {
 
     /**
      * Run the database seeds.

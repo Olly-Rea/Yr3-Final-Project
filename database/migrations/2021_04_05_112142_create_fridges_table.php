@@ -18,7 +18,7 @@ class CreateFridgesTable extends Migration {
         });
         // Create the pivot table for fridge_ingredients
         Schema::create('fridge_ingredients', function (Blueprint $table) {
-            $table->foreignId('fridge_id')->references('id')->on('recipes')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreignId('fridge_id')->references('id')->on('fridges')->onDelete('cascade')->onUpdate('cascade');
             $table->foreignId('ingredient_id')->references('id')->on('ingredients')->onDelete('cascade')->onUpdate('cascade');
             $table->double('amount');
             $table->string('measure')->nullable();

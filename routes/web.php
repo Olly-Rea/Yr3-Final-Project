@@ -18,7 +18,7 @@ Route::get('/', 'StartController@start')->name('welcome');
 
 // Main feed / 'Lucky Dip' routes
 Route::get('/IdeasBoard', 'RecipeController@index')->name('feed');
-Route::get('/LuckyDip', 'RecipeController@random')->name('lucky_dip');
+Route::get('/LuckyDip', 'RecipeController@surprise')->name('lucky_dip');
 
 // View Recipe route
 Route::get('/Recipe/{recipe}', 'RecipeController@show')->name('recipe');

@@ -52,7 +52,7 @@
             <div class="time-wheel info-wheel">
                 <h4>{{ rand(10, 120) }}</h4><h4 class="mins">mins</h4>
             </div>
-            <p>Timeframe</p>
+            <p>Prep time</p>
         </div>
         <div class="difficulty-info">
             <div class="difficulty-wheel info-wheel">
@@ -66,10 +66,13 @@
 <h2>Ingredients:</h2>
 <div id="ingredients-container">
     @foreach($ingredients as $ingredient)
-        <a href="{{ route('ingredient', $ingredient->id) }}" class="ingredient-panel">
+        <div class="ingredient-panel">
             <h3 class="amount">@if($ingredient->pivot->measure != ""){{ $ingredient->pivot->amount }} {{ $ingredient->pivot->measure }}@else{{ $ingredient->pivot->amount }}@endif</h3>
-            <h3 class="name">{{ $ingredient->name }}@if($ingredient->pivot->misc_info != "") <span>({{ $ingredient->pivot->misc_info }})</span>@endif</h3>
-        </a>
+            {{-- <h3 class="name">{{ $ingredient->name }}@if($ingredient->pivot->misc_info != "") <span>({{ $ingredient->pivot->misc_info }})</span>@endif</h3> --}}
+            <a href="{{ route('ingredient', $ingredient->id) }}" class="name">{{ $ingredient->name }}@if($ingredient->pivot->misc_info != "") <span>({{ $ingredient->pivot->misc_info }})</span>@endif</a>
+
+            @if(count($ingredient->alternatives))<p>Alternatives!</p>@endif
+        </div>
         @forelse($ingredient->alternatives as $alternative)
             <div class="alternative-container">
                 <a href="{{ route('ingredient', $alternative->id) }}" class="alternative-panel">

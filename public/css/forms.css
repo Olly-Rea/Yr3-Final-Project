@@ -58,7 +58,7 @@ form p.form-error-msg {
   -ms-flex-item-align: start;
       align-self: flex-start;
   margin: 1.4rem 0;
-  margin-top: -1.2rem;
+  margin-top: 0.2rem;
   color: #f57d91;
 }
 
@@ -211,7 +211,7 @@ button:active,
 input[type="submit"]:active {
   -webkit-box-shadow: 0 0 0.4rem 0 #a0a0a0;
           box-shadow: 0 0 0.4rem 0 #a0a0a0;
-  background-color: #40c894;
+  background-color: #f57d91;
   -webkit-transform: scale(1);
           transform: scale(1);
 }
@@ -254,22 +254,22 @@ label.checkOption input, label.subOption input {
 label.checkOption input:checked ~ .checkbox svg,
 label.checkOption input:checked ~ .checkbox svg, label.subOption input:checked ~ .checkbox svg,
 label.subOption input:checked ~ .checkbox svg {
-  stroke: #f0ecf0;
-  fill: #4be4a9;
+  stroke: #f6f4f8;
+  fill: #f894a4;
 }
 
 label.checkOption:hover input ~ .checkbox svg,
 label.checkOption:hover input ~ .checkbox svg, label.subOption:hover input ~ .checkbox svg,
 label.subOption:hover input ~ .checkbox svg {
-  stroke: #40c894;
-  fill: #f0ecf0;
+  stroke: #f57d91;
+  fill: #f6f4f8;
 }
 
 label.checkOption:hover input:checked ~ .checkbox svg,
 label.checkOption:hover input:checked ~ .checkbox svg, label.subOption:hover input:checked ~ .checkbox svg,
 label.subOption:hover input:checked ~ .checkbox svg {
-  stroke: #f0ecf0;
-  fill: #4be4a9;
+  stroke: #f6f4f8;
+  fill: #f894a4;
 }
 
 label.subOption {
@@ -292,8 +292,8 @@ label.subOption {
           transform: translateY(-50%);
   height: 1.2rem;
   width: 1.2rem;
-  fill: #f0ecf0;
-  stroke: #f0ecf0;
+  fill: #f6f4f8;
+  stroke: #f6f4f8;
   -webkit-transition: fill 0.14s ease-in-out, stroke 0.14s ease-in-out;
   transition: fill 0.14s ease-in-out, stroke 0.14s ease-in-out;
 }

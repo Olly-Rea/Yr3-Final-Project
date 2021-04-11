@@ -82,7 +82,6 @@ class RecipeSeeder extends Seeder {
      * Method to tweak the amount and measure data where required
      */
     private function getAmountandMeasure($data) {
-
         // Convert amount from string to int - Also check for fractions (and convert to doubles if required)
         $numbers = explode(" ", $data->amount);
         $amount = (double) $numbers[0];
@@ -90,7 +89,6 @@ class RecipeSeeder extends Seeder {
             $fraction = explode("/", $numbers[1]);
             $amount += (count($fraction) == 2) ? round($fraction[0] / $fraction[1], 6) : $fraction[0];
         }
-
         // Perform conversion from imperial to metric
         if(isset($this->measures[$data->measure])) {
             $data->amount = round($amount * $this->measures[$data->measure], -1);
@@ -103,7 +101,6 @@ class RecipeSeeder extends Seeder {
         } else {
             $data->amount = $amount;
         }
-
     }
 
     /**
@@ -180,7 +177,7 @@ class RecipeSeeder extends Seeder {
                 }
 
                 // DEBUG output current ingredient-matching success rate
-                if($count > 0 && $count % 250 == 0) {
+                if($count > 0 && $count % 500 == 0) {
                     echo($this->successes/$this->ingred_count."\n");
                 }
 

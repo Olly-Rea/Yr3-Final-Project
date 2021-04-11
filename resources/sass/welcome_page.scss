@@ -2,6 +2,33 @@
 
 main {
 
+    #quick-launch-categories {
+        @include flexDisplay(row, center, flex-start);
+
+        margin: 6rem 0;
+
+        width: 100%;
+
+        overflow-x: scroll;
+
+        .graphic-circle {
+            @include flexDisplay(column, center, center);
+
+            margin: 0 1rem;
+
+            flex-grow: 0;
+            flex-shrink: 0;
+
+            height: 12rem;
+            width: 12rem;
+            border-radius: 50%;
+
+            background-color: $panelBckColor;
+
+            text-align: center;
+        }
+    }
+
     #search-bar-container {
         height: 3.2rem;
         width: 50%;

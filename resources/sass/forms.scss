@@ -20,7 +20,7 @@ form {
         align-self: flex-start;
 
         margin: 1.4rem 0;
-        margin-top: -1.2rem;
+        margin-top: 0.2rem;
         color: $accentDark;
     }
 
@@ -190,7 +190,7 @@ input[type="submit"] {
     &:active {
         box-shadow: 0 0 0.4rem 0 $shdwClr;
 
-        background-color: $appGreenDark;
+        background-color: $accentDark;
         transform: scale(1);
     }
 }
@@ -239,8 +239,8 @@ label {
                 ~ .checkbox,
                 ~ .checkbox {
                     svg {
-                        stroke: $backColor;
-                        fill: $appGreen;
+                        stroke: $panelBckColor;
+                        fill: $accentColor;
                     }
                 }
             }
@@ -252,8 +252,8 @@ label {
                 ~ .checkbox,
                 ~ .checkbox {
                     svg {
-                        stroke: $appGreenDark;
-                        fill: $backColor;
+                        stroke: $accentDark;
+                        fill: $panelBckColor;
                     }
                 }
                 // label.check/subOption:hover input:checked ~ .checkbox,
@@ -261,8 +261,8 @@ label {
                     ~ .checkbox,
                     ~ .checkbox {
                         svg {
-                            stroke: $backColor;
-                            fill: $appGreen;
+                            stroke: $panelBckColor;
+                            fill: $accentColor;
                         }
                     }
                 }
@@ -292,14 +292,14 @@ label {
         height: 1.2rem;
         width: 1.2rem;
 
-        fill: $backColor;
-        stroke: $backColor;
+        fill: $panelBckColor;
+        stroke: $panelBckColor;
 
         transition: fill $transitionTime ease-in-out,
                     stroke $transitionTime ease-in-out;
     }
-
 }
+
 input[type="checkbox"] {
     user-select: none;
 }

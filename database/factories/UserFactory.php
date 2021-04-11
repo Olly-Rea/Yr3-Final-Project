@@ -6,8 +6,8 @@ use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 
-class UserFactory extends Factory
-{
+class UserFactory extends Factory {
+
     /**
      * The name of the factory's corresponding model.
      *
@@ -20,11 +20,10 @@ class UserFactory extends Factory
      *
      * @return array
      */
-    public function definition()
-    {
+    public function definition() {
 
         // Generate the created_at date...
-        $create_date = $this->faker->dateTimeBetween($startDate = '-5 years', $endDate = 'now');
+        $create_date = $this->faker->dateTimeBetween($startDate = '-5 years', $endDate = '-1 days');
         // ...and (possibly) an updated_at date
         $update_date = $create_date;
         // 50% chance of more recent updated date
@@ -40,18 +39,10 @@ class UserFactory extends Factory
             'email_verified_at' => now(),
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
             'remember_token' => null,
-
             // default 'Model' attributes for 'published' and 'edited'
             'created_at' => $create_date,
             'updated_at' => $update_date
         ];
 
-        // return [
-        //     'name' => $this->faker->name,
-        //     'email' => $this->faker->unique()->safeEmail,
-        //     'email_verified_at' => now(),
-        //     'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
-        //     'remember_token' => Str::random(10),
-        // ];
     }
 }

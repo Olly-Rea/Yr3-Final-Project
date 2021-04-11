@@ -26,7 +26,6 @@ class MLContainer {
         // // Get only the names from the collection
         // $ingredients = Ingredient::inRandomOrder()->limit(6)->get(['id','name']);
 
-
         DB::enableQueryLog(); // Enable query log
         $ingredients = Recipe::with('ingredients')->limit(100)->get()->pluck('ingredients', 'id');
 
@@ -34,12 +33,10 @@ class MLContainer {
 
         dd(DB::getQueryLog()); // Show results of log
 
-
         // Run the python script
         $command = escapeshellcmd('python ../resources/scripts/ingredient_pairings.py '.escapeshellarg(json_encode($ingredients)));
         // Get the recipe
         $this->recipe = collect(json_decode(shell_exec($command)));
-
 
         // TODO May require additional formatting here
     }
@@ -50,6 +47,13 @@ class MLContainer {
     public function getRecipe() {
 
         return $this->recipe;
+    }
+
+    /**
+     * Method to train the ML model - to be called on by a task handler
+     */
+    public function trainModel() {
+
     }
 
 }

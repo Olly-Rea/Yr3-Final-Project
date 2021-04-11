@@ -8,6 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Fridge extends Model {
     use HasFactory;
 
+    // State a lack of timestamps
+    public $timestamps = false;
+
     /**
      * The attributes that are mass assignable.
      *
@@ -25,7 +28,8 @@ class Fridge extends Model {
 
     // Ingredient Model relationship
     public function ingredients() {
-        return $this->hasMany('App\Models\Ingredient');
+        return $this->belongsToMany('App\Models\Ingredient', 'fridge_ingredients')
+            ->withPivot('amount', 'measure');
     }
 
 }

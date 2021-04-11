@@ -14,7 +14,7 @@ main {
 
         #recipe-title {
             margin: 2rem 0;
-            max-width: 70%;
+            max-width: 64%;
 
             h1, p {
                 margin: 0.5rem 0;
@@ -170,10 +170,12 @@ main {
                 background-color: $panelBckColor;
                 width: 100%;
 
+                font-size: 1.2rem;
+                font-weight: bold;
+
                 span {
                     color: $foreGray;
                 }
-
             }
         }
         #alternative-container {
