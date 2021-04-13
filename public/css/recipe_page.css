@@ -852,13 +852,13 @@ main #quick-info-container > div {
   -webkit-box-direction: normal;
       -ms-flex-direction: row;
           flex-direction: row;
-  -webkit-box-align: end;
-      -ms-flex-align: end;
-          align-items: flex-end;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
-  margin-top: 2rem;
+  margin-top: 3rem;
 }
 
 main #quick-info-container > div .spice-info,
@@ -885,6 +885,7 @@ main #quick-info-container > div .difficulty-info {
      -moz-user-select: none;
       -ms-user-select: none;
           user-select: none;
+  text-align: center;
 }
 
 main #quick-info-container > div .spice-info .info-wheel,

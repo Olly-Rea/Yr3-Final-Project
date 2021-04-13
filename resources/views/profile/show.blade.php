@@ -12,16 +12,16 @@
 
 <div class="profile-image-container">
     <div class="profile-image">
-        <img src="{{ $user->profileImage() }}" alt="{{ $user->first_name }} {{ $user->last_name }}">
+        <img src="{{ $user->profileImage() }}" alt="{{ $user->profile->first_name }} {{ $user->profile->last_name }}">
     </div>
 </div>
 
-<h1>{{ $user->first_name }} {{ $user->last_name }}</h1>
+<h1>{{ $user->profile->first_name }} {{ $user->profile->last_name }}</h1>
 <div id="about-user">
     <p>About User - coming soon</p>
 </div>
 
-<h2>@if(Request::is('Me'))My @else{{ $user->first_name }}'s @endif()Public Recipes</h2>
+<h2>@if(Request::is('Me'))My @else{{ $user->profile->first_name }}'s @endif()Public Recipes</h2>
 <div id="user-recipes">
 @foreach ($user->recipes as $recipe)
     <a href="{{ route('recipe', $recipe->id) }}" class="recipe-panel">
@@ -31,7 +31,7 @@
 @endforeach
 </div>
 
-<h2>@if(Request::is('Me'))My @else{{ $user->first_name }}'s @endif()ratings</h2>
+<h2>@if(Request::is('Me'))My @else{{ $user->profile->first_name }}'s @endif()ratings</h2>
 <div id="user-ratings">
 @foreach ($user->ratings as $rating)
 

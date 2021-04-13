@@ -21,7 +21,7 @@
             </div>
         </div>
         <div id="name-date-info">
-            <h2>{{ $recipe->user->first_name }} {{ $recipe->user->last_name }}</h2>
+            <h2>{{ $recipe->user->profile->first_name }} {{ $recipe->user->profile->last_name }}</h2>
             <h4><i>{{ date("j F Y", strtotime($recipe->created_at)) }}</i></h4>
         </div>
     </a>
@@ -30,33 +30,36 @@
 <div id="quick-info-container">
     <h2>Based on User reviews:</h2>
     <div>
+        @php
+            $totalRatings = $recipe->ratings->count() > 0 ? $recipe->ratings->count() : 1;
+        @endphp
         <div class="spice-info">
             <div class="spice-wheel info-wheel">
-                <h4>{{ rand(1, 100) }}</h4>
+                <h4>{{ round(($recipe->ratings->sum('spice_value')/$totalRatings)*10) }}</h4>
             </div>
             <p>Spice</p>
         </div>
         <div class="sweet-info">
             <div class="sweet-wheel info-wheel">
-                <h4>{{ rand(1, 100) }}</h4>
+                <h4>{{ round(($recipe->ratings->sum('sweet_value')/$totalRatings)*10) }}</h4>
             </div>
             <p>Sweetness</p>
         </div>
         <div class="sour-info">
             <div class="sour-wheel info-wheel">
-                <h4>{{ rand(1, 100) }}</h4>
+                <h4>{{ round(($recipe->ratings->sum('sour_value')/$totalRatings)*10) }}</h4>
             </div>
             <p>Sourness</p>
         </div>
         <div class="time-info">
             <div class="time-wheel info-wheel">
-                <h4>{{ rand(10, 120) }}</h4><h4 class="mins">mins</h4>
+                <h4>{{ ceil($recipe->ratings->sum('time_taken')/$totalRatings) }}</h4><h4 class="mins">mins</h4>
             </div>
-            <p>Prep time</p>
+            <p>Prep time (avg)</p>
         </div>
         <div class="difficulty-info">
             <div class="difficulty-wheel info-wheel">
-                <h4>{{ rand(1, 10) }}</h4>
+                <h4>{{ round($recipe->ratings->sum('difficulty_value')/$totalRatings, 1) }}</h4>
             </div>
             <p>Difficulty</p>
         </div>
@@ -93,5 +96,16 @@
         <p class="content">{{ $instruction->content }}</p>
     </div>
     @endforeach
+</div>
+@endsection
+
+{{-- Site overlay for review form --}}
+@section('site-overlay')
+<div id="ratings-form">
+    <h1>Please take a couple seconds to review this recipe!</h1>
+    <form action="">
+
+    </form>
+    <p>Not now</p>
 </div>
 @endsection

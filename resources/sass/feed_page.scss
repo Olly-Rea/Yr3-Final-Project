@@ -43,9 +43,9 @@ main {
             }
 
             .quick-info {
-                @include flexDisplay(row, flex-end, center);
+                @include flexDisplay(row, flex-start, center);
 
-                margin-top: 1%;
+                margin-top: 2%;
 
                 .spice-info,
                 .sweet-info,
@@ -56,6 +56,8 @@ main {
                     width: 5.4rem;
 
                     user-select: none;
+
+                    text-align: center;
 
                     .info-wheel {
                         @include flexDisplay(column, center, center);

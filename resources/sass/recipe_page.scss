@@ -82,9 +82,9 @@ main {
         }
 
         > div {
-            @include flexDisplay(row, flex-end, center);
+            @include flexDisplay(row, flex-start, center);
 
-            margin-top: 2rem;
+            margin-top: 3rem;
 
             .spice-info,
             .sweet-info,
@@ -96,6 +96,8 @@ main {
 
                 margin: 0 1rem;
                 user-select: none;
+
+                text-align: center;
 
                 .info-wheel {
                     @include flexDisplay(column, center, center);

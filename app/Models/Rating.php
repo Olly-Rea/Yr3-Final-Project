@@ -16,10 +16,14 @@ class Rating extends Model {
     protected $fillable = [
         'user_id',
         'recipe_id',
+        // Rating values
         'spice_value',
         'sweet_value',
         'sour_value',
-        'difficulty_value'
+        'difficulty_value',
+        'time_taken',
+        // 'Overall feeling' rating
+        'out_of_five'
     ];
 
     // User Model relationship

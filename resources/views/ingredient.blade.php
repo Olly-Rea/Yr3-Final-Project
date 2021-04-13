@@ -35,7 +35,7 @@
     </div>
     <div>
         <div class="info-graphic">
-            <h2>Proteins</h2>
+            <h2>Protein</h2>
         </div>
         <p>@if($ingredient->proteins_100g > 0){{ $ingredient->proteins_100g }}g @else()<i>No data</i>@endif</p>
     </div>

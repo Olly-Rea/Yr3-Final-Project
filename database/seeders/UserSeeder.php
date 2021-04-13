@@ -16,13 +16,15 @@ class UserSeeder extends Seeder {
      */
     public function run() {
 
-        // Remove all Users and Fridges (needed while debugging)
+        // Remove all Users, Profiles, and Fridges (needed while debugging)
         DB::table('users')->delete();
+        DB::table('profiles')->delete();
         DB::table('fridges')->delete();
         DB::table('fridge_ingredients')->delete();
 
         // Seed User Database
         User::factory(400)
+            ->hasProfile(1)
             ->hasFridge(1)
             ->create();
     }

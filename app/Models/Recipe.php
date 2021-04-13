@@ -16,9 +16,7 @@ class Recipe extends Model {
     protected $fillable = [
         'user_id',
         'name',
-        'serves',
-        'prep_time',
-        'cook_time'
+        'serves'
     ];
 
     // User Model relationship

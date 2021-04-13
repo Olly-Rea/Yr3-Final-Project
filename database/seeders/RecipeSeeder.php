@@ -6,7 +6,7 @@ use App\Models\Recipe;
 use Illuminate\Database\Seeder;
 
 // Custom imports
-use App\Models\{Ingredient, Instruction, User};
+use App\Models\{Ingredient, Instruction, Rating, User};
 use Exception;
 use Illuminate\Support\Facades\{DB, File};
 
@@ -113,6 +113,10 @@ class RecipeSeeder extends Seeder {
 
         // Seed Recipe Database
         foreach($recipes as $count => $recipe) {
+
+            // DEBUG - skip previous recipes as they all seed successfully
+            if ($count < 39700) continue;
+
             // get the 'author' of the recipe
             $author = User::inRandomOrder()->first();
 
@@ -127,7 +131,7 @@ class RecipeSeeder extends Seeder {
                 // Create the new recipe
                 $newRecipe = Recipe::create([
                     'user_id' => $author->id,
-                    'name' => $recipe->title,
+                    'name' => trim($recipe->title),
                     'serves' => isset($recipe->serves) ? $recipe->serves : 1,
                 ]);
 
@@ -172,7 +176,29 @@ class RecipeSeeder extends Seeder {
                 foreach($instructions as $instruction) {
                     Instruction::create([
                         'recipe_id' => $newRecipe->id,
-                        'content' => ucfirst(str_replace('|', '', $instruction)),
+                        'content' => ucfirst(str_replace('|', '', $instruction))
+                    ]);
+                }
+
+                // Array to hold userIDs
+                $userIDs = [];
+                // Create some 'ratings' for the recipe (keep between 10 and 64 to preserve some time)
+                for($i = 0, $range = random_int(10, 64); $i < $range; $i++) {
+                    // Get a User (who is not the author or has already 'rated' this recipe)
+                    while(($userID = User::inRandomOrder()->first()->id) == $author->id || in_array($userID, $userIDs));
+                    // Add the $userID to the array
+                    array_push($userIDs, $userID);
+                    // Create the rating
+                    Rating::create([
+                        'user_id' => $userID,
+                        'recipe_id' => $newRecipe->id,
+                        // Random values for each rating
+                        'spice_value' => random_int(0, 10),
+                        'sweet_value' => random_int(0, 10),
+                        'sour_value' => random_int(0, 10),
+                        'difficulty_value' => random_int(0, 10),
+                        'time_taken' => random_int(10, 70),
+                        'out_of_five' => random_int(1, 5)
                     ]);
                 }
 
@@ -194,6 +220,7 @@ class RecipeSeeder extends Seeder {
         // Remove all recipes (needed while debugging)
         DB::table('recipes')->delete();
         DB::table('recipe_ingredients')->delete();
+        DB::table('ratings')->delete();
 
         // The list of filenames to use
         $fileNames = ['recipes_1.json','recipes_2.json','recipes_3.json','recipes_4 (wip).json'];

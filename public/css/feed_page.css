@@ -808,13 +808,13 @@ main .recipe-panel .recipe-title-panel .quick-info {
   -webkit-box-direction: normal;
       -ms-flex-direction: row;
           flex-direction: row;
-  -webkit-box-align: end;
-      -ms-flex-align: end;
-          align-items: flex-end;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
-  margin-top: 1%;
+  margin-top: 2%;
 }
 
 main .recipe-panel .recipe-title-panel .quick-info .spice-info,
@@ -840,6 +840,7 @@ main .recipe-panel .recipe-title-panel .quick-info .difficulty-info {
      -moz-user-select: none;
       -ms-user-select: none;
           user-select: none;
+  text-align: center;
 }
 
 main .recipe-panel .recipe-title-panel .quick-info .spice-info .info-wheel,

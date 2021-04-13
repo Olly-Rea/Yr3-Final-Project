@@ -26,8 +26,6 @@ class User extends Authenticatable {
      * @var array
      */
     protected $fillable = [
-        'first_name',
-        'last_name',
         'email',
         'password',
     ];
@@ -61,6 +59,11 @@ class User extends Authenticatable {
     protected $appends = [
         'profile_photo_url',
     ];
+
+    // Profile Model relationship
+    public function profile() {
+        return $this->hasOne('App\Models\Profile');
+    }
 
     // Fridge Model relationship
     public function fridge() {
