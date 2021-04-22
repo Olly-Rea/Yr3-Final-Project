@@ -28,7 +28,11 @@
         @else
         <a href="{{ route('register') }}"><b>Sign Up!</b></a>
         @endauth
+        @auth
         <a @if(Request::is('TheAiChef'))class="active"@else()href="{{ route('ai_chef') }}"@endif><b>AI Chef</b><p class="beta">beta</p></a>
+        @else
+        <a id="require-register"><b>AI Chef</b><p class="beta">beta</p></a>
+        @endauth
     </div>
 </nav>
 @endsection

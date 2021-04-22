@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 
 // Custom Imports
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
 
 class ProfileController extends Controller {
 
@@ -45,7 +45,36 @@ class ProfileController extends Controller {
      */
     public static function me() {
         if(Auth::check()) {
+            // Check if the User has just been created
             return view('profile.show', ['user' => Auth::user()]);
+        } else {
+            abort(404);
+        }
+    }
+
+    /**
+     * Method to show the Auth User's profile
+     */
+    public static function getStarted() {
+        if(Auth::check()) {
+            // Check if the User has just been created
+            return view('profile.get-started', ['user' => Auth::user()]);
+        }
+    }
+
+    /**
+     * Method to update a User's profile prferences
+     */
+    public function updatePrefs(Request $request) {
+        // Check that the request is ajax
+        if ($request->ajax()) {
+            // Update the Users preferences
+            Auth::user()->profile->update([
+                'spice_pref' => $request->spice,
+                'sweet_pref' => $request->sweet,
+                'sour_pref' => $request->sour,
+                'diff_pref'=> $request->diff
+            ]);
         } else {
             abort(404);
         }

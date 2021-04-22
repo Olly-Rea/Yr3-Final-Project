@@ -34,8 +34,9 @@ $(window).on("load, pageshow", function() {
                     data: {'search': $searchBar.val()},
                     success: function(data) {
                         setTimeout(function () {
+                            showOverlay();
                             $('#results-container').html(data);
-                            $("#site-overlay, #results-container").fadeIn(transitionTime);
+                            $("#results-container").fadeIn(transitionTime);
                         }, transitionTime+1);
                     }
                 });
@@ -47,7 +48,8 @@ $(window).on("load, pageshow", function() {
             // Start the search Timeout
             searchTimeout = setTimeout(function () {
                 if ($('.results-panel').length == 0) {
-                    $("#site-overlay, #results-container").fadeIn(menuTransitionTime);
+                    showOverlay();
+                    $("#results-container").fadeIn(menuTransitionTime);
                 }
             }, transitionTime+1);
         }

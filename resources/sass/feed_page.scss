@@ -74,13 +74,13 @@ main {
                         }
 
                         &.spice-wheel {
-                            background-color: rgba(200, 100, 100, 0.7);
+                            background-color: $spiceColor;
                         }
                         &.sweet-wheel {
-                            background-color: rgba(100, 100, 200, 0.7);
+                            background-color: $sweetColor;
                         }
                         &.sour-wheel {
-                            background-color: rgba(100, 200, 100, 0.7);
+                            background-color: $sourColor;
                         }
                         &.time-wheel {
                             text-align: center;
@@ -92,7 +92,7 @@ main {
 
                         }
                         &.difficulty-wheel {
-                            background-color: rgba(200, 200, 100, 0.7);
+                            background-color: $diffColor;
                         }
                     }
 

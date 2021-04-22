@@ -7,14 +7,7 @@ use Illuminate\Database\Seeder;
 
 // Custom imports
 use App\Models\{Ingredient, Instruction, Rating, User};
-use Exception;
 use Illuminate\Support\Facades\{DB, File};
-
-
-// SQLSTATE[22001]: String data, right truncated: 1406 Data too long for column 'misc_info' at row 1
-// (SQL: insert into `recipe_ingredients` (`amount`, `ingred_id`, `measure`, `misc_info`, `recipe_id`)
-// values (6, 8459, , minutes until they are soft and dry. shake and stir constantly to prevent them from burning if necessary, reduce or remove from occassionally to let it cool for a few moments before returning it to . stir in kebbeh and when it begins to splutter add ginger, fenugreek, cardamom, 15968))
-
 
 class RecipeSeeder extends Seeder {
 
@@ -115,7 +108,7 @@ class RecipeSeeder extends Seeder {
         foreach($recipes as $count => $recipe) {
 
             // DEBUG - skip previous recipes as they all seed successfully
-            if ($count < 39700) continue;
+            if ($count < 9000) continue;
 
             // get the 'author' of the recipe
             $author = User::inRandomOrder()->first();
@@ -223,7 +216,9 @@ class RecipeSeeder extends Seeder {
         DB::table('ratings')->delete();
 
         // The list of filenames to use
-        $fileNames = ['recipes_1.json','recipes_2.json','recipes_3.json','recipes_4 (wip).json'];
+        // $fileNames = ['recipes_1.json','recipes_2.json','recipes_3.json','recipes_4 (wip).json'];
+        $fileNames = ['recipes_2.json','recipes_3.json','recipes_4 (wip).json'];
+
         // Loop through and seed from each JSON file provided
         foreach($fileNames as $fileName) {
             echo("Seeding from ".$fileName."\n");

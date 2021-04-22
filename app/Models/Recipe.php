@@ -40,4 +40,13 @@ class Recipe extends Model {
         return $this->hasMany('App\Models\Rating');
     }
 
+    // Method to get any allergens a Recipe might contain
+    public function allergens() {
+        return $this->hasManyThrough('Allergen', 'Ingredient');
+    }
+    // Method to get any traces a Recipe might contain
+    public function traces() {
+        return $this->hasManyThrough('Trace', 'Ingredient');
+    }
+
 }

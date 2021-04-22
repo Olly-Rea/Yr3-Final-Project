@@ -13,7 +13,7 @@ form {
         align-self: center;
     }
     a {
-        margin: 2vh 0;
+        margin: 2rem 0;
     }
 
     p.form-error-msg {
@@ -65,22 +65,26 @@ form {
 
     }
     .form-row {
-        @include flexDisplay(row, center, center);
+        @include flexDisplay(row, center, space-between);
 
         width: 100%;
 
-        textarea,
-        input:not([type="checkbox"]) {
-            width: 49%;
+        .form-item {
+            @include flexDisplay(column, flex-start, flex-start);
+            width: 48%;
 
-            &:first-child {
-                margin-right: 2%;
+            textarea,
+            input:not([type="checkbox"]) {
+                width: 100%;
+
+                // &:first-child {
+                //     margin-right: 2%;
+                // }
             }
         }
-
     }
 
-    label {
+    > label {
         align-self: flex-start;
         margin-top: 1rem;
         margin-left: 0.4rem;
@@ -135,7 +139,7 @@ input:not([type="submit"],[type="checkbox"]) {
 //     width: calc(100% - 1.44rem);
 
 //     padding: 0.72rem;
-//     margin-bottom: 2vh;
+//     margin-bottom: 2rem;
 
 //     font-size: 1.28rem;
 
@@ -163,7 +167,7 @@ button,
 input[type="submit"] {
     min-width: 8rem;
 
-    padding: 1vh 2vh;
+    padding: 1rem 2rem;
     margin: 1rem;
 
     border-width: 0.24rem;
@@ -210,7 +214,7 @@ label {
         display: inline-block;
         position: relative;
         margin: 0;
-        margin-bottom: 0.6vh;
+        margin-bottom: 0.6rem;
 
         height: 1.4rem;
         width: 0;
@@ -271,7 +275,7 @@ label {
     }
 
     &.subOption {
-        transform: translate(3.4vh);
+        transform: translate(3.4rem);
     }
 
 }
@@ -303,5 +307,83 @@ label {
 input[type="checkbox"] {
     user-select: none;
 }
+
+
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ *                 Range slider properties                 *
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+.slider-container {
+    @include flexDisplay(row, center, flex-start);
+
+    margin: 1rem 0;
+    width: 100%;
+
+    .slider-range {
+        height: 0.6rem;
+        width: 100%;
+
+        outline: none;
+        border: none;
+
+        background: $panelAccentColor;
+        border-radius: 10rem;
+    }
+    .ui-slider {
+        position: relative;
+        text-align: left;
+    }
+
+    .ui-slider-handle,
+    .ui-slider-range {
+        transition: background 0.3s ease-in-out;
+    }
+    .ui-slider-handle {
+        position: absolute;
+
+        border: 0;
+        border-radius: 50%;
+
+        width: 1.5rem;
+        height: 1.5rem;
+
+        cursor: pointer;
+
+        transform: translateX(-20%);
+
+        touch-action: none;
+
+        &:focus {
+            outline: none;
+        }
+        &:active {
+            transform: translateX(-20%) scale(1.2);
+        }
+    }
+
+    .ui-slider-range {
+        position: absolute;
+        display: block;
+
+        border: 0;
+        border-radius: 50px;
+
+        background-position: 0 0;
+        // background: $ucBlueDark;
+        height: 0.4rem;
+    }
+
+
+    .min-amount {
+        text-align: right;
+        margin-right: 1.5rem !important;
+    }
+    .max-amount {
+        margin-left: 1.5rem !important;
+    }
+
+
+}
+
+
 
 

@@ -2,7 +2,7 @@
 
 namespace App\Actions\Fortify;
 
-use App\Models\{User, Profile, Fridge};
+use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Laravel\Fortify\Contracts\CreatesNewUsers;
@@ -41,24 +41,20 @@ class CreateNewUser implements CreatesNewUsers
             'site_admin' => false,
         ]);
         // Create the User profile
-        $user->profile()->save(
-            Profile::create([
-                // User name
-                'first_name' => $first_name,
-                'last_name' => $last_name,
-                // Default preferences
-                'spice_pref' => 5,
-                'sweet_pref' => 5,
-                'sour_pref' => 5,
-                'diff_pref' => 5
-            ])
-        );
+        $user->profile()->create([
+            // User name
+            'first_name' => $first_name,
+            'last_name' => $last_name,
+            // Default preferences
+            'spice_pref' => 5,
+            'sweet_pref' => 5,
+            'sour_pref' => 5,
+            'diff_pref' => 5
+        ]);
         // Create the new Users 'fridge'
-        $user->fridge()->save(
-            Fridge::create([
-                'name' => 'Default'
-            ])
-        );
+        $user->fridge()->create([
+            'name' => 'Default'
+        ]);
 
         // return the User
         return $user;

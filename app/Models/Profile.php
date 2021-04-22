@@ -18,6 +18,7 @@ class Profile extends Model
      * @var array
      */
     protected $fillable = [
+        'user_id',
         // User name
         'first_name',
         'last_name',
@@ -31,6 +32,11 @@ class Profile extends Model
     // User Model relationship
     public function user() {
         return $this->hasOne('App\Models\User');
+    }
+
+    // Allergen model relationship
+    public function allergens() {
+        return $this->belongsToMany('App\Models\Allergen', 'profile_allergens');
     }
 
 }

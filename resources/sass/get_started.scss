@@ -1,0 +1,300 @@
+// Import from forms
+@import 'global';
+
+body {
+    nav {
+        @include flexDisplay(row, center, flex-end);
+
+        #site-links,
+        #logout-button {
+            @include flexDisplay(row, center, space-between);
+
+            height: 80%;
+
+            margin: 0 0.5rem;
+            border-radius: $smallRounded;
+
+            user-select: none;
+        }
+
+        #site-links {
+            position: relative;
+
+            margin-right: 2rem;
+            padding: 0 1.2rem;
+
+            background-color: $backFocus;
+
+            #progress {
+                position: absolute;
+                z-index: 0;
+                top: 0;
+                left: 0;
+
+                height: 100%;
+                background-color: $backActive;
+
+                border-radius: $smallRounded;
+            }
+
+            h3 {
+                z-index: 1;
+                margin: 0 1rem;
+                width: 25%;
+                white-space: nowrap;
+            }
+        }
+        #logout-button {
+            cursor: pointer;
+            padding: 0 1.6rem;
+
+            &:hover {
+                background-color: $backFocus;
+            }
+            &:active {
+                background-color: $backActive;
+            }
+        }
+
+    }
+
+    main {
+        padding: 0;
+        min-height: 100vh;
+
+        .fullscreen {
+            min-height: 76vh;
+            padding: 12vh 0;
+            width: 100%;
+        }
+
+        #greeting-page,
+        #profile-form,
+        #allergen-form,
+        #prefs-form,
+        #fridge-form {
+            @include flexDisplay(column, center, center);
+
+            form {
+                margin-bottom: auto;
+            }
+
+            .nav-items {
+                @include flexDisplay(row, center, center);
+
+                h3 {
+                    margin: 0.8rem;
+
+                    cursor: pointer;
+
+                    transition: transform $transitionTime ease-in-out,
+                                color $transitionTime ease-in-out;
+
+                    &:hover {
+                        transform: scale(1.04);
+                    }
+                    &:active {
+                        color: $foreGray;
+                        transform: scale(0.96);
+                    }
+
+                }
+            }
+
+        }
+        #profile-form,
+        #allergen-form,
+        #prefs-form,
+        #fridge-form {
+            h1, p {
+                align-self: flex-start;
+                margin: 0.2rem 0;
+            }
+
+            form {
+                margin: 2rem 0;
+                width: 100%;
+            }
+        }
+
+        #profile-form {
+            .profile-image-container {
+                align-self: center;
+
+                position: relative;
+
+                margin: 4rem 0;
+                width: 18rem;
+
+                overflow: hidden;
+
+                &:hover {
+                    .edit-overlay {
+                        opacity: 1;
+                    }
+                }
+                &:active {
+                    .edit-overlay {
+                        opacity: 1;
+                    }
+                }
+
+                .edit-overlay {
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+
+                    @include flexDisplay(column, center, center);
+
+                    height: 100%;
+                    width: 100%;
+
+                    background-color: $overlayColor;
+                    opacity: 0;
+
+                    transition: opacity $transitionTime ease-in-out;
+
+                    .menu-item {
+                        svg {
+                            fill: $panelBckColor;
+
+                            max-height: 6rem;
+                            max-width: 6rem;
+
+                            cursor: pointer;
+
+                            transition: fill $transitionTime ease-in-out,
+                                        transform $transitionTime ease-in-out;
+
+                            &:hover {
+                                fill: $panelAccentColor;
+                                transform: scale(1.1);
+                            }
+                            &:active {
+                                fill: $foreLight;
+                                transform: scale(0.96);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        #allergen-form,
+        #fridge-form {
+            .search-bar,
+            .item-container {
+                margin: 2rem 0;
+            }
+
+            .search-bar {
+                width: 100%;
+            }
+            .item-container {
+                @include flexDisplay(row, flex-start, flex-start);
+                flex-wrap: wrap;
+
+                min-height: calc(20vh - 4rem);
+                width: calc(100% - 4rem);
+
+                padding: 1rem;
+
+                background-color: $panelAccentColor;
+                border-radius: $panelCorner;
+
+                > p {
+                    width: 100%;
+
+                    align-self: center;
+                    text-align: center;
+                }
+
+                .item {
+                    @include flexDisplay(row, center, center);
+                    flex-grow: 1;
+
+                    margin: 0.6rem;
+                    padding: 0 1rem;
+
+                    cursor: pointer;
+
+                    background-color: $panelBckColor;
+                    border-radius: $smallRounded;
+
+                    .selected {
+                        background-color: $appGreenLight !important;
+                    }
+                    .removed {
+                        background-color: $accentFaint !important;
+                    }
+                }
+
+
+            }
+        }
+
+        #prefs-form {
+
+            label,
+            p {
+                margin: 0;
+            }
+
+            label {
+                margin-top: 2rem;
+
+                font-size: 1.4rem;
+                font-weight: bold;
+            }
+
+            #spice-slider {
+                .ui-slider-handle {
+                    background: $spiceColor;
+                    &:active {
+                        background: $spiceColor;
+                    }
+                }
+                .ui-slider-range {
+                    background: $spiceMuted;
+                }
+            }
+            #sweet-slider {
+                .ui-slider-handle {
+                    background: $sweetColor;
+                    &:active {
+                        background: $sweetColor;
+                    }
+                }
+                .ui-slider-range {
+                    background: $sweetMuted;
+                }
+            }
+            #sour-slider {
+                .ui-slider-handle {
+                    background: $sourColor;
+                    &:active {
+                        background: $sourColor;
+                    }
+                }
+                .ui-slider-range {
+                    background: $sourMuted;
+                }
+            }
+            #diff-slider {
+                .ui-slider-handle {
+                    background: $diffColor;
+                    &:active {
+                        background: $diffColor;
+                    }
+                }
+                .ui-slider-range {
+                    background: $diffMuted;
+                }
+            }
+
+        }
+
+    }
+}
+
+

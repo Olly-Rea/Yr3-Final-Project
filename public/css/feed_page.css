@@ -51,7 +51,7 @@ form input {
 }
 
 form a {
-  margin: 2vh 0;
+  margin: 2rem 0;
 }
 
 form p.form-error-msg {
@@ -113,23 +113,35 @@ form .form-row {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
   width: 100%;
 }
 
-form .form-row textarea,
-form .form-row input:not([type="checkbox"]) {
-  width: 49%;
+form .form-row .form-item {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  width: 48%;
 }
 
-form .form-row textarea:first-child,
-form .form-row input:not([type="checkbox"]):first-child {
-  margin-right: 2%;
+form .form-row .form-item textarea,
+form .form-row .form-item input:not([type="checkbox"]) {
+  width: 100%;
 }
 
-form label {
+form > label {
   -ms-flex-item-align: start;
       align-self: flex-start;
   margin-top: 1rem;
@@ -182,7 +194,7 @@ textarea {
 button,
 input[type="submit"] {
   min-width: 8rem;
-  padding: 1vh 2vh;
+  padding: 1rem 2rem;
   margin: 1rem;
   border-width: 0.24rem;
   border-color: #0a0a0a;
@@ -228,7 +240,7 @@ label.checkOption, label.subOption {
   display: inline-block;
   position: relative;
   margin: 0;
-  margin-bottom: 0.6vh;
+  margin-bottom: 0.6rem;
   height: 1.4rem;
   width: 0;
   font-weight: normal;
@@ -273,8 +285,8 @@ label.subOption:hover input:checked ~ .checkbox svg {
 }
 
 label.subOption {
-  -webkit-transform: translate(3.4vh);
-          transform: translate(3.4vh);
+  -webkit-transform: translate(3.4rem);
+          transform: translate(3.4rem);
 }
 
 .checkbox {
@@ -305,10 +317,92 @@ input[type="checkbox"] {
           user-select: none;
 }
 
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ *                 Range slider properties                 *
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+.slider-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  margin: 1rem 0;
+  width: 100%;
+}
+
+.slider-container .slider-range {
+  height: 0.6rem;
+  width: 100%;
+  outline: none;
+  border: none;
+  background: #eceaee;
+  border-radius: 10rem;
+}
+
+.slider-container .ui-slider {
+  position: relative;
+  text-align: left;
+}
+
+.slider-container .ui-slider-handle,
+.slider-container .ui-slider-range {
+  -webkit-transition: background 0.3s ease-in-out;
+  transition: background 0.3s ease-in-out;
+}
+
+.slider-container .ui-slider-handle {
+  position: absolute;
+  border: 0;
+  border-radius: 50%;
+  width: 1.5rem;
+  height: 1.5rem;
+  cursor: pointer;
+  -webkit-transform: translateX(-20%);
+          transform: translateX(-20%);
+  -ms-touch-action: none;
+      touch-action: none;
+}
+
+.slider-container .ui-slider-handle:focus {
+  outline: none;
+}
+
+.slider-container .ui-slider-handle:active {
+  -webkit-transform: translateX(-20%) scale(1.2);
+          transform: translateX(-20%) scale(1.2);
+}
+
+.slider-container .ui-slider-range {
+  position: absolute;
+  display: block;
+  border: 0;
+  border-radius: 50px;
+  background-position: 0 0;
+  height: 0.4rem;
+}
+
+.slider-container .min-amount {
+  text-align: right;
+  margin-right: 1.5rem !important;
+}
+
+.slider-container .max-amount {
+  margin-left: 1.5rem !important;
+}
+
 body,
 html {
   margin: 0 !important;
   width: 100%;
+  height: 100vh;
   font: 12pt "C&L Regular";
   line-height: 1.2;
   color: #0a0a0a;
@@ -339,6 +433,11 @@ svg {
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  *               Main view-window properties               *
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+body.no-scroll {
+  overflow: hidden;
+  padding-right: 1rem;
+}
+
 body nav {
   z-index: 5;
   position: absolute;
@@ -654,6 +753,86 @@ body #site-overlay #site-overlay-background {
   background-color: rgba(0, 0, 0, 0.4);
 }
 
+body #site-overlay .prompt {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: scale(1) translate(-50%, -50%);
+          transform: scale(1) translate(-50%, -50%);
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  height: 18rem;
+  width: 28rem;
+  background-color: #f6f4f8;
+  border-radius: 1.6rem;
+  -webkit-transform-origin: 0 0;
+          transform-origin: 0 0;
+  -webkit-transition: -webkit-transform calc(0.14s*2) ease-in-out;
+  transition: -webkit-transform calc(0.14s*2) ease-in-out;
+  transition: transform calc(0.14s*2) ease-in-out;
+  transition: transform calc(0.14s*2) ease-in-out, -webkit-transform calc(0.14s*2) ease-in-out;
+}
+
+body #site-overlay .prompt.hidden {
+  -webkit-transform: scale(0) translate(-50%, -50%);
+          transform: scale(0) translate(-50%, -50%);
+}
+
+body #site-overlay .prompt h1 {
+  margin: 0;
+}
+
+body #site-overlay .prompt .message {
+  margin: 0.4rem 0;
+  margin-bottom: 2.8rem;
+  text-align: center;
+}
+
+body #site-overlay .prompt form {
+  margin: 0;
+}
+
+body #site-overlay .prompt form input {
+  margin: 0;
+}
+
+body #site-overlay .prompt button {
+  margin: 0.2rem 0;
+}
+
+body #site-overlay .prompt > p.close-prompt {
+  color: #0a0a0a;
+  -webkit-transform-origin: 50% 100%;
+          transform-origin: 50% 100%;
+  cursor: pointer;
+  -webkit-transition: color 0.14s ease-in-out, -webkit-transform 0.14s ease-in-out;
+  transition: color 0.14s ease-in-out, -webkit-transform 0.14s ease-in-out;
+  transition: transform 0.14s ease-in-out, color 0.14s ease-in-out;
+  transition: transform 0.14s ease-in-out, color 0.14s ease-in-out, -webkit-transform 0.14s ease-in-out;
+}
+
+body #site-overlay .prompt > p.close-prompt:hover {
+  -webkit-transform: scale(1.04);
+          transform: scale(1.04);
+}
+
+body #site-overlay .prompt > p.close-prompt:active {
+  color: #787878;
+  -webkit-transform: scale(0.96);
+          transform: scale(0.96);
+}
+
 body footer {
   height: 12rem;
   background: -webkit-gradient(linear, left top, left bottom, from(rgba(0, 0, 0, 0)), to(gainsboro));
@@ -881,7 +1060,7 @@ main .recipe-panel .recipe-title-panel .quick-info .sweet-info .info-wheel.spice
 main .recipe-panel .recipe-title-panel .quick-info .sour-info .info-wheel.spice-wheel,
 main .recipe-panel .recipe-title-panel .quick-info .time-info .info-wheel.spice-wheel,
 main .recipe-panel .recipe-title-panel .quick-info .difficulty-info .info-wheel.spice-wheel {
-  background-color: rgba(200, 100, 100, 0.7);
+  background-color: #c06c6c;
 }
 
 main .recipe-panel .recipe-title-panel .quick-info .spice-info .info-wheel.sweet-wheel,
@@ -889,7 +1068,7 @@ main .recipe-panel .recipe-title-panel .quick-info .sweet-info .info-wheel.sweet
 main .recipe-panel .recipe-title-panel .quick-info .sour-info .info-wheel.sweet-wheel,
 main .recipe-panel .recipe-title-panel .quick-info .time-info .info-wheel.sweet-wheel,
 main .recipe-panel .recipe-title-panel .quick-info .difficulty-info .info-wheel.sweet-wheel {
-  background-color: rgba(100, 100, 200, 0.7);
+  background-color: #7070d1;
 }
 
 main .recipe-panel .recipe-title-panel .quick-info .spice-info .info-wheel.sour-wheel,
@@ -897,7 +1076,7 @@ main .recipe-panel .recipe-title-panel .quick-info .sweet-info .info-wheel.sour-
 main .recipe-panel .recipe-title-panel .quick-info .sour-info .info-wheel.sour-wheel,
 main .recipe-panel .recipe-title-panel .quick-info .time-info .info-wheel.sour-wheel,
 main .recipe-panel .recipe-title-panel .quick-info .difficulty-info .info-wheel.sour-wheel {
-  background-color: rgba(100, 200, 100, 0.7);
+  background-color: #78be78;
 }
 
 main .recipe-panel .recipe-title-panel .quick-info .spice-info .info-wheel.time-wheel,
@@ -922,6 +1101,6 @@ main .recipe-panel .recipe-title-panel .quick-info .sweet-info .info-wheel.diffi
 main .recipe-panel .recipe-title-panel .quick-info .sour-info .info-wheel.difficulty-wheel,
 main .recipe-panel .recipe-title-panel .quick-info .time-info .info-wheel.difficulty-wheel,
 main .recipe-panel .recipe-title-panel .quick-info .difficulty-info .info-wheel.difficulty-wheel {
-  background-color: rgba(200, 200, 100, 0.7);
+  background-color: #d8d870;
 }
 /*# sourceMappingURL=feed_page.css.map */

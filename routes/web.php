@@ -13,24 +13,35 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Welcome route
-Route::get('/', 'StartController@start')->name('welcome');
-
-// Main feed / 'Lucky Dip' routes
-Route::get('/IdeasBoard', 'RecipeController@index')->name('feed');
-Route::get('/LuckyDip', 'RecipeController@surprise')->name('lucky_dip');
-
-// View Recipe route
-Route::get('/Recipe/{recipe}', 'RecipeController@show')->name('recipe');
-// View Ingredient Data route
-Route::get('/Ingredient/{ingredient}', 'IngredientController@show')->name('ingredient');
-// View Profile routes
-Route::get('/Profile/{user}', 'ProfileController@show')->name('profile');
-// Get Search results route
+// Main search bar results route
 Route::get('/Search', 'SearchController@search')->name('search');
+// Individual item search routes
+Route::get('/Search/Ingredient', 'SearchController@ingredient')->name('search.ingredient');
+Route::get('/Search/Recipe', 'SearchController@recipe')->name('search.recipe');
+Route::get('/Search/Allergen', 'SearchController@allergen')->name('search.allergen');
 
-// Routes that can only be used by Auth users
-Route::middleware(['auth:sanctum'])->group(function () {
+// Routes that can be used by guests or Auth users who have setup an account
+Route::middleware(['guestorauthsetup'])->group(function () {
+    // Welcome route
+    Route::get('/', 'StartController@start')->name('welcome');
+
+    // Main feed / 'Lucky Dip' routes
+    Route::get('/IdeasBoard', 'RecipeController@index')->name('feed');
+    Route::get('/LuckyDip', 'RecipeController@surprise')->name('lucky_dip');
+
+    // View Recipe route
+    Route::get('/Recipe/{recipe}', 'RecipeController@show')->name('recipe');
+    // View Ingredient Data route
+    Route::get('/Ingredient/{ingredient}', 'IngredientController@show')->name('ingredient');
+    // View Profile routes
+    Route::get('/Profile/{user}', 'ProfileController@show')->name('profile');
+});
+
+// Routes that can only be used by Auth users who have setup an account
+Route::middleware(['authsetup'])->group(function () {
+    // Route to display on first creation of a User
+    Route::get('/GetStarted', 'ProfileController@getStarted')->name('auth.setup');
+
     // Routes to display, edit and delete the Auth user profile
     Route::get('/Me', 'ProfileController@me')->name('me');
     Route::post('/Me/update', 'ProfileController@update')->name('me.update');
@@ -45,7 +56,3 @@ Route::middleware(['auth:sanctum'])->group(function () {
     // View results created by the AI chef
     Route::get('/TheAiChef', 'RecipeController@showAI')->name('ai_chef');
 });
-
-// Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
-//     return view('dashboard');
-// })->name('dashboard');

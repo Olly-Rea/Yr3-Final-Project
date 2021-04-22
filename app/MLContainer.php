@@ -27,7 +27,7 @@ class MLContainer {
         // $ingredients = Ingredient::inRandomOrder()->limit(6)->get(['id','name']);
 
         DB::enableQueryLog(); // Enable query log
-        $ingredients = Recipe::with('ingredients')->limit(100)->get()->pluck('ingredients', 'id');
+        $ingredients = Recipe::with('ingredients:name')->limit(100)->get();//->pluck('ingredients', 'id');
 
         dd($ingredients);
 

@@ -23,6 +23,13 @@ class CreateAllergensTable extends Migration {
             $table->foreignId('allergen_id')->references('id')->on('allergens')->onDelete('cascade')->onUpdate('cascade');
             $table->unique(['ingredient_id', 'allergen_id']);
         });
+
+        // Create pivot table for profile_allergens
+        Schema::create('profile_allergens', function (Blueprint $table) {
+            $table->foreignId('profile_id')->references('id')->on('profiles')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreignId('allergen_id')->references('id')->on('allergens')->onDelete('cascade')->onUpdate('cascade');
+            $table->unique(['profile_id', 'allergen_id']);
+        });
     }
 
     // /**

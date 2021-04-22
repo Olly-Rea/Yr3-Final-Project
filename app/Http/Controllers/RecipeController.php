@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 // Custom imports
 use Illuminate\Support\Facades\Auth;
 use App\Models\Recipe;
+use phpDocumentor\Reflection\PseudoTypes\False_;
 
 class RecipeController extends Controller {
     // Number of items to show per page
@@ -48,8 +49,29 @@ class RecipeController extends Controller {
         $ingredients = $recipe->ingredients()->with(['alternatives' => function ($query) use ($recipe) {
             $query->where('recipe_id', '=', $recipe->id);
         }])->get();
+
+        // Check if a logged in User needs warning about possible allergens/traces
+        if (Auth::check()) {
+            // Get recipe and User Allergens
+            $recipeAllergens = $recipe->allergens;
+            $userAllergens = Auth::user()->allergens;
+            // Get recipe and User Traces
+            $recipeTraces = $recipe->traces;
+            $userTraces = Auth::user()->traces;
+            // Get the shared allergens and/or traces
+            $userAllergens->each(function ($value, $key) use ($recipeAllergens) {
+                return $recipeAllergens->contains($value);
+            });
+            $userTraces->each(function ($value, $key) use ($recipeTraces) {
+                return $recipeTraces->contains($value);
+            });
+        } else {
+            $userAllergens = [];
+            $userTraces = [];
+        }
+
         //Return the recipe with it's included ingredients
-        return view('recipe', ['recipe' => $recipe, 'ingredients' => $ingredients]);
+        return view('recipe', ['recipe' => $recipe, 'ingredients' => $ingredients, 'hasAllergens' => $userAllergens, 'hasTraces' => $userTraces]);
     }
 
     /**
@@ -62,7 +84,11 @@ class RecipeController extends Controller {
 
         // Check to see if a User is logged in
         if(count(Auth::user()->fridge->ingredients) == 0) {
+
+
             return $this->show($recipe);
+
+
         } else {
             return $this->show($recipe);
         }
@@ -81,4 +107,21 @@ class RecipeController extends Controller {
         return view('ai-chef', ['recipe' => $recipe]);
     }
 
+    /**
+     * Method to create a new Recipe
+     */
+    public function create() {
+
+
+
+    }
+
 }
+
+// TODO Surprise me feature - based on User fridge
+
+// TODO Recommendations based on User preferences
+
+// TODO Warnings if Allergens/Traces contained in recipe
+
+// TODO Warnings if Recipe outside of Users normal taste preferences

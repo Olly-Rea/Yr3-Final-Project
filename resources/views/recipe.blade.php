@@ -7,8 +7,19 @@
 @section('title')Recipe App - {{ $recipe->name }}@endsection
 
 @section('content')
-{{-- Top bar for all recipe quick-info --}}
+{{-- Warnings panel --}}
+@if(count($hasAllergens) > 0)
+<div class="warning-panel">
+    <h3>Warning! This recipe contains ingredients indicated to contain the following allergens: [{{ $hasAllergens }}]</h3>
+</div>
+@endif
+@if(count($hasTraces) > 0)
+<div class="warning-panel">
+    <h3>Warning! This recipe contains ingredients indicated to contain the following traces: [[{{ $hasTraces }}]]</h3>
+</div>
+@endif
 
+{{-- Top bar for all recipe quick-info --}}
 <div id="recipe-title-container">
     <div id="recipe-title">
         <h1><b>{{ $recipe->name }}</b></h1>

@@ -44,6 +44,8 @@ $backAccent: rgb(241, 239, 242);
 $backFocus: rgb(224, 224, 224);
 $backActive: rgb(216, 216, 216);
 
+$overlayColor: rgba(0,0,0,0.4);
+
 // Footer colours
 $footerColor: rgb(220, 220, 220);
 
@@ -61,6 +63,16 @@ $appGreenDark: rgb(64, 200, 148);
 $appBlueLight: rgb(75, 199, 228);
 $appBlue: rgb(75, 169, 228);
 $appBlueDark: rgb(55, 149, 208);
+
+// Preference Colours
+$spiceColor: rgb(192, 108, 108);
+$spiceMuted: rgb(206, 136, 136);
+$sweetColor: rgb(112, 112, 209);
+$sweetMuted: rgb(136, 136, 218);
+$sourColor: rgb(120, 190, 120);
+$sourMuted: rgb(154, 206, 154);
+$diffColor: rgb(216, 216, 112);
+$diffMuted: rgb(224, 224, 165);
 
 // Panel colours
 $panelBckColor: rgb(246,244,248);

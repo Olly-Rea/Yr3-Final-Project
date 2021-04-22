@@ -14,16 +14,16 @@ class DatabaseSeeder extends Seeder {
     public function run() {
         echo("\n");
 
-        // // Call on Ingredient Seeder
-        // $this->call(IngredientSeeder::class);
+        // Call on Ingredient Seeder
+        $this->call(IngredientSeeder::class);
 
-        // // Call on User Seeder
-        // $this->call(UserSeeder::class);
-        // // Call on Fridge Seeder
-        // $this->call(FridgeSeeder::class);
+        // Call on User Seeder
+        $this->call(UserSeeder::class);
+        // Call on Fridge Seeder
+        $this->call(FridgeSeeder::class);
 
-        // // Call on Characteristic Seeder
-        // $this->call(CharacteristicSeeder::class);
+        // Call on Characteristic Seeder
+        $this->call(CharacteristicSeeder::class);
         // Call on Recipe Seeder
         $this->call(RecipeSeeder::class);
     }

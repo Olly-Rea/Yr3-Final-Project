@@ -24,6 +24,14 @@
         </main>
         <div id="site-overlay" style="display: none">
             <div id="site-overlay-background"></div>
+            @guest
+                <div id="sign-up" class="prompt hidden" style="display: none">
+                    <h1>Account required!</h1>
+                    <p class="message"></p>
+                    <button>Sign up now!</button>
+                    <p class="close-prompt">Maybe later</p>
+                </div>
+            @endguest
             @yield('site-overlay')
         </div>
         <footer>

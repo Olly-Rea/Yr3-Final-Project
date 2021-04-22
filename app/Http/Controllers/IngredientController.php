@@ -14,6 +14,4 @@ class IngredientController extends Controller {
         return view('ingredient', ['ingredient' => $ingredient]);
     }
 
-
-
 }
