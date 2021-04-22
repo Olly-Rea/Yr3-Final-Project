@@ -8,6 +8,7 @@ use App\Models\Allergen;
 use Illuminate\Http\Request;
 use App\Models\Ingredient;
 use App\Models\Recipe;
+use Illuminate\Support\Facades\Auth;
 
 class SearchController extends Controller {
 
@@ -45,16 +46,18 @@ class SearchController extends Controller {
     }
 
     /**
-     * Method to return the results from an allergen search
+     * Method to return the results from an allergen search (not including ones the user has already indicated)
      */
     public function allergen(Request $request) {
         // Check that the request is AJAX
         if ($request->ajax()) {
+
+            // dd(Auth::user()->profile->allergens->map(function ($item, $key) { return $item->id; }));
+
             // Get the results from the query
-            $results = Allergen::where("name", "LIKE", "%".$request->search."%")->limit($this->pagination)->get();
-
-            // dd($results);
-
+            $results = Allergen::where("name", "LIKE", "%".$request->search."%")
+                ->whereNotIn('id', Auth::user()->profile->allergens->map(function ($item, $key) { return $item->id; }))
+                ->limit($this->pagination)->get();
             // return the paginated list of recipes matching the user's search
             return view('components.item-container', ['results' => $results])->render();
         // Else return a 404 not found error
@@ -64,16 +67,15 @@ class SearchController extends Controller {
     }
 
     /**
-     * Method to return the results from an ingredient search
+     * Method to return the results from an ingredient search (not including ones the user has already indicated)
      */
     public function ingredient(Request $request) {
         // Check that the request is AJAX
         if ($request->ajax()) {
             // Get the results from the query
-            $results = Ingredient::where("name", "LIKE", "%".$request->search . "%")->limit($this->pagination)->get();//->where('last_name', 'LIKE', $request->search . '%')->get();
-
-            // dd($results);
-
+            $results = Ingredient::where("name", "LIKE", "%".$request->search . "%")
+                ->whereNotIn('id', Auth::user()->fridge->ingredients->map(function ($item, $key) { return $item->id; }))
+                ->limit($this->pagination)->get();//->where('last_name', 'LIKE', $request->search . '%')->get();
             // return the paginated list of recipes matching the user's search
             return view('components.item-container', ['results' => $results])->render();
         // Else return a 404 not found error

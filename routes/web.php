@@ -13,17 +13,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Main search bar results route
-Route::get('/Search', 'SearchController@search')->name('search');
-// Individual item search routes
-Route::get('/Search/Ingredient', 'SearchController@ingredient')->name('search.ingredient');
-Route::get('/Search/Recipe', 'SearchController@recipe')->name('search.recipe');
-Route::get('/Search/Allergen', 'SearchController@allergen')->name('search.allergen');
 
 // Routes that can be used by guests or Auth users who have setup an account
 Route::middleware(['guestorauthsetup'])->group(function () {
     // Welcome route
     Route::get('/', 'StartController@start')->name('welcome');
+
+    // Main search bar results route
+    Route::get('/Search', 'SearchController@search')->name('search');
 
     // Main feed / 'Lucky Dip' routes
     Route::get('/IdeasBoard', 'RecipeController@index')->name('feed');
@@ -35,6 +32,21 @@ Route::middleware(['guestorauthsetup'])->group(function () {
     Route::get('/Ingredient/{ingredient}', 'IngredientController@show')->name('ingredient');
     // View Profile routes
     Route::get('/Profile/{user}', 'ProfileController@show')->name('profile');
+});
+
+// Routes that require an authorised account, however may not yet be setup
+Route::middleware(['auth'])->group(function () {
+    // Individual item search routes
+    Route::get('/Search/Ingredient', 'SearchController@ingredient')->name('search.ingredient');
+    // Route::get('/Search/Recipe', 'SearchController@recipe')->name('search.recipe');
+    Route::get('/Search/Allergen', 'SearchController@allergen')->name('search.allergen');
+
+    // Routes to add / remove fridge ingredients from a Users account
+    Route::get('/Fridge/Add', 'FridgeController@addTo')->name('fridge.add');
+    Route::get('/Fridge/Remove', 'FridgeController@removeFrom')->name('fridge.remove');
+    // Routes to add / remove allergens from a Users account
+    Route::get('/Allergen/Add', 'AllergenController@addTo')->name('allergen.add');
+    Route::get('/Allergen/Remove', 'AllergenController@removeFrom')->name('allergen.remove');
 });
 
 // Routes that can only be used by Auth users who have setup an account
@@ -56,3 +68,5 @@ Route::middleware(['authsetup'])->group(function () {
     // View results created by the AI chef
     Route::get('/TheAiChef', 'RecipeController@showAI')->name('ai_chef');
 });
+
+

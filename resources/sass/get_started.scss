@@ -6,7 +6,7 @@ body {
         @include flexDisplay(row, center, flex-end);
 
         #site-links,
-        #logout-button {
+        #logout-link {
             @include flexDisplay(row, center, space-between);
 
             height: 80%;
@@ -44,7 +44,7 @@ body {
                 white-space: nowrap;
             }
         }
-        #logout-button {
+        #logout-link {
             cursor: pointer;
             padding: 0 1.6rem;
 
@@ -155,26 +155,44 @@ body {
                     transition: opacity $transitionTime ease-in-out;
 
                     .menu-item {
+                        position: relative;
+
+                        width: 5.4rem;
+                        height: 5.4rem;
+                        border-radius: 50%;
+                        background-color: $overlayFore;
+
+                        transition: transform $transitionTime ease-in-out;
+
                         svg {
+                            position: absolute;
+                            top: 50%;
+                            left: 48%;
+                            transform: translate(-50%, -50%);
+
                             fill: $panelBckColor;
 
-                            max-height: 6rem;
-                            max-width: 6rem;
+                            max-height: 70%;
+                            max-width: 70%;
 
                             cursor: pointer;
 
-                            transition: fill $transitionTime ease-in-out,
-                                        transform $transitionTime ease-in-out;
+                            transition: fill $transitionTime ease-in-out;
+                        }
 
-                            &:hover {
+                        &:hover {
+                            transform: scale(1.1);
+                            svg {
                                 fill: $panelAccentColor;
-                                transform: scale(1.1);
-                            }
-                            &:active {
-                                fill: $foreLight;
-                                transform: scale(0.96);
                             }
                         }
+                        &:active {
+                            transform: scale(0.96);
+                            svg {
+                                fill: $foreLight;
+                            }
+                        }
+
                     }
                 }
             }
@@ -211,24 +229,22 @@ body {
 
                 .item {
                     @include flexDisplay(row, center, center);
-                    flex-grow: 1;
+                    // flex-grow: 1;
 
                     margin: 0.6rem;
-                    padding: 0 1rem;
+                    padding: 0 1.4rem;
 
                     cursor: pointer;
 
-                    background-color: $panelBckColor;
                     border-radius: $smallRounded;
 
-                    .selected {
-                        background-color: $appGreenLight !important;
-                    }
-                    .removed {
+                    &.selected {
                         background-color: $accentFaint !important;
                     }
+                    &.unselected {
+                        background-color: $panelBckColor !important;
+                    }
                 }
-
 
             }
         }

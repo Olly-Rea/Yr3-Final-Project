@@ -32,10 +32,7 @@
         <h3>Preferences</h3>
         <h3>'My Fridge'</h3>
     </div>
-    <h3 id="logout-button" onclick="window.location.href='{{ route('logout') }}'; document.getElementById('logout-form').submit();">Logout</h3>
-    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none" hidden>
-        @csrf
-    </form>
+    <h3 id="logout-link">Logout</h3>
 </nav>
 @endsection
 
@@ -96,14 +93,13 @@
             <input type="text" name="search" placeholder="Start typing to see results!" onfocus="this.placeholder = ''" onfocusout="this.placeholder = 'Start typing to see results!'"/>
         </div>
         <div id="profile-allergens" class="item-container">
-            @forelse($user->profile->allergens as $allergen)
+            @foreach($user->profile->allergens as $allergen)
             <div class="item selected">
-                <input type="hidden" name="allergens[]">
+                <input type="hidden" name="allergens[]" value="{{ $allergen->id }}">
                 <h3>{{ $allergen->name }}</h3>
             </div>
-            @empty
-            <p class="initial-msg">You haven't indicated any allergens yet!<br><b>All recipes will be shown</b></p>
-            @endforelse
+            @endforeach
+            <p class="initial-msg" @if(count($user->profile->allergens))style="display: none"@endif>You haven't indicated any allergens yet!<br><b>All recipes will be shown</b></p>
         </div>
         <div class="nav-items">
             <h3 class="back">Back</h3>
@@ -155,14 +151,13 @@
             <input id="ingredient-search" type="text" name="search" placeholder="Start typing to see results!" onfocus="this.placeholder = ''" onfocusout="this.placeholder = 'Start typing to see results!'"/>
         </div>
         <div id="fridge-ingredients" class="item-container">
-            @forelse ($user->fridge->ingredients as $ingredient)
+            @foreach ($user->fridge->ingredients as $ingredient)
             <div class="item selected">
-                <input type="hidden" name="fridge[]">
+                <input type="hidden" name="fridge[]" value="{{ $ingredient->id }}">
                 <h3>{{ $ingredient->name }}</h3>
             </div>
-            @empty
-            <p class="initial-msg">Use the search bar to start adding any ingredients you have!</p>
-            @endforelse
+            @endforeach
+            <p class="initial-msg" @if(count($user->profile->allergens))style="display: none"@endif>Use the search bar to start adding any ingredients you have!</p>
         </div>
         <div class="nav-items">
             <h3 class="back">Back</h3>

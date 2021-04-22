@@ -6,7 +6,6 @@ body,
 html {
     margin: 0 !important;
 
-    width: 100%;
     height: 100vh;
 
     font: $font-size-base $font-stack;
@@ -45,6 +44,11 @@ body {
     &.no-scroll {
         overflow: hidden;
         padding-right: 1rem;
+
+        nav {
+            width: calc(90% - 0.8rem);
+            transform: translateX(calc(-50% - 0.5rem));
+        }
     }
 
     nav {
@@ -321,7 +325,6 @@ body {
             width: 100%;
             background-color: $overlayColor;
         }
-
 
         .prompt {
             position: absolute;

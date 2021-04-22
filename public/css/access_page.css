@@ -401,7 +401,6 @@ input[type="checkbox"] {
 body,
 html {
   margin: 0 !important;
-  width: 100%;
   height: 100vh;
   font: 12pt "C&L Regular";
   line-height: 1.2;
@@ -435,7 +434,17 @@ svg {
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 body.no-scroll {
   overflow: hidden;
+}
+
+body.no-scroll main,
+body.no-scroll #site-overlay {
   padding-right: 1rem;
+}
+
+body.no-scroll nav {
+  width: calc(90% - 0.8rem);
+  -webkit-transform: translateX(calc(-50% - 0.5rem));
+          transform: translateX(calc(-50% - 0.5rem));
 }
 
 body nav {

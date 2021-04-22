@@ -31,13 +31,10 @@ $(window).on("load, pageshow", function() {
         }
     });
 
-
     // Allergens form "page"
     $("#allergen-form .nav-items h3.next").on("click", function() {
         changePage("#allergen-form", "#prefs-form", 3);
-        setTimeout(function () {
-            $("#allergen-search input").val("");
-        }, transitionTime);
+        clearSearches();
     });
     $("#allergen-form .nav-items h3.back").on("click", function() {
         changePage("#allergen-form", "#profile-form", 1);
@@ -81,10 +78,24 @@ $(window).on("load, pageshow", function() {
 
     // Fridge form "page"
     $("#fridge-form .nav-items h3#complete").on("click", function() {
-        console.log("Complete!");
+        // If the user has included at least 3 items in their fridge
+        if($("#fridge-ingredients").find(".selected").length < 3) {
+            showOverlay()
+        } else {
+            // Submit the "setup complete" request and allow the user to proceed
+            $.ajax({
+                type : "get",
+                url : "/Me/update",
+                data: {"search": val},
+                success: function() {
+                    window.location.href = "/Me";
+                }
+            });
+        }
     });
     $("#fridge-form .nav-items h3.back").on("click", function() {
         changePage("#fridge-form", "#prefs-form", 3);
+        clearSearches();
     });
 
     // Method to get the search results from the allergen search bar
@@ -106,6 +117,21 @@ $(window).on("load, pageshow", function() {
         getResults("/Search/Ingredient", val, $("#fridge-ingredients"))
     });
 
+    // Item selection / deselection - Allergens
+    $("#profile-allergens").on("click", ".item.unselected", function() {
+        addItem("/Allergen", $(this));
+    });
+    $("#profile-allergens").on("click", ".item.selected", function() {
+        removeItem("/Allergen", $(this));
+    });
+    // Item selection / deselection - Fridge Ingredients
+    $("#fridge-ingredients").on("click", ".item.unselected", function() {
+        addItem("/Fridge", $(this));
+    });
+    $("#fridge-ingredients").on("click", ".item.selected", function() {
+        removeItem("/Fridge", $(this));
+    });
+
 });
 
 // Function to set the width of the progress bar
@@ -122,10 +148,26 @@ function makeProgress(num) {
 function changePage(current, next, pageNum) {
     $(current).fadeOut(transitionTime);
     setTimeout(function () {
+        hideUnselected();
         $(next).fadeIn(transitionTime);
     }, transitionTime+1);
     // Set the width of the progress bar
     makeProgress(pageNum);
+}
+
+// Method to hide (and then remove) any unselected items
+function hideUnselected() {
+    $(".unselected").fadeOut(transitionTime);
+    setTimeout(function () {
+        $(".unselected").remove();
+    }, transitionTime+1);
+}
+
+// Method to clear the search bars
+function clearSearches() {
+    setTimeout(function () {
+        $("#allergen-search input, #ingredient-search input").val("");
+    }, transitionTime);
 }
 
 // Method to get the search results from the allergen/ingredient search bars
@@ -150,18 +192,16 @@ function getResults(url, val, $resultContainer) {
                 success: function(data) {
                     // Hide the initial message
                     $resultContainer.find("p.initial-msg").fadeOut(transitionTime);
-                    // Hide (and then remove any unselected items)
-                    $(".unselected").fadeOut(transitionTime);
-                    setTimeout(function () {
-                        $(".unselected").remove();
-                    }, transitionTime+1);
+                    hideUnselected();
                     // Check to see if the "no results" message is shown
                     if (data == "<p class=\"nothing\">Nothing matches that search!</p>") {
-                        if ($resultContainer.find("p.nothing").length == 0) {
-                            setTimeout(function () {
-                                $resultContainer.append(data);
-                            }, transitionTime+1);
-                        }
+                        //  && $resultContainer.find("p.nothing").length == 0) {
+
+                        console.log(data);
+
+                        setTimeout(function () {
+                            $resultContainer.append(data);
+                        }, transitionTime+1);
                     } else {
                         $("p.nothing").fadeOut(transitionTime);
                         setTimeout(function () {
@@ -175,17 +215,51 @@ function getResults(url, val, $resultContainer) {
         }, 400);
     } else {
         searchTimeout = setTimeout(function () {
-            // Else reset the results output
-            if ($(".unselected, p.nothing").length > 0) {
-                // Hide (and then remove any unselected items)
-                $(".unselected, p.nothing").fadeOut(transitionTime);
-                setTimeout(function () {
-                    $resultContainer.find(".unselected, p.nothing").remove();
+            // Hide (and then remove any unselected items)
+            $(".unselected, p.nothing").fadeOut(transitionTime);
+            setTimeout(function () {
+                $resultContainer.find(".unselected, p.nothing").remove();
+                if ($(".selected").length == 0) {
                     $resultContainer.find("p.initial-msg").fadeIn(transitionTime);
-                }, transitionTime+1);
-            } else {
-                $resultContainer.find("p.initial-msg").fadeIn(transitionTime);
-            }
+                }
+            }, transitionTime+1);
         }, transitionTime+1);
     }
+}
+
+// Method to add an item to the users account
+function addItem(type, $item) {
+    // Get the id for this element
+    id = $item.children().first().val();
+    // Perform the ajax request
+    $.ajax({
+        type : "get",
+        url : type+"/Add",
+        data: {"id": id},
+        success: function() {
+            $item.removeClass("unselected");
+            $item.addClass("selected");
+        },
+        error: function() {
+            console.log("error!");
+        }
+    });
+}
+// Method to remove an item from the users account
+function removeItem(type, $item) {
+    // Get the id for this element
+    id = $item.children().first().val();
+    // Perform the ajax request
+    $.ajax({
+        type : "get",
+        url : type+"/Remove",
+        data: {"id": id},
+        success: function() {
+            $item.removeClass("selected");
+            $item.addClass("unselected");
+        },
+        error: function() {
+            console.log("error!");
+        }
+    });
 }

@@ -47,11 +47,11 @@ class FridgeController extends Controller {
     /**
      * Method to add an ingredient to the Auth User's fridge
      */
-    public function addIngredient(Request $request) {
+    public function addTo(Request $request) {
         // Check that the request is ajax
         if ($request->ajax()) {
             // Add the new ingredient
-            Auth::user()->fridge->attach($request->id, ['amount' => $request->amount, 'measure' =>$request->measure]);
+            Auth::user()->fridge->ingredients()->attach($request->id, ['amount' => 1]);
         // Else return a 404 not found error
         } else {
             abort(404);
@@ -61,11 +61,11 @@ class FridgeController extends Controller {
     /**
      * Method to remove an ingredient from the Auth User's fridge
      */
-    public function removeIngredient(Request $request) {
+    public function removeFrom(Request $request) {
         // Check that the request is ajax
         if ($request->ajax()) {
             // Remove the ingredient
-            Auth::user()->fridge->detach($request->ingredID);
+            Auth::user()->fridge->ingredients()->detach($request->ingredID);
         // Else return a 404 not found error
         } else {
             abort(404);
@@ -79,7 +79,7 @@ class FridgeController extends Controller {
         // Check that the request is ajax
         if ($request->ajax()) {
             // update the existing ingredient
-            Auth::user()->fridge->updateExistingPivot($request->id, ['amount' => $request->amount, 'measure' =>$request->measure]);
+            Auth::user()->fridge->ingredients()->updateExistingPivot($request->id, ['amount' => $request->amount, 'measure' =>$request->measure]);
         // Else return a 404 not found error
         } else {
             abort(404);
