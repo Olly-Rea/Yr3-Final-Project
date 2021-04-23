@@ -52,14 +52,15 @@
     </div>
 </div>
 @empty
-
 <div class="centered">
     <h2>No recipes could be found!</h2>
     <h3>- Try reloading the page -</h3>
 </div>
-
 @endforelse
 
+@if(count($recipes) > 0)
+<button id="cookbook-refresh">Refresh</button>
+@endif
 {{-- <div _id="screen-split"></div>
 <nav>
 Authentication Link

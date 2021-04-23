@@ -1264,4 +1264,8 @@ main .recipe-panel .recipe-title-panel .quick-info .time-info .info-wheel.diffic
 main .recipe-panel .recipe-title-panel .quick-info .difficulty-info .info-wheel.difficulty-wheel {
   background-color: #e0e088;
 }
+
+main #cookbook-refresh {
+  margin-top: 4rem;
+}
 /*# sourceMappingURL=feed_page.css.map */
