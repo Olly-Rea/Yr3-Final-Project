@@ -75,10 +75,6 @@ body {
         #fridge-form {
             @include flexDisplay(column, center, center);
 
-            form {
-                margin-bottom: auto;
-            }
-
             .nav-items {
                 @include flexDisplay(row, center, center);
 
@@ -117,87 +113,6 @@ body {
             }
         }
 
-        #profile-form {
-            .profile-image-container {
-                align-self: center;
-
-                position: relative;
-
-                margin: 4rem 0;
-                width: 18rem;
-
-                overflow: hidden;
-
-                &:hover {
-                    .edit-overlay {
-                        opacity: 1;
-                    }
-                }
-                &:active {
-                    .edit-overlay {
-                        opacity: 1;
-                    }
-                }
-
-                .edit-overlay {
-                    position: absolute;
-                    top: 0;
-                    left: 0;
-
-                    @include flexDisplay(column, center, center);
-
-                    height: 100%;
-                    width: 100%;
-
-                    background-color: $overlayColor;
-                    opacity: 0;
-
-                    transition: opacity $transitionTime ease-in-out;
-
-                    .menu-item {
-                        position: relative;
-
-                        width: 5.4rem;
-                        height: 5.4rem;
-                        border-radius: 50%;
-                        background-color: $overlayFore;
-
-                        transition: transform $transitionTime ease-in-out;
-
-                        svg {
-                            position: absolute;
-                            top: 50%;
-                            left: 48%;
-                            transform: translate(-50%, -50%);
-
-                            fill: $panelBckColor;
-
-                            max-height: 70%;
-                            max-width: 70%;
-
-                            cursor: pointer;
-
-                            transition: fill $transitionTime ease-in-out;
-                        }
-
-                        &:hover {
-                            transform: scale(1.1);
-                            svg {
-                                fill: $panelAccentColor;
-                            }
-                        }
-                        &:active {
-                            transform: scale(0.96);
-                            svg {
-                                fill: $foreLight;
-                            }
-                        }
-
-                    }
-                }
-            }
-        }
-
         #allergen-form,
         #fridge-form {
             .search-bar,
@@ -207,45 +122,6 @@ body {
 
             .search-bar {
                 width: 100%;
-            }
-            .item-container {
-                @include flexDisplay(row, flex-start, flex-start);
-                flex-wrap: wrap;
-
-                min-height: calc(20vh - 4rem);
-                width: calc(100% - 4rem);
-
-                padding: 1rem;
-
-                background-color: $panelAccentColor;
-                border-radius: $panelCorner;
-
-                > p {
-                    width: 100%;
-
-                    align-self: center;
-                    text-align: center;
-                }
-
-                .item {
-                    @include flexDisplay(row, center, center);
-                    // flex-grow: 1;
-
-                    margin: 0.6rem;
-                    padding: 0 1.4rem;
-
-                    cursor: pointer;
-
-                    border-radius: $smallRounded;
-
-                    &.selected {
-                        background-color: $accentFaint !important;
-                    }
-                    &.unselected {
-                        background-color: $panelBckColor !important;
-                    }
-                }
-
             }
         }
 

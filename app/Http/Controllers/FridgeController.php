@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 // Custom imports
 use Illuminate\Http\Request;
 use App\Models\{Recipe, Ingredient};
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Auth;
 
 class FridgeController extends Controller {
@@ -14,21 +15,51 @@ class FridgeController extends Controller {
      */
     public function recipeFrom() {
 
-        // Get Recipes that contain a subset of the Users Fridge Ingredients
-        $allRecipes = Recipe::with('ingredients:name')->where('');
+        // Get the Users fridge ingredients and preferences
+        $userIngredients = Auth::user()->fridge->ingredients;
+        $userPrefs = Auth::user()->profile;
 
-        // Create the recipes collection
-        $recipes = collect();
+        $recipes = Recipe::with('ingredients', 'ratings');
 
-        // $recipe->ingredients()->with(['alternatives' => function ($query) use ($recipe) {
-        //     $query->where('recipe_id', '=', $recipe->id);
-        // }])->get();
+        // TODO Check that this gets recipes that contain ALL of OR at least 3 of a users ingredients
 
-        // $recipe->each(function ($value, $key) use ($recipeAllergens) {
-        //     return $recipeAllergens->contains($value);
-        // });
+        // If the User has ingredients in their fridge, execute this part of the query
+        if (count($userIngredients)) {
+            // Get recipes containing at least 3 ingredients the user has
+            $recipes = $recipes->whereHas('ingredients', function (Builder $query) use ($userIngredients)  {
+                $query->whereIn('name', $userIngredients);
+            }, '>=', 3);
+        }
 
         // Get User preferences
+        $recipes = $recipes->whereHas('ratings', function (Builder $query) use ($userPrefs) {
+            // $query->where($ratings->avg('spice_value'), '<=', $userPrefs->spice_pref)
+            $query->where('spice_value', '<=', $userPrefs->spice_pref)
+                ->where('sweet_value', '<=', $userPrefs->sweet_pref)
+                ->where('sour_value', '<=', $userPrefs->sour_pref)
+                ->where('difficulty_value', '<=', $userPrefs->diff_pref);
+        });
+
+        // Filter out any recipes containing the Users allergens
+        $recipes = $recipes->whereHas('ratings', function (Builder $query) use ($userPrefs) {
+            // $query->where($ratings->avg('spice_value'), '<=', $userPrefs->spice_pref)
+            $query->where('spice_value', '<=', $userPrefs->spice_pref)
+                ->where('sweet_value', '<=', $userPrefs->sweet_pref)
+                ->where('sour_value', '<=', $userPrefs->sour_pref)
+                ->where('difficulty_value', '<=', $userPrefs->diff_pref);
+        });
+
+        // // Get the shared allergens and/or traces
+        // $userAllergens = Auth::user()->profile->allergens->diff(
+        //     Auth::user()->profile->allergens->diff($recipeAllergens)
+        // );
+
+        // Randomise the order and take 7
+        $recipes = $recipes->inRandomOrder()->limit(7)->get();
+
+        // dd($recipes);
+
+        return view('feed', ['recipes' => $recipes]);
     }
 
     /**
@@ -65,7 +96,7 @@ class FridgeController extends Controller {
         // Check that the request is ajax
         if ($request->ajax()) {
             // Remove the ingredient
-            Auth::user()->fridge->ingredients()->detach($request->ingredID);
+            Auth::user()->fridge->ingredients()->detach($request->id);
         // Else return a 404 not found error
         } else {
             abort(404);

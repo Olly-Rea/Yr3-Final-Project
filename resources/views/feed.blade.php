@@ -18,36 +18,33 @@
             <p><b>Serves:</b> {{ $recipe->serves }}</p>
         </div>
         <div class="quick-info">
-            @php
-                $totalRatings = $recipe->ratings->count() > 0 ? $recipe->ratings->count() : 1;
-            @endphp
             <div class="spice-info">
                 <div class="spice-wheel info-wheel">
-                    <h4>{{ round(($recipe->ratings->sum('spice_value')/$totalRatings)*10) }}</h4>
+                    <h4>{{ round($recipe->ratings->avg('spice_value')*10) }}</h4>
                 </div>
                 <p>Spice</p>
             </div>
             <div class="sweet-info">
                 <div class="sweet-wheel info-wheel">
-                    <h4>{{ round(($recipe->ratings->sum('sweet_value')/$totalRatings)*10) }}</h4>
+                    <h4>{{ round($recipe->ratings->avg('sweet_value')*10) }}</h4>
                 </div>
                 <p>Sweetness</p>
             </div>
             <div class="sour-info">
                 <div class="sour-wheel info-wheel">
-                    <h4>{{ round(($recipe->ratings->sum('sour_value')/$totalRatings)*10) }}</h4>
+                    <h4>{{ round($recipe->ratings->avg('sour_value')*10) }}</h4>
                 </div>
                 <p>Sourness</p>
             </div>
             <div class="time-info">
                 <div class="time-wheel info-wheel">
-                    <h4>{{ ceil($recipe->ratings->sum('time_taken')/$totalRatings) }}</h4><h4 class="mins">mins</h4>
+                    <h4>{{ ceil($recipe->ratings->avg('time_taken')) }}</h4><h4 class="mins">mins</h4>
                 </div>
                 <p>Prep time (avg)</p>
             </div>
             <div class="difficulty-info">
                 <div class="difficulty-wheel info-wheel">
-                    <h4>{{ round($recipe->ratings->sum('difficulty_value')/$totalRatings, 1) }}</h4>
+                    <h4>{{ round($recipe->ratings->avg('difficulty_value'), 1) }}</h4>
                 </div>
                 <p>Difficulty</p>
             </div>

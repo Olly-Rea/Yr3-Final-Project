@@ -13,5 +13,73 @@ main {
         transform: translate(-50%, -50%);
     }
 
+    #recipe-page,
+    #fridge-page {
+        height: calc(100% - 20rem);
+        width: 100%;
+    }
+
+    #fridge-page {
+        @include flexDisplay(column, center, center);
+
+        #fridge-form {
+            width: 100%;
+
+            h1, p {
+                align-self: flex-start;
+                margin: 0.2rem 0;
+            }
+
+            .search-bar,
+            .item-container {
+                margin: 2rem 0;
+            }
+
+            .search-bar {
+                width: calc(100% - 2rem);
+            }
+            .item-container {
+                @include flexDisplay(row, flex-start, flex-start);
+                flex-wrap: wrap;
+
+                min-height: calc(20vh - 4rem);
+                width: calc(100% - 4rem);
+
+                padding: 1rem;
+
+                background-color: $panelAccentColor;
+                border-radius: $panelCorner;
+
+                > p {
+                    width: 100%;
+
+                    align-self: center;
+                    text-align: center;
+                }
+
+                .item {
+                    @include flexDisplay(row, center, center);
+                    // flex-grow: 1;
+
+                    margin: 0.6rem;
+                    padding: 0 1.4rem;
+
+                    cursor: pointer;
+
+                    border-radius: $smallRounded;
+
+                    &.selected {
+                        background-color: $accentFaint !important;
+                    }
+                    &.unselected {
+                        background-color: $panelBckColor !important;
+                    }
+                }
+
+            }
+        }
+    }
+
+
 }
 

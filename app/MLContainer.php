@@ -21,22 +21,25 @@ class MLContainer {
      * @return void
      */
     public function __construct() {
-        // $data = Auth::user()->fridge()->get('name');
+        $ingredients = Auth::user()->fridge->ingredients->get('name');
+
+        if (!is_null($ingredients) && count($ingredients) > 4) {
+            // Run the python script
+            $command = escapeshellcmd('python ../resources/scripts/ingredient_pairings.py '.escapeshellarg(json_encode($ingredients)));
+            // Get the recipe
+            $this->recipe = collect(json_decode(shell_exec($command)));
+
+            // dump the recipe for us to view
+            dd($this->recipe);
+        }
 
         // // Get only the names from the collection
         // $ingredients = Ingredient::inRandomOrder()->limit(6)->get(['id','name']);
 
-        DB::enableQueryLog(); // Enable query log
-        $ingredients = Recipe::with('ingredients:name')->limit(100)->get();//->pluck('ingredients', 'id');
+        // DB::enableQueryLog(); // Enable query log
+        // $ingredients = Recipe::with('ingredients:name')->limit(100)->get();//->pluck('ingredients', 'id');
 
-        dd($ingredients);
-
-        dd(DB::getQueryLog()); // Show results of log
-
-        // Run the python script
-        $command = escapeshellcmd('python ../resources/scripts/ingredient_pairings.py '.escapeshellarg(json_encode($ingredients)));
-        // Get the recipe
-        $this->recipe = collect(json_decode(shell_exec($command)));
+        // dd(DB::getQueryLog()); // Show results of log
 
         // TODO May require additional formatting here
     }
@@ -45,8 +48,6 @@ class MLContainer {
      * Method to show the generated recipe
      */
     public function getRecipe() {
-
-
 
         return $this->recipe;
     }

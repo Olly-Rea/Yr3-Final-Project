@@ -9,8 +9,8 @@
 @section('content')
 {{-- Warnings panel --}}
 @if(count($hasAllergens) > 0)
-<div class="warning-panel">
-    <h3>Warning! This recipe contains ingredients indicated to contain the following allergens: [{{ $hasAllergens }}]</h3>
+<div id="warning-panel">
+    <h2>Warning!</h2><h3>This recipe contains ingredients indicated to contain the following of your allergens: [@foreach($hasAllergens as $key => $allergen){{ $allergen->name }}@if($key < count($hasAllergens)-1), @endif()@endforeach]</h3>
 </div>
 @endif
 
@@ -36,36 +36,33 @@
 <div id="quick-info-container">
     <h2>Based on User reviews:</h2>
     <div>
-        @php
-            $totalRatings = $recipe->ratings->count() > 0 ? $recipe->ratings->count() : 1;
-        @endphp
         <div class="spice-info">
             <div class="spice-wheel info-wheel">
-                <h4>{{ round(($recipe->ratings->sum('spice_value')/$totalRatings)*10) }}</h4>
+                <h4>{{ round($recipe->ratings->avg('spice_value')*10) }}</h4>
             </div>
             <p>Spice</p>
         </div>
         <div class="sweet-info">
             <div class="sweet-wheel info-wheel">
-                <h4>{{ round(($recipe->ratings->sum('sweet_value')/$totalRatings)*10) }}</h4>
+                <h4>{{ round($recipe->ratings->avg('sweet_value')*10) }}</h4>
             </div>
             <p>Sweetness</p>
         </div>
         <div class="sour-info">
             <div class="sour-wheel info-wheel">
-                <h4>{{ round(($recipe->ratings->sum('sour_value')/$totalRatings)*10) }}</h4>
+                <h4>{{ round($recipe->ratings->avg('sour_value')*10) }}</h4>
             </div>
             <p>Sourness</p>
         </div>
         <div class="time-info">
             <div class="time-wheel info-wheel">
-                <h4>{{ ceil($recipe->ratings->sum('time_taken')/$totalRatings) }}</h4><h4 class="mins">mins</h4>
+                <h4>{{ ceil($recipe->ratings->avg('time_taken')) }}</h4><h4 class="mins">mins</h4>
             </div>
             <p>Prep time (avg)</p>
         </div>
         <div class="difficulty-info">
             <div class="difficulty-wheel info-wheel">
-                <h4>{{ round($recipe->ratings->sum('difficulty_value')/$totalRatings, 1) }}</h4>
+                <h4>{{ round($recipe->ratings->avg('difficulty_value'), 1) }}</h4>
             </div>
             <p>Difficulty</p>
         </div>

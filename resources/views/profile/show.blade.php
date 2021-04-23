@@ -4,61 +4,112 @@
 <link href="{{ asset('css/profile_page.css') }}" rel="stylesheet">
 @endsection
 
+@if(Request::is('Me'))
+@section('scripts-app')
+<script src="{{ asset('js/forms/shared.js') }}"></script>
+<script src="{{ asset('js/forms/ingredientSearch.js') }}"></script>
+<script src="{{ asset('js/forms/allergenSearch.js') }}"></script>
+<script src="{{ asset('js/forms/profileImage.js') }}"></script>
+@endsection
+@endif
+
 @section('title')
 {{ config('app.name', 'Laravel') }}
 @endsection
 
 @section('content')
+@if(Request::is('Me'))
+<div id="profile-form">
+    <div class="profile-image-container">
+        <div class="profile-image">
+            <img src="{{ $user->profileImage() }}" alt="{{ $user->profile->first_name }} {{ $user->profile->last_name }}">
+        </div>
+        <div class="edit-overlay">
+            <label class="menu-item">
+                <input type="file" name="profile_image" accept=".jpg, .jpeg, .png, .bmp" hidden>
+                <span>
+                    <svg>
+                        <use xlink:href="{{ asset('images/graphics/pen.svg#icon') }}"></use>
+                    </svg>
+                </span>
+            </label>
+        </div>
+    </div>
+</div>
 
+@else
 <div class="profile-image-container">
     <div class="profile-image">
         <img src="{{ $user->profileImage() }}" alt="{{ $user->profile->first_name }} {{ $user->profile->last_name }}">
     </div>
 </div>
-
+@endif
 <h1>{{ $user->profile->first_name }} {{ $user->profile->last_name }}</h1>
 <div id="about-user">
     <p>About User - coming soon</p>
 </div>
-
 <h2>@if(Request::is('Me'))My @else{{ $user->profile->first_name }}'s @endif()Public Recipes</h2>
 <div id="user-recipes">
-@foreach ($user->recipes as $recipe)
+    @foreach ($user->recipes as $recipe)
     <a href="{{ route('recipe', $recipe->id) }}" class="recipe-panel">
         <h2>{{ $recipe->name }}</h2>
         <p><b>Serves: </b>{{ $recipe->serves }}</p>
     </a>
-@endforeach
+    @endforeach
 </div>
-
 <h2>@if(Request::is('Me'))My @else{{ $user->profile->first_name }}'s @endif()ratings</h2>
 <div id="user-ratings">
-@foreach ($user->ratings as $rating)
-
-@endforeach
+    @forelse ($user->ratings as $rating)
+    <div>
+        <h4>{{ $rating->created_at }}</h4>
+        <p>{{ $rating->recipe->name }}</p>
+        <p>{{ $rating->spice_value }}, {{ $rating->sweet_value }}, {{ $rating->sour_value }}, {{ $rating->difficulty_value }}</p>
+    </div>
+    @empty
+    <p>@if(Request::is('Me'))You haven't @else{{ $user->profile->first_name }} hasn't @endif()made any ratings yet</p>
+    @endforelse
 </div>
 
 {{-- Show User 'fridge' (if active User's profile) --}}
 @if(Request::is('Me'))
 <h2>My Fridge</h2>
 <div id="user-fridge">
-    @foreach ($user->fridge->ingredients as $ingredient)
-    <div class="fridge-ingredient">
-        <h3 class="amount">@if($ingredient->pivot->measure != ""){{ $ingredient->pivot->amount }} {{ $ingredient->pivot->measure }}@else{{ $ingredient->pivot->amount }}@endif</h3>
-        <a href="{{ route('ingredient', $ingredient->id) }}" class="name">{{ $ingredient->name }}</a>
+    <div id="ingredient-search" class="search-bar">
+        <div id="results-container" style="display: none"></div>
+        <input id="ingredient-search" type="text" name="search" placeholder="Start typing to see results!" onfocus="this.placeholder = ''" onfocusout="this.placeholder = 'Start typing to see results!'"/>
     </div>
-    @endforeach
-    <form action="">
-        <button type="button">Add Ingredient</button>
-    </form>
+    <div id="fridge-ingredients" class="item-container">
+        @foreach ($user->fridge->ingredients as $ingredient)
+        <div class="item selected">
+            <input type="hidden" name="fridge[]" value="{{ $ingredient->id }}">
+            <h3>{{ $ingredient->name }}</h3>
+        </div>
+        @endforeach
+        <p class="initial-msg" @if(count($user->fridge->ingredients))style="display: none"@endif>Use the search bar to start adding any ingredients you have!</p>
+    </div>
+</div>
+
+<h2>My Allergens</h2>
+<p>You are in no way obligated to disclose this information, but we can quickly filter out recipes containing these allergens if indicated below</p>
+<div id="user-allergens">
+    <div id="allergen-search" class="search-bar">
+        <div id="results-container" style="display: none"></div>
+        <input type="text" name="search" placeholder="Start typing to see results!" onfocus="this.placeholder = ''" onfocusout="this.placeholder = 'Start typing to see results!'"/>
+    </div>
+    <div id="profile-allergens" class="item-container">
+        @foreach($user->profile->allergens as $allergen)
+        <div class="item selected">
+            <input type="hidden" name="allergens[]" value="{{ $allergen->id }}">
+            <h3>{{ $allergen->name }}</h3>
+        </div>
+        @endforeach
+        <p class="initial-msg" @if(count($user->profile->allergens))style="display: none"@endif>You haven't indicated any allergens yet!<br><b>All recipes will be shown</b></p>
+    </div>
 </div>
 @endif
 
 @if (Request::is('Me'))
-<button onclick="window.location.href='{{ route('logout') }}'; document.getElementById('logout-form').submit();">Logout</button>
-<form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none" hidden>
-    @csrf
-</form>
+<h3 id="logout-link">Logout</h3>
 @endif
 
 @endsection

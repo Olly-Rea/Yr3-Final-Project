@@ -10,6 +10,10 @@
 
 @section("scripts-app")
 <script src="{{ asset('js/profile/create.js') }}"></script>
+<script src="{{ asset('js/forms/shared.js') }}"></script>
+<script src="{{ asset('js/forms/ingredientSearch.js') }}"></script>
+<script src="{{ asset('js/forms/allergenSearch.js') }}"></script>
+<script src="{{ asset('js/forms/profileImage.js') }}"></script>
 @endsection
 
 @section('title')
@@ -155,7 +159,7 @@
                 <h3>{{ $ingredient->name }}</h3>
             </div>
             @endforeach
-            <p class="initial-msg" @if(count($user->profile->allergens))style="display: none"@endif>Use the search bar to start adding any ingredients you have!</p>
+            <p class="initial-msg" @if(count($user->fridge->ingredients))style="display: none"@endif>Use the search bar to start adding any ingredients you have!</p>
         </div>
         <div class="nav-items">
             <h3 class="back">Back</h3>

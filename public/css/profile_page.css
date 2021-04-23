@@ -196,7 +196,7 @@ input[type="submit"] {
   min-width: 8rem;
   padding: 1rem 2rem;
   margin: 1rem;
-  border-width: 0.24rem;
+  border-width: 0.26rem;
   border-color: #0a0a0a;
   border-radius: 1.6rem;
   background-color: #f894a4;
@@ -263,23 +263,17 @@ label.checkOption input, label.subOption input {
   cursor: pointer;
 }
 
-label.checkOption input:checked ~ .checkbox svg,
-label.checkOption input:checked ~ .checkbox svg, label.subOption input:checked ~ .checkbox svg,
-label.subOption input:checked ~ .checkbox svg {
+label.checkOption input:checked ~ .checkbox svg, label.subOption input:checked ~ .checkbox svg {
   stroke: #f6f4f8;
   fill: #f894a4;
 }
 
-label.checkOption:hover input ~ .checkbox svg,
-label.checkOption:hover input ~ .checkbox svg, label.subOption:hover input ~ .checkbox svg,
-label.subOption:hover input ~ .checkbox svg {
+label.checkOption:hover input ~ .checkbox svg, label.subOption:hover input ~ .checkbox svg {
   stroke: #f57d91;
   fill: #f6f4f8;
 }
 
-label.checkOption:hover input:checked ~ .checkbox svg,
-label.checkOption:hover input:checked ~ .checkbox svg, label.subOption:hover input:checked ~ .checkbox svg,
-label.subOption:hover input:checked ~ .checkbox svg {
+label.checkOption:hover input:checked ~ .checkbox svg, label.subOption:hover input:checked ~ .checkbox svg {
   stroke: #f6f4f8;
   fill: #f894a4;
 }
@@ -315,6 +309,93 @@ input[type="checkbox"] {
      -moz-user-select: none;
       -ms-user-select: none;
           user-select: none;
+}
+
+#profile-form .profile-image-container {
+  -ms-flex-item-align: center;
+      -ms-grid-row-align: center;
+      align-self: center;
+  position: relative;
+  margin: 4rem 0;
+  width: 18rem;
+  overflow: hidden;
+}
+
+#profile-form .profile-image-container:hover .edit-overlay {
+  opacity: 1;
+}
+
+#profile-form .profile-image-container:active .edit-overlay {
+  opacity: 1;
+}
+
+#profile-form .profile-image-container .edit-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  height: 100%;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.4);
+  opacity: 0;
+  -webkit-transition: opacity 0.14s ease-in-out;
+  transition: opacity 0.14s ease-in-out;
+}
+
+#profile-form .profile-image-container .edit-overlay .menu-item {
+  position: relative;
+  width: 5.4rem;
+  height: 5.4rem;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.1);
+  -webkit-transition: -webkit-transform 0.14s ease-in-out;
+  transition: -webkit-transform 0.14s ease-in-out;
+  transition: transform 0.14s ease-in-out;
+  transition: transform 0.14s ease-in-out, -webkit-transform 0.14s ease-in-out;
+}
+
+#profile-form .profile-image-container .edit-overlay .menu-item svg {
+  position: absolute;
+  top: 50%;
+  left: 48%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  fill: #f6f4f8;
+  max-height: 70%;
+  max-width: 70%;
+  cursor: pointer;
+  -webkit-transition: fill 0.14s ease-in-out;
+  transition: fill 0.14s ease-in-out;
+}
+
+#profile-form .profile-image-container .edit-overlay .menu-item:hover {
+  -webkit-transform: scale(1.1);
+          transform: scale(1.1);
+}
+
+#profile-form .profile-image-container .edit-overlay .menu-item:hover svg {
+  fill: #eceaee;
+}
+
+#profile-form .profile-image-container .edit-overlay .menu-item:active {
+  -webkit-transform: scale(0.96);
+          transform: scale(0.96);
+}
+
+#profile-form .profile-image-container .edit-overlay .menu-item:active svg {
+  fill: #b4b4b4;
 }
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
@@ -444,7 +525,7 @@ body.no-scroll nav {
 }
 
 body nav {
-  z-index: 5;
+  z-index: 1;
   position: absolute;
   top: 1.2rem;
   left: 50%;
@@ -747,9 +828,68 @@ body main .profile-image-container .profile-image > img {
      object-fit: cover;
 }
 
+body main .item-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  min-height: calc(20vh - 4rem);
+  width: calc(100% - 4rem);
+  padding: 1rem;
+  background-color: #eceaee;
+  border-radius: 1.6rem;
+}
+
+body main .item-container > p {
+  width: 100%;
+  -ms-flex-item-align: center;
+      -ms-grid-row-align: center;
+      align-self: center;
+  text-align: center;
+}
+
+body main .item-container .item {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  margin: 0.6rem;
+  padding: 0 1.4rem;
+  cursor: pointer;
+  border-radius: 1rem;
+}
+
+body main .item-container .item.selected {
+  background-color: rgba(248, 148, 165, 0.4) !important;
+}
+
+body main .item-container .item.unselected {
+  background-color: #f6f4f8 !important;
+}
+
 body #site-overlay {
   position: fixed;
-  z-index: 1;
+  z-index: 2;
   top: 0;
   left: 0;
   height: 100%;
@@ -970,7 +1110,8 @@ main > h2:not(:first-child) {
 
 main #user-recipes,
 main #user-ratings,
-main #user-fridge {
+main #user-fridge,
+main #user-allergens {
   width: 100%;
   min-height: 4rem;
 }
@@ -1020,7 +1161,46 @@ main #user-recipes .recipe-panel h2, main #user-recipes .recipe-panel p {
   margin: 0.2rem;
 }
 
-main #user-fridge {
+main #user-fridge,
+main #user-allergens {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  width: 100%;
+}
+
+main #user-fridge h1, main #user-fridge p,
+main #user-allergens h1,
+main #user-allergens p {
+  -ms-flex-item-align: start;
+      align-self: flex-start;
+  margin: 0.2rem 0;
+}
+
+main #user-fridge .search-bar,
+main #user-fridge .item-container,
+main #user-allergens .search-bar,
+main #user-allergens .item-container {
+  margin: 1rem 0;
+}
+
+main #user-fridge .search-bar,
+main #user-allergens .search-bar {
+  width: calc(100% - 2rem);
+}
+
+main #user-fridge .item-container,
+main #user-allergens .item-container {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -1036,9 +1216,24 @@ main #user-fridge {
           justify-content: flex-start;
   -ms-flex-wrap: wrap;
       flex-wrap: wrap;
+  min-height: calc(20vh - 4rem);
+  width: calc(100% - 4rem);
+  padding: 1rem;
+  background-color: #eceaee;
+  border-radius: 1.6rem;
 }
 
-main #user-fridge .fridge-ingredient {
+main #user-fridge .item-container > p,
+main #user-allergens .item-container > p {
+  width: 100%;
+  -ms-flex-item-align: center;
+      -ms-grid-row-align: center;
+      align-self: center;
+  text-align: center;
+}
+
+main #user-fridge .item-container .item,
+main #user-allergens .item-container .item {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -1046,33 +1241,58 @@ main #user-fridge .fridge-ingredient {
   -webkit-box-direction: normal;
       -ms-flex-direction: row;
           flex-direction: row;
-  -webkit-box-align: start;
-      -ms-flex-align: start;
-          align-items: flex-start;
-  -webkit-box-pack: start;
-      -ms-flex-pack: start;
-          justify-content: flex-start;
-  min-width: calc(50% - 1.4rem);
-  margin: 0.7rem;
-}
-
-main #user-fridge .fridge-ingredient .amount,
-main #user-fridge .fridge-ingredient .name {
-  margin: 0;
-  padding: 1rem;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  margin: 0.6rem;
+  padding: 0 1.4rem;
+  cursor: pointer;
   border-radius: 1rem;
 }
 
-main #user-fridge .fridge-ingredient .amount {
-  margin-right: 0.4rem;
-  background-color: #eceaee;
-  white-space: nowrap;
+main #user-fridge .item-container .item.selected,
+main #user-allergens .item-container .item.selected {
+  background-color: rgba(248, 148, 165, 0.4) !important;
 }
 
-main #user-fridge .fridge-ingredient .name {
-  background-color: #f6f4f8;
-  width: 100%;
-  font-size: 1.2rem;
-  font-weight: bold;
+main #user-fridge .item-container .item.unselected,
+main #user-allergens .item-container .item.unselected {
+  background-color: #f6f4f8 !important;
+}
+
+main #logout-link {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  margin: 0;
+  margin-top: 7rem;
+  padding: 1.4rem 2rem;
+  border-radius: 1rem;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  cursor: pointer;
+}
+
+main #logout-link:hover {
+  background-color: #e0e0e0;
+}
+
+main #logout-link:active {
+  background-color: #d8d8d8;
 }
 /*# sourceMappingURL=profile_page.css.map */

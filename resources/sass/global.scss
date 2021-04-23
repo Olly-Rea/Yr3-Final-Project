@@ -52,7 +52,7 @@ body {
     }
 
     nav {
-        z-index: 5;
+        z-index: 1;
 
         position: absolute;
         top: 1.2rem;
@@ -313,11 +313,51 @@ body {
             }
         }
 
+        .item-container {
+            @include flexDisplay(row, flex-start, flex-start);
+            flex-wrap: wrap;
+
+            min-height: calc(20vh - 4rem);
+            width: calc(100% - 4rem);
+
+            padding: 1rem;
+
+            background-color: $panelAccentColor;
+            border-radius: $panelCorner;
+
+            > p {
+                width: 100%;
+
+                align-self: center;
+                text-align: center;
+            }
+
+            .item {
+                @include flexDisplay(row, center, center);
+                // flex-grow: 1;
+
+                margin: 0.6rem;
+                padding: 0 1.4rem;
+
+                cursor: pointer;
+
+                border-radius: $smallRounded;
+
+                &.selected {
+                    background-color: $accentFaint !important;
+                }
+                &.unselected {
+                    background-color: $panelBckColor !important;
+                }
+            }
+
+        }
+
     }
 
     #site-overlay {
         position: fixed;
-        z-index: 1;
+        z-index: 2;
         top: 0;
         left: 0;
 

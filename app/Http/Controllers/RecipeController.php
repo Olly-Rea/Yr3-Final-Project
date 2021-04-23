@@ -56,15 +56,15 @@ class RecipeController extends Controller {
             $recipeAllergens = $recipe->ingredients()->with(['allergens'])->get()->map(function ($item) {
                 if (count($item->allergens)) return $item->allergens;
             })->flatten()->filter(function ($value) { return !is_null($value); });
-            // Get User Allergens
-            $userAllergens = Auth::user()->profile->allergens;
             // Get the shared allergens and/or traces
-            $userAllergens->each(function ($value, $key) use ($recipeAllergens) {
-                return $recipeAllergens->contains($value);
-            });
+            $userAllergens = Auth::user()->profile->allergens->diff(
+                Auth::user()->profile->allergens->diff($recipeAllergens)
+            );
         } else {
             $userAllergens = [];
         }
+
+        // dd($recipeAllergens, $userAllergens);
 
         //Return the recipe with it's included ingredients
         return view('recipe', ['recipe' => $recipe, 'ingredients' => $ingredients, 'hasAllergens' => $userAllergens]);
@@ -94,11 +94,8 @@ class RecipeController extends Controller {
     public function showAI(MLContainer $mlContainer) {
         // Get the recipe from the machine learning container
         $recipe = $mlContainer->getRecipe();
-
-        dd($recipe);
-
         // Return it to the view
-        return view('ai-chef', ['recipe' => $recipe]);
+        return view('ai-chef', ['recipe' => $recipe, 'user' => Auth::user()]);
     }
 
     /**

@@ -1,6 +1,31 @@
 @import 'global';
 
 main {
+
+    #warning-panel {
+        @include flexDisplay(row, center, flex-start);
+
+        width: calc(100% - 4rem);
+        padding: 1rem 2rem;
+
+        color: rgb(116, 104, 0);
+        background-color: rgba(228, 206, 82, 0.5);
+
+        border-radius: $smallRounded;
+
+        h2,
+        h3 {
+            margin: 0;
+        }
+        h2 {
+            margin-right: 1rem;
+        }
+        h3 {
+            transform: translateY(6%);
+        }
+
+    }
+
     #recipe-title-container,
     #ingredients-container,
     #directions-container {

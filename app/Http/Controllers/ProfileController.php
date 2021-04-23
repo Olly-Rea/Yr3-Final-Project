@@ -86,12 +86,12 @@ class ProfileController extends Controller {
     public function updatePrefs(Request $request) {
         // Check that the request is ajax
         if ($request->ajax()) {
-            // Update the Users preferences
+            // Update the Users preferences (ensure values are between 0 and 10)
             Auth::user()->profile->update([
-                'spice_pref' => $request->spice,
-                'sweet_pref' => $request->sweet,
-                'sour_pref' => $request->sour,
-                'diff_pref'=> $request->diff
+                'spice_pref' => ($request->spice >= 0 && $request->spice <= 10) ? $request->spice : 5,
+                'sweet_pref' => ($request->sweet >= 0 && $request->sweet <= 10) ? $request->sweet : 5,
+                'sour_pref' => ($request->sour >= 0 && $request->sour <= 10) ? $request->sour : 5,
+                'diff_pref'=> ($request->diff >= 0 && $request->diff <= 10) ? $request->diff : 5,
             ]);
         } else {
             abort(404);

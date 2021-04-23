@@ -77,7 +77,7 @@ class User extends Authenticatable {
 
     // Rating Model relationship
     public function ratings() {
-        return $this->hasMany('App\Models\Rating');
+        return $this->hasMany('App\Models\Rating')->orderBy('created_at');
     }
 
     // Function to call on the profile loadImage method

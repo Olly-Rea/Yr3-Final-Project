@@ -74,5 +74,3 @@ Route::middleware(['authsetup'])->group(function () {
     // View results created by the AI chef
     Route::get('/TheAiChef', 'RecipeController@showAI')->name('ai_chef');
 });
-
-

@@ -27,7 +27,8 @@ main {
 
     #user-recipes,
     #user-ratings,
-    #user-fridge {
+    #user-fridge,
+    #user-allergens {
         width: 100%;
         min-height: 4rem;
     }
@@ -68,35 +69,83 @@ main {
         }
     }
 
-    #user-fridge {
-        @include flexDisplay(row, flex-start, flex-start);
-        flex-wrap: wrap;
+    #user-fridge,
+    #user-allergens {
+        @include flexDisplay(column, center, flex-start);
 
-        .fridge-ingredient {
+        width: 100%;
+
+        h1, p {
+            align-self: flex-start;
+            margin: 0.2rem 0;
+        }
+
+        .search-bar,
+        .item-container {
+            margin: 1rem 0;
+        }
+
+        .search-bar {
+            width: calc(100% - 2rem);
+        }
+        .item-container {
             @include flexDisplay(row, flex-start, flex-start);
+            flex-wrap: wrap;
 
-            min-width: calc(50% - 1.4rem);
+            min-height: calc(20vh - 4rem);
+            width: calc(100% - 4rem);
 
-            margin: 0.7rem;
+            padding: 1rem;
 
-            .amount,
-            .name {
-                margin: 0;
-                padding: 1rem;
-                border-radius: $smallRounded;
-            }
-            .amount {
-                margin-right: 0.4rem;
-                background-color: $panelAccentColor;
-                white-space: nowrap;
-            }
-            .name {
-                background-color: $panelBckColor;
+            background-color: $panelAccentColor;
+            border-radius: $panelCorner;
+
+            > p {
                 width: 100%;
 
-                font-size: 1.2rem;
-                font-weight: bold;
+                align-self: center;
+                text-align: center;
             }
+
+            .item {
+                @include flexDisplay(row, center, center);
+                // flex-grow: 1;
+
+                margin: 0.6rem;
+                padding: 0 1.4rem;
+
+                cursor: pointer;
+
+                border-radius: $smallRounded;
+
+                &.selected {
+                    background-color: $accentFaint !important;
+                }
+                &.unselected {
+                    background-color: $panelBckColor !important;
+                }
+            }
+
+        }
+    }
+
+    #logout-link {
+        @include flexDisplay(row, center, space-between);
+
+        margin: 0;
+        margin-top: 7rem;
+
+        padding: 1.4rem 2rem;
+        border-radius: $smallRounded;
+
+        user-select: none;
+        cursor: pointer;
+
+        &:hover {
+            background-color: $backFocus;
+        }
+        &:active {
+            background-color: $backActive;
         }
     }
 

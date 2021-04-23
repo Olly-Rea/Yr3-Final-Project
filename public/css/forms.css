@@ -196,7 +196,7 @@ input[type="submit"] {
   min-width: 8rem;
   padding: 1rem 2rem;
   margin: 1rem;
-  border-width: 0.24rem;
+  border-width: 0.26rem;
   border-color: #0a0a0a;
   border-radius: 1.6rem;
   background-color: #f894a4;
@@ -263,23 +263,17 @@ label.checkOption input, label.subOption input {
   cursor: pointer;
 }
 
-label.checkOption input:checked ~ .checkbox svg,
-label.checkOption input:checked ~ .checkbox svg, label.subOption input:checked ~ .checkbox svg,
-label.subOption input:checked ~ .checkbox svg {
+label.checkOption input:checked ~ .checkbox svg, label.subOption input:checked ~ .checkbox svg {
   stroke: #f6f4f8;
   fill: #f894a4;
 }
 
-label.checkOption:hover input ~ .checkbox svg,
-label.checkOption:hover input ~ .checkbox svg, label.subOption:hover input ~ .checkbox svg,
-label.subOption:hover input ~ .checkbox svg {
+label.checkOption:hover input ~ .checkbox svg, label.subOption:hover input ~ .checkbox svg {
   stroke: #f57d91;
   fill: #f6f4f8;
 }
 
-label.checkOption:hover input:checked ~ .checkbox svg,
-label.checkOption:hover input:checked ~ .checkbox svg, label.subOption:hover input:checked ~ .checkbox svg,
-label.subOption:hover input:checked ~ .checkbox svg {
+label.checkOption:hover input:checked ~ .checkbox svg, label.subOption:hover input:checked ~ .checkbox svg {
   stroke: #f6f4f8;
   fill: #f894a4;
 }
@@ -315,6 +309,93 @@ input[type="checkbox"] {
      -moz-user-select: none;
       -ms-user-select: none;
           user-select: none;
+}
+
+#profile-form .profile-image-container {
+  -ms-flex-item-align: center;
+      -ms-grid-row-align: center;
+      align-self: center;
+  position: relative;
+  margin: 4rem 0;
+  width: 18rem;
+  overflow: hidden;
+}
+
+#profile-form .profile-image-container:hover .edit-overlay {
+  opacity: 1;
+}
+
+#profile-form .profile-image-container:active .edit-overlay {
+  opacity: 1;
+}
+
+#profile-form .profile-image-container .edit-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  height: 100%;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.4);
+  opacity: 0;
+  -webkit-transition: opacity 0.14s ease-in-out;
+  transition: opacity 0.14s ease-in-out;
+}
+
+#profile-form .profile-image-container .edit-overlay .menu-item {
+  position: relative;
+  width: 5.4rem;
+  height: 5.4rem;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.1);
+  -webkit-transition: -webkit-transform 0.14s ease-in-out;
+  transition: -webkit-transform 0.14s ease-in-out;
+  transition: transform 0.14s ease-in-out;
+  transition: transform 0.14s ease-in-out, -webkit-transform 0.14s ease-in-out;
+}
+
+#profile-form .profile-image-container .edit-overlay .menu-item svg {
+  position: absolute;
+  top: 50%;
+  left: 48%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  fill: #f6f4f8;
+  max-height: 70%;
+  max-width: 70%;
+  cursor: pointer;
+  -webkit-transition: fill 0.14s ease-in-out;
+  transition: fill 0.14s ease-in-out;
+}
+
+#profile-form .profile-image-container .edit-overlay .menu-item:hover {
+  -webkit-transform: scale(1.1);
+          transform: scale(1.1);
+}
+
+#profile-form .profile-image-container .edit-overlay .menu-item:hover svg {
+  fill: #eceaee;
+}
+
+#profile-form .profile-image-container .edit-overlay .menu-item:active {
+  -webkit-transform: scale(0.96);
+          transform: scale(0.96);
+}
+
+#profile-form .profile-image-container .edit-overlay .menu-item:active svg {
+  fill: #b4b4b4;
 }
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * *

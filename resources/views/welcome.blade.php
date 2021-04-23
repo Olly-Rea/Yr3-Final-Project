@@ -47,4 +47,8 @@
     <input id="search-bar" type="text" name="search" placeholder="Start your culinary search here!"
         onfocus="this.placeholder = ''" onfocusout="this.placeholder = 'Start your culinary search here!'" />
 </form>
+
+<h4>- Or -</h4>
+
+<button id="show-feed">Give me a taste</button>
 @endsection

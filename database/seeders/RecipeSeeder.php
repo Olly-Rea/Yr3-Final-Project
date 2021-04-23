@@ -108,7 +108,7 @@ class RecipeSeeder extends Seeder {
         foreach($recipes as $count => $recipe) {
 
             // // DEBUG - skip previous recipes as they all seed successfully
-            // if ($count < 9000) continue;
+            // if ($count < 20000) continue;
 
             // get the 'author' of the recipe
             $author = User::inRandomOrder()->first();
