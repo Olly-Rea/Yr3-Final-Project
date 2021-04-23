@@ -45,11 +45,11 @@ class CreateNewUser implements CreatesNewUsers
             // User name
             'first_name' => $first_name,
             'last_name' => $last_name,
-            // Default preferences
-            'spice_pref' => 5,
-            'sweet_pref' => 5,
-            'sour_pref' => 5,
-            'diff_pref' => 5
+            // Set as -1 to indicate an un-setup profile
+            'spice_pref' => -1,
+            'sweet_pref' => -1,
+            'sour_pref' => -1,
+            'diff_pref' => -1
         ]);
         // Create the new Users 'fridge'
         $user->fridge()->create([

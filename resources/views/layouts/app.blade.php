@@ -23,7 +23,9 @@
         @yield("scripts-app")
     </head>
     <body>
-        @yield('nav')
+        <nav>
+            @yield('nav')
+        </nav>
         <main>
             @yield("content")
         </main>

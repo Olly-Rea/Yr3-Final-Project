@@ -44,7 +44,7 @@
 <div id="user-fridge">
     @foreach ($user->fridge->ingredients as $ingredient)
     <div class="fridge-ingredient">
-        <h3 class="amount">@if($ingredient->pivot->measure != ""){{ $ingredient->pivot->amount }} {{ $ingredient->pivot->measure }}@else{{ $inredient->pivot->amount }}@endif</h3>
+        <h3 class="amount">@if($ingredient->pivot->measure != ""){{ $ingredient->pivot->amount }} {{ $ingredient->pivot->measure }}@else{{ $ingredient->pivot->amount }}@endif</h3>
         <a href="{{ route('ingredient', $ingredient->id) }}" class="name">{{ $ingredient->name }}</a>
     </div>
     @endforeach

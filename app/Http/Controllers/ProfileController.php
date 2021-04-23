@@ -13,11 +13,11 @@ class ProfileController extends Controller {
     /**
      * Method to load the profile image for a 'User' model
      */
-    public static function loadImage($path) {
-        if($path != null) {
-            $imagePath = 'storage'.DIRECTORY_SEPARATOR.$path;
+    public static function loadImage($profile_id) {
+        if($profile_id != null) {
+            $imagePath = 'storage/uploads/profile_images/'.$profile_id.'/profile_image.jpg';
             // Check the file exists, and if so, output it, otherwise, return the image placeholder
-            if (file_exists(public_path().DIRECTORY_SEPARATOR.$imagePath)) {
+            if (file_exists(public_path().'/'.$imagePath)) {
                 return asset($imagePath);
             } else {
                 clearstatcache();
@@ -26,6 +26,24 @@ class ProfileController extends Controller {
         } else {
             clearstatcache();
             return asset('images/profile-default.svg');
+        }
+    }
+
+    /**
+     * Method to upload a users new Profile Image (only accessible through auth middleware)
+     */
+    public function uploadProfileImage(Request $request) {
+        // Check that the request is ajax (and a user is definitely logged in)
+        if ($request->ajax() && Auth::check()) {
+            $imagePath = '/storage/uploads/profile_images/' . Auth::user()->profile->id;
+            if ($request->hasFile('profile_image')) {
+                $image = $request->file('profile_image');
+                $name = 'profile_image.jpg';
+                $destinationPath = public_path() . $imagePath;
+                $image->move($destinationPath, $name);
+            }
+        } else {
+            abort(404);
         }
     }
 

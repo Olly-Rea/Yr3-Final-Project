@@ -50,28 +50,24 @@ class RecipeController extends Controller {
             $query->where('recipe_id', '=', $recipe->id);
         }])->get();
 
-        // Check if a logged in User needs warning about possible allergens/traces
+        // Check if a logged in User needs warning about possible allergens
         if (Auth::check()) {
-            // Get recipe and User Allergens
-            $recipeAllergens = $recipe->allergens;
-            $userAllergens = Auth::user()->allergens;
-            // Get recipe and User Traces
-            $recipeTraces = $recipe->traces;
-            $userTraces = Auth::user()->traces;
+            // Get Recipe Allergens
+            $recipeAllergens = $recipe->ingredients()->with(['allergens'])->get()->map(function ($item) {
+                if (count($item->allergens)) return $item->allergens;
+            })->flatten()->filter(function ($value) { return !is_null($value); });
+            // Get User Allergens
+            $userAllergens = Auth::user()->profile->allergens;
             // Get the shared allergens and/or traces
             $userAllergens->each(function ($value, $key) use ($recipeAllergens) {
                 return $recipeAllergens->contains($value);
             });
-            $userTraces->each(function ($value, $key) use ($recipeTraces) {
-                return $recipeTraces->contains($value);
-            });
         } else {
             $userAllergens = [];
-            $userTraces = [];
         }
 
         //Return the recipe with it's included ingredients
-        return view('recipe', ['recipe' => $recipe, 'ingredients' => $ingredients, 'hasAllergens' => $userAllergens, 'hasTraces' => $userTraces]);
+        return view('recipe', ['recipe' => $recipe, 'ingredients' => $ingredients, 'hasAllergens' => $userAllergens]);
     }
 
     /**
@@ -85,9 +81,7 @@ class RecipeController extends Controller {
         // Check to see if a User is logged in
         if(count(Auth::user()->fridge->ingredients) == 0) {
 
-
             return $this->show($recipe);
-
 
         } else {
             return $this->show($recipe);

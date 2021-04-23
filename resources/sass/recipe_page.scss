@@ -35,6 +35,7 @@ main {
             @include flexDisplay(row, center, flex-start);
 
             max-width: 30%;
+            min-width: 26%;
             height: 100%;
 
             padding: 1rem;

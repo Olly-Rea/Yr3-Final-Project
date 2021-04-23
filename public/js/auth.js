@@ -8,12 +8,10 @@ $(window).on("load, pageshow", function() {
     $("#logout-link").on("click", function() {
         showOverlay();
         $("#logout.prompt").fadeIn(transitionTime);
-        $(".prompt").removeClass("hidden");
     });
     // Close prompt and fadeout
     $("#logout .close-prompt").on("click", function() {
         $("#logout.prompt").fadeOut(transitionTime);
-        $(".prompt").addClass("hidden");
         hideOverlay();
     });
 });

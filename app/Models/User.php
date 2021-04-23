@@ -82,7 +82,7 @@ class User extends Authenticatable {
 
     // Function to call on the profile loadImage method
     public function profileImage() {
-        return ProfileController::loadImage($this->profile_image);
+        return ProfileController::loadImage($this->profile->id);
     }
 
 }

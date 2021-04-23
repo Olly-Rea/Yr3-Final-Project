@@ -41,6 +41,12 @@ Route::middleware(['auth'])->group(function () {
     // Route::get('/Search/Recipe', 'SearchController@recipe')->name('search.recipe');
     Route::get('/Search/Allergen', 'SearchController@allergen')->name('search.allergen');
 
+    // Route to add a profile image
+    Route::post('/Profile/Image/Add', 'ProfileController@uploadProfileImage')->name('image.add');
+
+    // route to update a Users Preferences
+    Route::get('/Prefs/Update', 'ProfileController@updatePrefs')->name('prefs.update');
+
     // Routes to add / remove fridge ingredients from a Users account
     Route::get('/Fridge/Add', 'FridgeController@addTo')->name('fridge.add');
     Route::get('/Fridge/Remove', 'FridgeController@removeFrom')->name('fridge.remove');

@@ -7,20 +7,18 @@
 @section("title")Register @endsection
 
 @section('nav')
-<nav>
-    <div id="nav-left">
-        <a href="#" id="site-logo">
-            <svg>
-                <use xlink:href="{{ asset('images/graphics/logo.svg#icon') }}"></use>
-            </svg>
-        </a>
-    </div>
-    <div id="site-links">
-        <a @if(Request::is('IdeasBoard'))class="active"@else href="{{ route('feed') }}"@endif><b>Home</b></a>
-        <a @if(Request::is('register'))class="active" @else href="{{ route('register') }}"@endif><b>Sign Up!</b></a>
-        <a @if(Request::is('login'))class="active"@else href="{{ route('login') }}"@endif><b>Login</b></a>
-    </div>
-</nav>
+<div id="nav-left">
+    <a href="#" id="site-logo">
+        <svg>
+            <use xlink:href="{{ asset('images/graphics/logo.svg#icon') }}"></use>
+        </svg>
+    </a>
+</div>
+<div id="site-links">
+    <a @if(Request::is('IdeasBoard'))class="active"@else href="{{ route('feed') }}"@endif><b>Home</b></a>
+    <a @if(Request::is('register'))class="active" @else href="{{ route('register') }}"@endif><b>Sign Up!</b></a>
+    <a @if(Request::is('login'))class="active"@else href="{{ route('login') }}"@endif><b>Login</b></a>
+</div>
 @endsection
 
 @section("content")

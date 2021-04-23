@@ -433,7 +433,7 @@ svg {
  *               Main view-window properties               *
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 body.no-scroll {
-  overflow: hidden;
+  overflow-y: hidden;
   padding-right: 1rem;
 }
 
@@ -661,6 +661,10 @@ body nav #site-links a {
      -moz-user-select: none;
       -ms-user-select: none;
           user-select: none;
+}
+
+body nav #site-links a#require-register {
+  cursor: pointer;
 }
 
 body nav #site-links a b {
@@ -927,6 +931,13 @@ body footer #footer-content a {
   .recipe-panel .recipe-title-panel .time-info:hover p,
   .recipe-panel .recipe-title-panel .difficulty-info:hover p {
     opacity: 100%;
+  }
+}
+
+@media only screen and (max-aspect-ratio: 12 / 10) {
+  body.no-scroll {
+    overflow: hidden;
+    padding-right: 0;
   }
 }
 /*# sourceMappingURL=global.css.map */

@@ -15,7 +15,7 @@ $(window).on("load, pageshow", function() {
     $("#profile-form .nav-items h3.next").on("click", function() {
         changePage("#profile-form", "#allergen-form", 2);
     });
-    // Handler to display the profile image preview
+    // Handler to display the profile image upload/preview
     $("#profile-form input[type=\"file\"]").on("load change", function() {
         // Get the image container
         $container = $(this).parent().parent().parent();
@@ -23,11 +23,31 @@ $(window).on("load, pageshow", function() {
         $image = $container.find("img");
         // Add the image (as a preview) to the profile-image
         if (this.files && this.files[0]) {
-            var reader = new FileReader();
-            reader.onload = function(e) {
-                $image.attr("src", e.target.result);
-            }
-            reader.readAsDataURL(this.files[0]);
+            // Set the file as the first file
+            $file = this.files[0];
+            // Set image as FormData
+            let formData = new FormData();
+            formData.append('profile_image', $file);
+            // Call on method to upload the image
+            $.ajax({
+                type : 'POST',
+                url : "/Profile/Image/Add",
+                data: formData,
+                contentType: false,
+                processData: false,
+                success: function() {
+                    var reader = new FileReader();
+                    reader.onload = function(e) {
+                        $image.attr("src", e.target.result);
+                    }
+                    reader.readAsDataURL($file);
+                },
+                error: function(data) {
+                    // Notify the user of failure
+                    console.log("Image upload failed!");
+                    console.log(data);
+                }
+            });
         }
     });
 
@@ -80,13 +100,29 @@ $(window).on("load, pageshow", function() {
     $("#fridge-form .nav-items h3#complete").on("click", function() {
         // If the user has included at least 3 items in their fridge
         if($("#fridge-ingredients").find(".selected").length < 3) {
+            // Prepare the action prompt messages
+            $("#action.prompt .prompt-title").html("Ingredients required!");
+            $("#action.prompt .message").html("Please add at least 3 ingredients to proceed!");
+            $("#action.prompt button").on("click", function() {
+                $("#action.prompt").addClass("hidden");
+                hideOverlay();
+            })
+            // Show the overlay and action prompt
+            $("#action.prompt").fadeIn(transitionTime);
             showOverlay()
         } else {
+            // Get the values from the preferences form
+            vals = $("#prefs-form input[type=\"number\"]").serializeArray();
             // Submit the "setup complete" request and allow the user to proceed
             $.ajax({
-                type : "get",
-                url : "/Me/update",
-                data: {"search": val},
+                type : "GET",
+                url : "/Prefs/Update",
+                data: {
+                    "spice": vals[0]["value"],
+                    "sweet": vals[1]["value"],
+                    "sour": vals[2]["value"],
+                    "diff": vals[3]["value"]
+                },
                 success: function() {
                     window.location.href = "/Me";
                 }
@@ -186,7 +222,7 @@ function getResults(url, val, $resultContainer) {
         searchTimeout = setTimeout(function () {
             // When user has finished typing, search databases and show relevent data
             $.ajax({
-                type : "get",
+                type : "GET",
                 url : url,
                 data: {"search": val},
                 success: function(data) {
@@ -233,7 +269,7 @@ function addItem(type, $item) {
     id = $item.children().first().val();
     // Perform the ajax request
     $.ajax({
-        type : "get",
+        type : "GET",
         url : type+"/Add",
         data: {"id": id},
         success: function() {
@@ -251,7 +287,7 @@ function removeItem(type, $item) {
     id = $item.children().first().val();
     // Perform the ajax request
     $.ajax({
-        type : "get",
+        type : "GET",
         url : type+"/Remove",
         data: {"id": id},
         success: function() {

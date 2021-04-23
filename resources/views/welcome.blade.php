@@ -31,13 +31,13 @@
 @section('content')
 <h1>Welcome to the 'Recipe App'!</h1>
 
-<div id="quick-launch-categories">
+{{-- <div id="quick-launch-categories">
     @foreach ($categories as $category)
     <div class="graphic-circle">
         <h3>{{ $category->name }}</h3>
     </div>
     @endforeach
-</div>
+</div> --}}
 
 <h3>What are you in the mood for today?</h3>
 <form id="search-bar-container" action="">
@@ -47,5 +47,4 @@
     <input id="search-bar" type="text" name="search" placeholder="Start your culinary search here!"
         onfocus="this.placeholder = ''" onfocusout="this.placeholder = 'Start your culinary search here!'" />
 </form>
-
 @endsection

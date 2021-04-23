@@ -17,23 +17,21 @@
 @endsection
 
 @section('nav')
-<nav>
-    <div id="nav-left">
-        <a href="#" id="site-logo">
-            <svg>
-                <use xlink:href="{{ asset('images/graphics/logo.svg#icon') }}"></use>
-            </svg>
-        </a>
-    </div>
-    <div id="site-links">
-        <div id="progress"></div>
-        <h3>Your Details</h3>
-        <h3>Allergens</h3>
-        <h3>Preferences</h3>
-        <h3>'My Fridge'</h3>
-    </div>
-    <h3 id="logout-link">Logout</h3>
-</nav>
+<div id="nav-left">
+    <a href="#" id="site-logo">
+        <svg>
+            <use xlink:href="{{ asset('images/graphics/logo.svg#icon') }}"></use>
+        </svg>
+    </a>
+</div>
+<div id="site-links">
+    <div id="progress"></div>
+    <h3>Your Details</h3>
+    <h3>Allergens</h3>
+    <h3>Preferences</h3>
+    <h3>'My Fridge'</h3>
+</div>
+<h3 id="logout-link">Logout</h3>
 @endsection
 
 @section('content')
@@ -112,28 +110,28 @@
         <p>Please indicate your food preferences here, this way we can better tailor your experience to recipes we know you'll like!</p>
         <form action="{{ route('me.update') }}">
             @csrf
-            <label for="edit_spice">Spice</label>
+            <label for="spice_val">Spice</label>
             <p>Show me recipes with a spice rating up to this value:</p>
             <div id="spice-slider" class="slider-container">
-                <input type="number" name="edit_spice" value="{{ old("edit_spice") ? old("edit_spice") : $user->profile->spice_pref }}" hidden>
+                <input type="number" name="spice_val" value="{{ old("spice_val") ? old("spice_val") : 5 }}" hidden>
                 <div id="spice-slider-range" class="slider-range"></div>
             </div>
-            <label for="edit_sweet">Sweet</label>
+            <label for="sweet_val">Sweet</label>
             <p>Show me recipes with a 'sweetness' rating up to this value:</p>
             <div id="sweet-slider" class="slider-container">
-                <input type="number" name="edit_sweet" value="{{ old("edit_sweet") ? old("edit_sweet") : $user->profile->sweet_pref }}" hidden>
+                <input type="number" name="sweet_val" value="{{ old("sweet_val") ? old("sweet_val") : 5 }}" hidden>
                 <div id="sweet-slider-range" class="slider-range"></div>
             </div>
-            <label for="edit_sour">Sour</label>
+            <label for="sour_val">Sour</label>
             <p>Show me recipes with a sour rating up to this value:</p>
             <div id="sour-slider" class="slider-container">
-                <input type="number" name="edit_sour" value="{{ old("edit_sour") ? old("edit_sour") : $user->profile->sour_pref }}" hidden>
+                <input type="number" name="sour_val" value="{{ old("sour_val") ? old("sour_val") : 5 }}" hidden>
                 <div id="sour-slider-range" class="slider-range"></div>
             </div>
-            <label for="edit_diff">Difficulty</label>
+            <label for="diff_val">Difficulty</label>
             <p>Show me recipes with difficulty ratings up to this value:</p>
             <div id="diff-slider" class="slider-container">
-                <input type="number" name="edit_diff" value="{{ old("edit_diff") ? old("edit_diff") : $user->profile->diff_pref }}" hidden>
+                <input type="number" name="diff_val" value="{{ old("diff_val") ? old("diff_val") : 5 }}" hidden>
                 <div id="diff-slider-range" class="slider-range"></div>
             </div>
         </form>
@@ -164,4 +162,12 @@
             <h3 id="complete">Let's Go!</h3>
         </div>
     </div>
+@endsection
+
+@section('site-overlay')
+<div id="action" class="prompt hidden" style="display: none">
+    <h1 class="prompt-title"></h1>
+    <p class="message"></p>
+    <button id="confirm-button">Okay!</button>
+</div>
 @endsection

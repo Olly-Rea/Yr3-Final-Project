@@ -28,12 +28,15 @@ $(window).on("load, pageshow", function() {
 // Methods to show/hide the site overlay
 function showOverlay() {
     // Fade out the site overlay and close any prompts
-    $("#site-overlay").fadeIn(transitionTime);
     $("body").addClass("no-scroll");
+    $("#site-overlay").fadeIn(transitionTime);
+    setTimeout(function () {
+        $(".prompt").removeClass("hidden");
+    }, 1);
 }
 function hideOverlay() {
     // Fade out the site overlay and close any prompts
-    $("#site-overlay, #results-container").fadeOut(transitionTime);
     $(".prompt").addClass("hidden");
+    $("#site-overlay, #results-container").fadeOut(transitionTime);
     $("body").removeClass("no-scroll");
 }
