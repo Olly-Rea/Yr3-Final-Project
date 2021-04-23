@@ -70,6 +70,11 @@ class User extends Authenticatable {
         return $this->hasOne('App\Models\Fridge');
     }
 
+    // CookBook Model relationship
+    public function cookbook() {
+        return $this->hasOne('App\Models\CookBook');
+    }
+
     // Recipe Model relationship
     public function recipes() {
         return $this->hasMany('App\Models\Recipe');

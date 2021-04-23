@@ -37,6 +37,6 @@ function showOverlay() {
 function hideOverlay() {
     // Fade out the site overlay and close any prompts
     $(".prompt").addClass("hidden");
-    $("#site-overlay, #results-container").fadeOut(transitionTime);
+    $("#site-overlay, #results-container, .prompt").fadeOut(transitionTime);
     $("body").removeClass("no-scroll");
 }

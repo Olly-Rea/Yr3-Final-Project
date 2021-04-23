@@ -17,8 +17,7 @@ class CookBook extends Model {
      * @var array
      */
     protected $fillable = [
-        'user_id',
-        'name'
+        'last_updated'
     ];
 
     // User Model relationship
@@ -28,7 +27,7 @@ class CookBook extends Model {
 
     // Recipe Model relationship
     public function recipes() {
-        return $this->belongsToMany('App\Models\Recipe');
+        return $this->belongsToMany('App\Models\Recipe', 'cookbook_recipes');
     }
 
 }

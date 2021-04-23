@@ -50,23 +50,45 @@
 </div>
 <h2>@if(Request::is('Me'))My @else{{ $user->profile->first_name }}'s @endif()Public Recipes</h2>
 <div id="user-recipes">
-    @foreach ($user->recipes as $recipe)
+    @forelse ($user->recipes as $recipe)
     <a href="{{ route('recipe', $recipe->id) }}" class="recipe-panel">
         <h2>{{ $recipe->name }}</h2>
         <p><b>Serves: </b>{{ $recipe->serves }}</p>
     </a>
-    @endforeach
-</div>
-<h2>@if(Request::is('Me'))My @else{{ $user->profile->first_name }}'s @endif()ratings</h2>
-<div id="user-ratings">
-    @forelse ($user->ratings as $rating)
-    <div>
-        <h4>{{ $rating->created_at }}</h4>
-        <p>{{ $rating->recipe->name }}</p>
-        <p>{{ $rating->spice_value }}, {{ $rating->sweet_value }}, {{ $rating->sour_value }}, {{ $rating->difficulty_value }}</p>
-    </div>
     @empty
-    <p>@if(Request::is('Me'))You haven't @else{{ $user->profile->first_name }} hasn't @endif()made any ratings yet</p>
+    <p>@if(Request::is('Me'))You haven't @else{{ $user->profile->first_name }} hasn't @endif()made any recipes yet!</p>
+    @endforelse
+</div>
+<h2>@if(Request::is('Me'))My @else{{ $user->profile->first_name }}'s @endif()latest ratings</h2>
+<div id="user-ratings">
+    {{-- Show the 5 most recent --}}
+    @forelse ($user->ratings->take(5) as $rating)
+    <a href="{{ route('recipe', $rating->recipe->id) }}" class="rating">
+        <h4>{{ date("j F Y H:m", strtotime($rating->created_at)) }}</h4>
+        <h1>{{ $rating->recipe->name }}</h1>
+        <div>
+            <div class="spice-wheel">
+                <h3>{{ $rating->spice_value }}</h3>
+            </div>
+            <div class="sweet-wheel">
+                <h3>{{ $rating->sweet_value }}</h3>
+            </div>
+            <div class="sour-wheel">
+                <h3>{{ $rating->sour_value }}</h3>
+            </div>
+            <div class="time-wheel">
+                <h3>{{ $rating->time_taken }}</h3><h4 class="mins">mins</h4>
+            </div>
+            <div class="difficulty-wheel">
+                <h3>{{ $rating->difficulty_value }}</h3>
+            </div>
+            <div class="out-of-five">
+                <h3>{{ $rating->out_of_five }}</h3>
+            </div>
+        </div>
+    </a>
+    @empty
+    <p>@if(Request::is('Me'))You haven't @else{{ $user->profile->first_name }} hasn't @endif()made any ratings yet!</p>
     @endforelse
 </div>
 
@@ -76,7 +98,7 @@
 <div id="user-fridge">
     <div id="ingredient-search" class="search-bar">
         <div id="results-container" style="display: none"></div>
-        <input id="ingredient-search" type="text" name="search" placeholder="Start typing to see results!" onfocus="this.placeholder = ''" onfocusout="this.placeholder = 'Start typing to see results!'"/>
+        <input id="ingredient-search" type="text" name="search" placeholder="Start typing to add more!" onfocus="this.placeholder = ''" onfocusout="this.placeholder = 'Start typing to add more!'"/>
     </div>
     <div id="fridge-ingredients" class="item-container">
         @foreach ($user->fridge->ingredients as $ingredient)
@@ -94,7 +116,7 @@
 <div id="user-allergens">
     <div id="allergen-search" class="search-bar">
         <div id="results-container" style="display: none"></div>
-        <input type="text" name="search" placeholder="Start typing to see results!" onfocus="this.placeholder = ''" onfocusout="this.placeholder = 'Start typing to see results!'"/>
+        <input type="text" name="search" placeholder="Start typing to add more!" onfocus="this.placeholder = ''" onfocusout="this.placeholder = 'Start typing to add more!'"/>
     </div>
     <div id="profile-allergens" class="item-container">
         @foreach($user->profile->allergens as $allergen)

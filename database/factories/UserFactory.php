@@ -23,12 +23,12 @@ class UserFactory extends Factory {
     public function definition() {
 
         // Generate the created_at date...
-        $create_date = $this->faker->dateTimeBetween($startDate = '-5 years', $endDate = '-1 days');
+        $create_date = $this->faker->dateTimeBetween($startDate = '-5 years', $endDate = '-1 days')->format('Y-m-d H:i:s');
         // ...and (possibly) an updated_at date
         $update_date = $create_date;
         // 50% chance of more recent updated date
         if(random_int(0,1) == 1) {
-            $update_date = $this->faker->dateTimeBetween($startDate = $create_date, $endDate = 'now');
+            $update_date = $this->faker->dateTimeBetween($startDate = $create_date, $endDate = 'now')->format('Y-m-d H:i:s');
         }
 
         // return new database record (row) to seed

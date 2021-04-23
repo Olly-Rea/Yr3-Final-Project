@@ -16,26 +16,31 @@ def generate_direction(model, ingredient, num_generate=30, temperature=1.0):
     # Loop through the number of words to generate
     for _ in range(num_generate):
         # Generate the tokenised input sequence
-        token_list = tokenizer.texts_to_sequences([seed_text])[0]
+        token_list = tokenizer.texts_to_sequences([ingredient])[0]
         token_list = tf.keras.preprocessing.sequence.pad_sequences(
-            input_sequences,
-            maxlen=MAX_SEQ_LEN-1,
+            ingredient,
+            maxlen=212,
             padding='pre'
         )
         # Get the prediction from the model
         predicted = model.predict_classes(token_list, verbose=0)
+
         # Ensure the predicted number is in the vocabulary
         if predicted in tokeniser.word_index.items():
             # If so, add the word mapping to the seed_text
             direction += ' '+inverse_vocab[predicted]
 
-    # Return the fully generated seed_text
-    return seed_text
+    # Return the fully generated direction
+    return direction
+
 
 # 'Main' method
 if __name__ == '__main__':
 
-    # Load the model
+    # Create the tokenizer
+    tokenizer = tf.keras.preprocessing.text.Tokenizer()
+
+    # Load the TensorFlow model
     model = tf.keras.models.load_model('ReInsGen.hd5')
 
     # Load the data that the MLContainer provided

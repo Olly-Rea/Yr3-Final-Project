@@ -69,7 +69,6 @@ $(window).on("load, pageshow", function() {
             $("#action.prompt .prompt-title").html("Ingredients required!");
             $("#action.prompt .message").html("Please add at least 3 ingredients to proceed!");
             $("#action.prompt button").on("click", function() {
-                $("#action.prompt").addClass("hidden");
                 hideOverlay();
             })
             // Show the overlay and action prompt

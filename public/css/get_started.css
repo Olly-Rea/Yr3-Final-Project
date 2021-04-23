@@ -524,6 +524,10 @@ body.no-scroll nav {
           transform: translateX(calc(-50% - 0.5rem));
 }
 
+body.no-scroll #site-overlay {
+  padding-right: 0;
+}
+
 body nav {
   z-index: 1;
   position: absolute;
@@ -851,11 +855,11 @@ body main .item-container {
   border-radius: 1.6rem;
 }
 
-body main .item-container > p {
+body main .item-container > p.initial-msg {
   width: 100%;
-  -ms-flex-item-align: center;
-      -ms-grid-row-align: center;
-      align-self: center;
+  -ms-flex-item-align: center !important;
+      -ms-grid-row-align: center !important;
+      align-self: center !important;
   text-align: center;
 }
 
@@ -892,6 +896,7 @@ body #site-overlay {
   z-index: 2;
   top: 0;
   left: 0;
+  padding-right: 1rem;
   height: 100%;
   width: 100%;
 }

@@ -56,6 +56,11 @@ class CreateNewUser implements CreatesNewUsers
             'name' => 'Default'
         ]);
 
+        // Create the new Users 'fridge'
+        $user->cookbook()->create([
+            'last_updated' => date('Y-m-d H:i:s')
+        ]);
+
         // return the User
         return $user;
     }

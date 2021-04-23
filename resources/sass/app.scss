@@ -49,6 +49,11 @@ body {
             width: calc(90% - 0.8rem);
             transform: translateX(calc(-50% - 0.5rem));
         }
+
+        #site-overlay {
+            padding-right: 0;
+        }
+
     }
 
     nav {
@@ -325,10 +330,10 @@ body {
             background-color: $panelAccentColor;
             border-radius: $panelCorner;
 
-            > p {
+            > p.initial-msg {
                 width: 100%;
 
-                align-self: center;
+                align-self: center !important;
                 text-align: center;
             }
 
@@ -360,6 +365,8 @@ body {
         z-index: 2;
         top: 0;
         left: 0;
+
+        padding-right: 1rem;
 
         height: 100%;
         width: 100%;

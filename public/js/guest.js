@@ -8,12 +8,9 @@ $(window).on("load, pageshow", function() {
     $("#require-register").on("click", function() {
         showOverlay();
         $("#sign-up.prompt").fadeIn(transitionTime);
-        $(".prompt").removeClass("hidden");
     });
     // Close prompt and fadeout
     $("#sign-up.prompt .close-prompt").on("click", function() {
-        $("#sign-up.prompt").fadeOut(transitionTime);
-        $(".prompt").addClass("hidden");
         hideOverlay();
     });
     $("#sign-up.prompt button").on("click", function() {

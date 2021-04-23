@@ -26,6 +26,7 @@ class UserSeeder extends Seeder {
         User::factory(400)
             ->hasProfile(1)
             ->hasFridge(1)
+            ->hasCookBook(1)
             ->create();
     }
 }

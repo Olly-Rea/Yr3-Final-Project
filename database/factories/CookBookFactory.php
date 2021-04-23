@@ -2,16 +2,16 @@
 
 namespace Database\Factories;
 
-use App\Models\Fridge;
+use App\Models\CookBook;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-class FridgeFactory extends Factory {
+class CookBookFactory extends Factory {
     /**
      * The name of the factory's corresponding model.
      *
      * @var string
      */
-    protected $model = Fridge::class;
+    protected $model = CookBook::class;
 
     /**
      * Define the model's default state.
@@ -21,7 +21,7 @@ class FridgeFactory extends Factory {
     public function definition()
     {
         return [
-            'name' => 'Default'
+            'last_updated' => $this->faker->dateTimeBetween($startDate = '-1 weeks', $endDate = '-1 days')
         ];
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\CookBookContainer;
 use App\MLContainer;
 use Illuminate\Http\Request;
 
@@ -14,9 +15,11 @@ class RecipeController extends Controller {
     // Number of items to show per page
     var $paginate = 7;
 
-    // Method to show 7 random recipes in the user feed
-    public function index() {
-        $recipes = Recipe::all()->count() > 7 ? Recipe::all()->random(7) : Recipe::get();
+    /**
+     * Method to show the User's Cookbook Recipes / Guest's Session Recipes
+     */
+    public function index(CookBookContainer $cookbook) {
+        $recipes = $cookbook->getRecipes();
         return view('feed', ['recipes' => $recipes]);
     }
 

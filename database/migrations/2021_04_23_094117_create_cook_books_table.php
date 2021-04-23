@@ -15,6 +15,7 @@ class CreateCookBooksTable extends Migration {
         Schema::create('cook_books', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
+            $table->timestamp('last_updated');
             $table->unique('id', 'user_id');
         });
         // Create the pivot table for cookbook_recipes

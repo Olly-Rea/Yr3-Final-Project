@@ -52,11 +52,4 @@ class MLContainer {
         return $this->recipe;
     }
 
-    /**
-     * Method to train the ML model - to be called on by a task handler
-     */
-    public function trainModel() {
-
-    }
-
 }
