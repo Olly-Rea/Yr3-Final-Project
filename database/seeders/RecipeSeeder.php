@@ -107,8 +107,8 @@ class RecipeSeeder extends Seeder {
         // Seed Recipe Database
         foreach($recipes as $count => $recipe) {
 
-            // DEBUG - skip previous recipes as they all seed successfully
-            if ($count < 24000) continue;
+            // // DEBUG - skip previous recipes as they all seed successfully
+            // if ($count < 24000) continue;
 
             // get the 'author' of the recipe (from first 400 generated users)
             $author = User::all()->take(400)->random(1)->first();
@@ -216,8 +216,8 @@ class RecipeSeeder extends Seeder {
         DB::table('ratings')->delete();
 
         // The list of filenames to use
-        // $fileNames = ['recipes_1.json','recipes_2.json','recipes_3.json','recipes_4 (wip).json'];
-        $fileNames = ['recipes_2.json','recipes_3.json','recipes_4 (wip).json'];
+        $fileNames = ['recipes_1.json','recipes_2.json','recipes_3.json','recipes_4 (wip).json'];
+        // $fileNames = ['recipes_2.json','recipes_3.json','recipes_4 (wip).json'];
 
         // Loop through and seed from each JSON file provided
         foreach($fileNames as $fileName) {

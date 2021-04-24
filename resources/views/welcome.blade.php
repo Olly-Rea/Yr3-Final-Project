@@ -49,7 +49,7 @@
 </div>
 <h4>- Or -</h4>
 @auth
-<button id="show-feed">Show me my CookBook!</button>
+<button id="show-feed">Take me home!</button>
 @else
 <button id="show-feed">Show me some ideas!</button>
 @endauth
