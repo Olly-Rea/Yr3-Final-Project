@@ -7,9 +7,9 @@ use Illuminate\Queue\Middleware\RateLimited;
 
 // Custom imports
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Builder;
 use App\Models\Recipe;
-use Illuminate\Support\Facades\DB;
 
 class CookBookContainer {
 
@@ -47,8 +47,8 @@ class CookBookContainer {
         } else {
             // Start a session (if one has not already been started)
             if (session_status() === PHP_SESSION_NONE) session_start();
-            // Check if the user has request a refresh OR if no recipes currently added to recipes
-            if ($forceRefresh || !isset($_SESSION["recipes"])) {
+            // Check if the user has request a refresh OR if no recipes currently added to recipes (OR if 'recipes' is empty)
+            if ($forceRefresh || !isset($_SESSION["recipes"]) || count($_SESSION["recipes"]) == 0 ) {
                 $this->getRandom();
             }
         }

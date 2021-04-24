@@ -37,7 +37,7 @@
 
 @section('content')
 <h1>Welcome to the 'Recipe App'!</h1>
-<p>Your hub for all things food</p>
+<p>Your destination for all things food</p>
 <div id="search-bar-container">
     <div>
         <input id="search-bar" type="text" name="search" placeholder="Search for something specific here!" onfocus="this.placeholder = ''" onfocusout="this.placeholder = 'Start typing to see results!'"/>

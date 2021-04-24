@@ -14,6 +14,7 @@
 <script src="{{ asset('js/forms/ingredientSearch.js') }}"></script>
 <script src="{{ asset('js/forms/allergenSearch.js') }}"></script>
 <script src="{{ asset('js/forms/profileImage.js') }}"></script>
+<script src="{{ asset('js/profile/update.js') }}"></script>
 @endsection
 @endif
 
@@ -26,7 +27,7 @@
 <div id="profile-form">
     <div class="profile-image-container">
         <div class="profile-image">
-            <img src="{{ $user->profileImage() }}" alt="{{ $user->profile->first_name }} {{ $user->profile->last_name }}">
+            <img src="{{ $user->profileImage() }}" alt="{{ $user->profile->first_name }}@if(isset($user->profile->last_name)) {{ $user->profile->last_name }}@endif">
         </div>
         <div class="edit-overlay">
             <label class="menu-item">
@@ -43,11 +44,11 @@
 @else
 <div class="profile-image-container">
     <div class="profile-image">
-        <img src="{{ $user->profileImage() }}" alt="{{ $user->profile->first_name }} {{ $user->profile->last_name }}">
+        <img src="{{ $user->profileImage() }}" alt="{{ $user->profile->first_name }}@if(isset($user->profile->last_name)) {{ $user->profile->last_name }}@endif">
     </div>
 </div>
 @endif
-<h1>{{ $user->profile->first_name }} {{ $user->profile->last_name }}</h1>
+<h1>{{ $user->profile->first_name }}@if(isset($user->profile->last_name)) {{ $user->profile->last_name }}@endif</h1>
 <div id="about-user">
     <p>About User - coming soon</p>
 </div>

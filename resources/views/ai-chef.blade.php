@@ -18,21 +18,12 @@
     <h2>Ingredients:</h2>
     <div id="ingredients-container">
     @if(!is_null($recipe))
-        @foreach($ingredients as $ingredient)
+        @foreach($recipe->ingredients as $ingredient)
             <div class="ingredient-panel">
                 <h3 class="amount">@if($ingredient->pivot->measure != ""){{ $ingredient->pivot->amount }} {{ $ingredient->pivot->measure }}@else{{ $ingredient->pivot->amount }}@endif</h3>
                 <a href="{{ route('ingredient', $ingredient->id) }}" class="name">{{ $ingredient->name }}@if($ingredient->pivot->misc_info != "") <span>({{ $ingredient->pivot->misc_info }})</span>@endif</a>
                 @if(count($ingredient->alternatives))<p>Alternatives!</p>@endif
             </div>
-            @forelse($ingredient->alternatives as $alternative)
-                <div class="alternative-container">
-                    <a href="{{ route('ingredient', $alternative->id) }}" class="alternative-panel">
-                        <h3 class="amount">@if($alternative->pivot->measure != ""){{ $alternative->pivot->amount }} {{ $alternative->pivot->measure }}@else{{ $alternative->pivot->amount }}@endif</h3>
-                        <h3 class="name">{{ $alternative->name }}@if($alternative->pivot->misc_info != "") <span>({{ $alternative->pivot->misc_info }})</span>@endif</h3>
-                    </a>
-                </div>
-            @empty
-            @endforelse
         @endforeach
     @endif
     </div>

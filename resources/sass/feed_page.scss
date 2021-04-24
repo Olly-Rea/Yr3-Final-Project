@@ -33,6 +33,7 @@ main {
     .recipe-panel {
         width: calc(100% - 5.2rem);
         padding: 2.6rem;
+        padding-bottom: 0;
         border-radius: $panelCorner;
         @include hasShadow();
 
@@ -42,7 +43,7 @@ main {
         overflow: hidden;
 
         .recipe-title-panel {
-            @include flexDisplay(row, center, space-between);
+            @include flexDisplay(row, center, flex-start);
 
             margin: -2.6rem;
             margin-bottom: 0;
@@ -51,68 +52,99 @@ main {
             padding: 1.6rem 2.6rem;
             background-color: $panelAccentColor;
 
+            .star-rating {
+                position: relative;
+
+                margin: 0;
+                margin-right: 3rem;
+
+                width: 6rem;
+                height: 6rem;
+
+                svg,
+                h3 {
+                    position: absolute;
+                    transform: translate(-50%, -50%);
+                }
+                h3 {
+                    margin: 0;
+                    top: 50%;
+                    left: 50%;
+                }
+                svg {
+                    top: 45%;
+                    left: 51%;
+                    width: 110%;
+                    height: 110%;
+                    fill: $diffMuted;
+                }
+            }
+
             h1, p {
                 margin: 0.5rem 0;
             }
+        }
 
-            .quick-info {
-                @include flexDisplay(row, flex-start, center);
+        .quick-info {
+            @include flexDisplay(row, flex-start, center);
 
-                margin-top: 2%;
+            margin: 1rem 0;
 
-                .spice-info,
-                .sweet-info,
-                .sour-info,
-                .time-info,
-                .difficulty-info {
-                    @include flexDisplay(column, center, flex-start);
-                    width: 5.4rem;
+            .spice-info,
+            .sweet-info,
+            .sour-info,
+            .time-info,
+            .difficulty-info {
+                @include flexDisplay(column, center, flex-start);
+                width: 5.4rem;
 
-                    user-select: none;
+                user-select: none;
 
-                    text-align: center;
+                text-align: center;
 
-                    .info-wheel {
-                        @include flexDisplay(column, center, center);
+                .info-wheel {
+                    @include flexDisplay(column, center, center);
 
-                        height: 3rem;
-                        width: 3rem;
-                        border-radius: 50%;
+                    height: 3rem;
+                    width: 3rem;
+                    border-radius: 50%;
 
-                        color: $backColor;
+                    color: $backColor;
 
-                        * {
-                            margin: 0;
-                            padding: 0;
-                        }
-
-                        &.spice-wheel {
-                            background-color: $spiceColor;
-                        }
-                        &.sweet-wheel {
-                            background-color: $sweetColor;
-                        }
-                        &.sour-wheel {
-                            background-color: $sourColor;
-                        }
-                        &.time-wheel {
-                            text-align: center;
-                            background-color: rgba(100, 100, 100, 0.7);
-
-                            .mins {
-                                font-size: 80%;
-                            }
-
-                        }
-                        &.difficulty-wheel {
-                            background-color: $diffColor;
-                        }
+                    * {
+                        margin: 0;
+                        padding: 0;
                     }
 
+                    &.spice-wheel {
+                        background-color: $spiceColor;
+                    }
+                    &.sweet-wheel {
+                        background-color: $sweetColor;
+                    }
+                    &.sour-wheel {
+                        background-color: $sourColor;
+                    }
+                    &.time-wheel {
+                        text-align: center;
+                        background-color: rgba(100, 100, 100, 0.7);
+
+                        .mins {
+                            font-size: 80%;
+                        }
+
+                    }
+                    &.difficulty-wheel {
+                        background-color: $diffColor;
+                    }
                 }
 
+                > p {
+                    margin-bottom: 0;
+                }
 
             }
+
 
         }
 

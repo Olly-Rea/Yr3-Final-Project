@@ -21,27 +21,20 @@ class MLContainer {
      * @return void
      */
     public function __construct() {
-        $ingredients = Auth::user()->fridge->ingredients->get('name');
+        $ingredients = Auth::user()->fridge->ingredients->pluck('name');
+        // If the users fridge is not empty AND has 5 or more ingredients
+        if (!is_null($ingredients) && count($ingredients) >= 5) {
+            // // Run the TF model python script
+            // $command = escapeshellcmd('python ../resources/scripts/use_model.py '. escapeshellarg(json_encode($ingredients)));
+            // // Get the recipe
+            // $this->recipe = json_decode(shell_exec($command));
 
-        if (!is_null($ingredients) && count($ingredients) > 4) {
-            // Run the python script
-            $command = escapeshellcmd('python ../resources/scripts/ingredient_pairings.py '.escapeshellarg(json_encode($ingredients)));
             // Get the recipe
-            $this->recipe = collect(json_decode(shell_exec($command)));
+            $this->recipe = Recipe::inRandomOrder()->first();
 
-            // dump the recipe for us to view
-            dd($this->recipe);
+            // // dump the recipe for us to view
+            // dd($this->recipe);
         }
-
-        // // Get only the names from the collection
-        // $ingredients = Ingredient::inRandomOrder()->limit(6)->get(['id','name']);
-
-        // DB::enableQueryLog(); // Enable query log
-        // $ingredients = Recipe::with('ingredients:name')->limit(100)->get();//->pluck('ingredients', 'id');
-
-        // dd(DB::getQueryLog()); // Show results of log
-
-        // TODO May require additional formatting here
     }
 
     /**
@@ -50,6 +43,7 @@ class MLContainer {
     public function getRecipe() {
 
         return $this->recipe;
+
     }
 
 }

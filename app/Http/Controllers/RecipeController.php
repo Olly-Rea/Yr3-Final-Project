@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 // Custom imports
 use Illuminate\Support\Facades\Auth;
 use App\Models\Recipe;
-use phpDocumentor\Reflection\PseudoTypes\False_;
+use Illuminate\Database\Eloquent\Builder;
 
 class RecipeController extends Controller {
     // Number of items to show per page
@@ -57,9 +57,6 @@ class RecipeController extends Controller {
         } else {
             $userAllergens = [];
         }
-
-        // dd($recipeAllergens, $userAllergens);
-
         //Return the recipe with it's included ingredients
         return view('recipe', ['recipe' => $recipe, 'ingredients' => $ingredients, 'hasAllergens' => $userAllergens]);
     }
@@ -69,7 +66,7 @@ class RecipeController extends Controller {
      */
     public function surprise() {
         // Start the query
-        $recipe = Recipe::all();
+        $recipes = Recipe::all();
         // Personalise the query to the User (if one logged in)
         if (Auth::check()) {
             // Check against user allergens (if any)
@@ -77,12 +74,16 @@ class RecipeController extends Controller {
 
             }
             // Check against user ingredients (if more than 3)
-            if(count(Auth::user()->fridge->ingredients) > 3) {
-
+            $userIngredients = Auth::user()->fridge->ingredients;
+            if (count($userIngredients) > 3) {
+                // Get recipes containing up to the number of the ingredients the user has
+                $recipes = $recipes->whereHas('ingredients', function (Builder $query) use ($userIngredients)  {
+                    $query->whereIn('id', $userIngredients);
+                }, '<=', count($userIngredients));
             }
         }
         // get a random recipe from the query
-        $recipe = $recipe->random(1)->first();
+        $recipe = $recipes->random(1)->first();
         // Return the recipe
         return $this->show($recipe);
     }
@@ -96,7 +97,6 @@ class RecipeController extends Controller {
         // Return it to the view
         return view('ai-chef', ['recipe' => $recipe, 'user' => Auth::user()]);
     }
-
 
 
     /**

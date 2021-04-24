@@ -19,6 +19,218 @@ main {
         width: 100%;
     }
 
+    #recipe-page {
+        #recipe-title-container {
+            @include flexDisplay(row, center, space-between);
+
+            width: 100%;
+
+            #recipe-title {
+                margin: 2rem 0;
+                max-width: 64%;
+
+                h1, p {
+                    margin: 0.5rem 0;
+                }
+
+                h1 {
+                    font-size: 4rem;
+                    font-weight: bold;
+                }
+                p {
+                    font-size: 1.6rem;
+                    text-indent: 2rem;
+                    margin-bottom: 4rem;
+                }
+            }
+
+            #author-info {
+                @include flexDisplay(row, center, flex-start);
+
+                max-width: 30%;
+                min-width: 26%;
+                height: 100%;
+
+                padding: 1rem;
+                border-radius: $panelCorner;
+                background-color: $panelBckColor;
+
+                .profile-image-container {
+                    width: 5rem;
+                }
+
+                #name-date-info {
+                    margin-left: 1rem;
+                    white-space: nowrap;
+
+                    h2,
+                    h4 {
+                        margin: 0.4rem;
+                    }
+
+                }
+
+            }
+        }
+
+        > h2 {
+            align-self: flex-start;
+            margin-top: 4rem;
+
+            font-size: 2rem;
+        }
+
+        #quick-info-container {
+            margin-top: 1%;
+
+            width: calc(100% - 5.2rem);
+
+            padding: 1.6rem 2.6rem;
+            background-color: $panelBckColor;
+            border-radius: $panelCorner;
+
+            font-size: 1.2rem;
+
+            > h2 {
+                margin: 0;
+            }
+
+            > div {
+                @include flexDisplay(row, flex-start, center);
+
+                margin-top: 3rem;
+
+                .spice-info,
+                .sweet-info,
+                .sour-info,
+                .time-info,
+                .difficulty-info {
+                    @include flexDisplay(column, center, flex-start);
+                    width: 5.4rem;
+
+                    margin: 0 1rem;
+                    user-select: none;
+
+                    text-align: center;
+
+                    .info-wheel {
+                        @include flexDisplay(column, center, center);
+
+                        height: 5rem;
+                        width: 5rem;
+                        border-radius: 50%;
+
+                        color: $backColor;
+
+                        * {
+                            margin: 0;
+                            padding: 0;
+                        }
+
+                        &.spice-wheel {
+                            background-color: $spiceMuted;
+                        }
+                        &.sweet-wheel {
+                            background-color: $sweetMuted;
+                        }
+                        &.sour-wheel {
+                            background-color: $sourMuted;
+                        }
+                        &.time-wheel {
+                            text-align: center;
+                            background-color: rgba(100, 100, 100, 0.7);
+
+                            .mins {
+                                font-size: 80%;
+                            }
+                        }
+                        &.difficulty-wheel {
+                            background-color: $diffColor;
+                        }
+                    }
+
+                }
+
+            }
+        }
+
+        #ingredients-container {
+            @include flexDisplay(row, flex-start, flex-start);
+            flex-wrap: wrap;
+
+            width: 100%;
+
+            .ingredient-panel,
+            #alternative-container .alternative-panel {
+                @include flexDisplay(row, flex-start, flex-start);
+
+                min-width: calc(50% - 1.4rem);
+
+                margin: 0.7rem;
+
+                .amount,
+                .name {
+                    margin: 0;
+                    padding: 1rem;
+                    border-radius: $smallRounded;
+                }
+                .amount {
+                    margin-right: 0.4rem;
+                    background-color: $panelAccentColor;
+                    white-space: nowrap;
+                }
+                .name {
+                    background-color: $panelBckColor;
+                    width: 100%;
+
+                    font-size: 1.2rem;
+                    font-weight: bold;
+
+                    span {
+                        color: $foreGray;
+                    }
+                }
+            }
+            #alternative-container {
+                margin-left: 1.6rem;
+            }
+        }
+
+        #directions-container {
+            .directions-panel {
+                @include flexDisplay(row, flex-start, flex-start);
+
+                width: calc(100% - 0.4rem);
+
+                margin: 0.7rem 0;
+
+                .step,
+                .content {
+                    margin: 0;
+                    padding: 1rem 2rem;
+                    border-radius: $smallRounded;
+                }
+
+                .step {
+                    margin-right: 0.4rem;
+                    background-color: $panelAccentColor;
+                    white-space: nowrap;
+                    user-select: none;
+                }
+                .content {
+                    background-color: $panelBckColor;
+                    width: 100%;
+
+                    font-size: 1.2rem;
+                    text-align: justify;
+                }
+
+            }
+
+
+        }
+    }
+
     #fridge-page {
         @include flexDisplay(column, center, center);
 

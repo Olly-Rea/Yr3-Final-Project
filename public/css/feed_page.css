@@ -624,7 +624,7 @@ body nav #nav-left #site-logo svg:active {
 
 body nav #nav-left #site-logo h3 {
   position: absolute;
-  left: 50%;
+  left: 45%;
   -webkit-transform: translateX(-50%);
           transform: translateX(-50%);
   margin: 0;
@@ -895,7 +895,8 @@ body main .item-container {
   border-radius: 1.6rem;
 }
 
-body main .item-container > p.initial-msg {
+body main .item-container > p.initial-msg,
+body main .item-container > p.nothing {
   width: 100%;
   -ms-flex-item-align: center !important;
       -ms-grid-row-align: center !important;
@@ -1104,6 +1105,7 @@ main div.centered h3 {
 main .recipe-panel {
   width: calc(100% - 5.2rem);
   padding: 2.6rem;
+  padding-bottom: 0;
   border-radius: 1.6rem;
   -webkit-box-shadow: 0 0 0.4rem 0 #a0a0a0;
           box-shadow: 0 0 0.4rem 0 #a0a0a0;
@@ -1123,9 +1125,9 @@ main .recipe-panel .recipe-title-panel {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
   margin: -2.6rem;
   margin-bottom: 0;
   width: 100%;
@@ -1133,11 +1135,40 @@ main .recipe-panel .recipe-title-panel {
   background-color: #eceaee;
 }
 
+main .recipe-panel .recipe-title-panel .star-rating {
+  position: relative;
+  margin: 0;
+  margin-right: 3rem;
+  width: 6rem;
+  height: 6rem;
+}
+
+main .recipe-panel .recipe-title-panel .star-rating svg,
+main .recipe-panel .recipe-title-panel .star-rating h3 {
+  position: absolute;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+}
+
+main .recipe-panel .recipe-title-panel .star-rating h3 {
+  margin: 0;
+  top: 50%;
+  left: 50%;
+}
+
+main .recipe-panel .recipe-title-panel .star-rating svg {
+  top: 45%;
+  left: 51%;
+  width: 110%;
+  height: 110%;
+  fill: #e6e6ac;
+}
+
 main .recipe-panel .recipe-title-panel h1, main .recipe-panel .recipe-title-panel p {
   margin: 0.5rem 0;
 }
 
-main .recipe-panel .recipe-title-panel .quick-info {
+main .recipe-panel .quick-info {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -1151,14 +1182,14 @@ main .recipe-panel .recipe-title-panel .quick-info {
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
-  margin-top: 2%;
+  margin: 1rem 0;
 }
 
-main .recipe-panel .recipe-title-panel .quick-info .spice-info,
-main .recipe-panel .recipe-title-panel .quick-info .sweet-info,
-main .recipe-panel .recipe-title-panel .quick-info .sour-info,
-main .recipe-panel .recipe-title-panel .quick-info .time-info,
-main .recipe-panel .recipe-title-panel .quick-info .difficulty-info {
+main .recipe-panel .quick-info .spice-info,
+main .recipe-panel .quick-info .sweet-info,
+main .recipe-panel .quick-info .sour-info,
+main .recipe-panel .quick-info .time-info,
+main .recipe-panel .quick-info .difficulty-info {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -1180,11 +1211,11 @@ main .recipe-panel .recipe-title-panel .quick-info .difficulty-info {
   text-align: center;
 }
 
-main .recipe-panel .recipe-title-panel .quick-info .spice-info .info-wheel,
-main .recipe-panel .recipe-title-panel .quick-info .sweet-info .info-wheel,
-main .recipe-panel .recipe-title-panel .quick-info .sour-info .info-wheel,
-main .recipe-panel .recipe-title-panel .quick-info .time-info .info-wheel,
-main .recipe-panel .recipe-title-panel .quick-info .difficulty-info .info-wheel {
+main .recipe-panel .quick-info .spice-info .info-wheel,
+main .recipe-panel .quick-info .sweet-info .info-wheel,
+main .recipe-panel .quick-info .sour-info .info-wheel,
+main .recipe-panel .quick-info .time-info .info-wheel,
+main .recipe-panel .quick-info .difficulty-info .info-wheel {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -1204,62 +1235,70 @@ main .recipe-panel .recipe-title-panel .quick-info .difficulty-info .info-wheel 
   color: #f0ecf0;
 }
 
-main .recipe-panel .recipe-title-panel .quick-info .spice-info .info-wheel *,
-main .recipe-panel .recipe-title-panel .quick-info .sweet-info .info-wheel *,
-main .recipe-panel .recipe-title-panel .quick-info .sour-info .info-wheel *,
-main .recipe-panel .recipe-title-panel .quick-info .time-info .info-wheel *,
-main .recipe-panel .recipe-title-panel .quick-info .difficulty-info .info-wheel * {
+main .recipe-panel .quick-info .spice-info .info-wheel *,
+main .recipe-panel .quick-info .sweet-info .info-wheel *,
+main .recipe-panel .quick-info .sour-info .info-wheel *,
+main .recipe-panel .quick-info .time-info .info-wheel *,
+main .recipe-panel .quick-info .difficulty-info .info-wheel * {
   margin: 0;
   padding: 0;
 }
 
-main .recipe-panel .recipe-title-panel .quick-info .spice-info .info-wheel.spice-wheel,
-main .recipe-panel .recipe-title-panel .quick-info .sweet-info .info-wheel.spice-wheel,
-main .recipe-panel .recipe-title-panel .quick-info .sour-info .info-wheel.spice-wheel,
-main .recipe-panel .recipe-title-panel .quick-info .time-info .info-wheel.spice-wheel,
-main .recipe-panel .recipe-title-panel .quick-info .difficulty-info .info-wheel.spice-wheel {
+main .recipe-panel .quick-info .spice-info .info-wheel.spice-wheel,
+main .recipe-panel .quick-info .sweet-info .info-wheel.spice-wheel,
+main .recipe-panel .quick-info .sour-info .info-wheel.spice-wheel,
+main .recipe-panel .quick-info .time-info .info-wheel.spice-wheel,
+main .recipe-panel .quick-info .difficulty-info .info-wheel.spice-wheel {
   background-color: #c07373;
 }
 
-main .recipe-panel .recipe-title-panel .quick-info .spice-info .info-wheel.sweet-wheel,
-main .recipe-panel .recipe-title-panel .quick-info .sweet-info .info-wheel.sweet-wheel,
-main .recipe-panel .recipe-title-panel .quick-info .sour-info .info-wheel.sweet-wheel,
-main .recipe-panel .recipe-title-panel .quick-info .time-info .info-wheel.sweet-wheel,
-main .recipe-panel .recipe-title-panel .quick-info .difficulty-info .info-wheel.sweet-wheel {
+main .recipe-panel .quick-info .spice-info .info-wheel.sweet-wheel,
+main .recipe-panel .quick-info .sweet-info .info-wheel.sweet-wheel,
+main .recipe-panel .quick-info .sour-info .info-wheel.sweet-wheel,
+main .recipe-panel .quick-info .time-info .info-wheel.sweet-wheel,
+main .recipe-panel .quick-info .difficulty-info .info-wheel.sweet-wheel {
   background-color: #8484da;
 }
 
-main .recipe-panel .recipe-title-panel .quick-info .spice-info .info-wheel.sour-wheel,
-main .recipe-panel .recipe-title-panel .quick-info .sweet-info .info-wheel.sour-wheel,
-main .recipe-panel .recipe-title-panel .quick-info .sour-info .info-wheel.sour-wheel,
-main .recipe-panel .recipe-title-panel .quick-info .time-info .info-wheel.sour-wheel,
-main .recipe-panel .recipe-title-panel .quick-info .difficulty-info .info-wheel.sour-wheel {
+main .recipe-panel .quick-info .spice-info .info-wheel.sour-wheel,
+main .recipe-panel .quick-info .sweet-info .info-wheel.sour-wheel,
+main .recipe-panel .quick-info .sour-info .info-wheel.sour-wheel,
+main .recipe-panel .quick-info .time-info .info-wheel.sour-wheel,
+main .recipe-panel .quick-info .difficulty-info .info-wheel.sour-wheel {
   background-color: #8cce8c;
 }
 
-main .recipe-panel .recipe-title-panel .quick-info .spice-info .info-wheel.time-wheel,
-main .recipe-panel .recipe-title-panel .quick-info .sweet-info .info-wheel.time-wheel,
-main .recipe-panel .recipe-title-panel .quick-info .sour-info .info-wheel.time-wheel,
-main .recipe-panel .recipe-title-panel .quick-info .time-info .info-wheel.time-wheel,
-main .recipe-panel .recipe-title-panel .quick-info .difficulty-info .info-wheel.time-wheel {
+main .recipe-panel .quick-info .spice-info .info-wheel.time-wheel,
+main .recipe-panel .quick-info .sweet-info .info-wheel.time-wheel,
+main .recipe-panel .quick-info .sour-info .info-wheel.time-wheel,
+main .recipe-panel .quick-info .time-info .info-wheel.time-wheel,
+main .recipe-panel .quick-info .difficulty-info .info-wheel.time-wheel {
   text-align: center;
   background-color: rgba(100, 100, 100, 0.7);
 }
 
-main .recipe-panel .recipe-title-panel .quick-info .spice-info .info-wheel.time-wheel .mins,
-main .recipe-panel .recipe-title-panel .quick-info .sweet-info .info-wheel.time-wheel .mins,
-main .recipe-panel .recipe-title-panel .quick-info .sour-info .info-wheel.time-wheel .mins,
-main .recipe-panel .recipe-title-panel .quick-info .time-info .info-wheel.time-wheel .mins,
-main .recipe-panel .recipe-title-panel .quick-info .difficulty-info .info-wheel.time-wheel .mins {
+main .recipe-panel .quick-info .spice-info .info-wheel.time-wheel .mins,
+main .recipe-panel .quick-info .sweet-info .info-wheel.time-wheel .mins,
+main .recipe-panel .quick-info .sour-info .info-wheel.time-wheel .mins,
+main .recipe-panel .quick-info .time-info .info-wheel.time-wheel .mins,
+main .recipe-panel .quick-info .difficulty-info .info-wheel.time-wheel .mins {
   font-size: 80%;
 }
 
-main .recipe-panel .recipe-title-panel .quick-info .spice-info .info-wheel.difficulty-wheel,
-main .recipe-panel .recipe-title-panel .quick-info .sweet-info .info-wheel.difficulty-wheel,
-main .recipe-panel .recipe-title-panel .quick-info .sour-info .info-wheel.difficulty-wheel,
-main .recipe-panel .recipe-title-panel .quick-info .time-info .info-wheel.difficulty-wheel,
-main .recipe-panel .recipe-title-panel .quick-info .difficulty-info .info-wheel.difficulty-wheel {
+main .recipe-panel .quick-info .spice-info .info-wheel.difficulty-wheel,
+main .recipe-panel .quick-info .sweet-info .info-wheel.difficulty-wheel,
+main .recipe-panel .quick-info .sour-info .info-wheel.difficulty-wheel,
+main .recipe-panel .quick-info .time-info .info-wheel.difficulty-wheel,
+main .recipe-panel .quick-info .difficulty-info .info-wheel.difficulty-wheel {
   background-color: #e0e088;
+}
+
+main .recipe-panel .quick-info .spice-info > p,
+main .recipe-panel .quick-info .sweet-info > p,
+main .recipe-panel .quick-info .sour-info > p,
+main .recipe-panel .quick-info .time-info > p,
+main .recipe-panel .quick-info .difficulty-info > p {
+  margin-bottom: 0;
 }
 
 main #cookbook-refresh {

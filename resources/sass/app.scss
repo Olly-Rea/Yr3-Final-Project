@@ -125,7 +125,7 @@ body {
                 }
                 h3 {
                     position: absolute;
-                    left: 50%;
+                    left: 45%;
                     transform: translateX(-50%);
 
                     margin: 0;
@@ -135,7 +135,6 @@ body {
                     white-space: nowrap;
                     text-align: center;
 
-                    // width: fit-content;
                     min-width: 5rem;
 
                     padding: 1rem;
@@ -368,7 +367,8 @@ body {
             background-color: $panelAccentColor;
             border-radius: $panelCorner;
 
-            > p.initial-msg {
+            > p.initial-msg,
+            > p.nothing {
                 width: 100%;
 
                 align-self: center !important;

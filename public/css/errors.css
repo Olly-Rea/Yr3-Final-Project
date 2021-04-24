@@ -624,7 +624,7 @@ body nav #nav-left #site-logo svg:active {
 
 body nav #nav-left #site-logo h3 {
   position: absolute;
-  left: 50%;
+  left: 45%;
   -webkit-transform: translateX(-50%);
           transform: translateX(-50%);
   margin: 0;
@@ -895,7 +895,8 @@ body main .item-container {
   border-radius: 1.6rem;
 }
 
-body main .item-container > p.initial-msg {
+body main .item-container > p.initial-msg,
+body main .item-container > p.nothing {
   width: 100%;
   -ms-flex-item-align: center !important;
       -ms-grid-row-align: center !important;

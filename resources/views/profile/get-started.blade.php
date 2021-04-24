@@ -54,7 +54,7 @@
             <label for="profile_image">Profile Photo</label>
             <div class="profile-image-container">
                 <div class="profile-image">
-                    <img src="{{ $user->profileImage() }}" alt="{{ $user->profile->first_name }} {{ $user->profile->last_name }}">
+                    <img src="{{ $user->profileImage() }}" alt="{{ $user->profile->first_name }}@if(isset($user->profile->last_name)) {{ $user->profile->last_name }}@endif">
                 </div>
                 <div class="edit-overlay">
                     <label class="menu-item">
@@ -77,7 +77,7 @@
                 </div>
                 <div class="form-item">
                     <label for="edit_l_name">Last Name:</label>
-                    <input type="text" name="edit_l_name" value="{{ old("edit_l_name") ? old("edit_l_name") : $user->profile->last_name}}"
+                    <input type="text" name="edit_l_name" value="{{ old("edit_l_name") ? old("edit_l_name") : (isset($user->profile->last_name) ? $user->profile->last_name : '') }}"
                         placeholder="Last name" onfocus="this.placeholder = ''" onfocusout="this.placeholder = 'Last name'">
                     @if ($errors->personal->has('edit_l_name')) <p class="form-error-msg">{{ $errors->personal->first('edit_l_name') }}</p> @endif
                 </div>

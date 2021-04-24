@@ -624,7 +624,7 @@ body nav #nav-left #site-logo svg:active {
 
 body nav #nav-left #site-logo h3 {
   position: absolute;
-  left: 50%;
+  left: 45%;
   -webkit-transform: translateX(-50%);
           transform: translateX(-50%);
   margin: 0;
@@ -895,7 +895,8 @@ body main .item-container {
   border-radius: 1.6rem;
 }
 
-body main .item-container > p.initial-msg {
+body main .item-container > p.initial-msg,
+body main .item-container > p.nothing {
   width: 100%;
   -ms-flex-item-align: center !important;
       -ms-grid-row-align: center !important;
@@ -1086,6 +1087,338 @@ main #recipe-page,
 main #fridge-page {
   height: calc(100% - 20rem);
   width: 100%;
+}
+
+main #recipe-page #recipe-title-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  width: 100%;
+}
+
+main #recipe-page #recipe-title-container #recipe-title {
+  margin: 2rem 0;
+  max-width: 64%;
+}
+
+main #recipe-page #recipe-title-container #recipe-title h1, main #recipe-page #recipe-title-container #recipe-title p {
+  margin: 0.5rem 0;
+}
+
+main #recipe-page #recipe-title-container #recipe-title h1 {
+  font-size: 4rem;
+  font-weight: bold;
+}
+
+main #recipe-page #recipe-title-container #recipe-title p {
+  font-size: 1.6rem;
+  text-indent: 2rem;
+  margin-bottom: 4rem;
+}
+
+main #recipe-page #recipe-title-container #author-info {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  max-width: 30%;
+  min-width: 26%;
+  height: 100%;
+  padding: 1rem;
+  border-radius: 1.6rem;
+  background-color: #f6f4f8;
+}
+
+main #recipe-page #recipe-title-container #author-info .profile-image-container {
+  width: 5rem;
+}
+
+main #recipe-page #recipe-title-container #author-info #name-date-info {
+  margin-left: 1rem;
+  white-space: nowrap;
+}
+
+main #recipe-page #recipe-title-container #author-info #name-date-info h2,
+main #recipe-page #recipe-title-container #author-info #name-date-info h4 {
+  margin: 0.4rem;
+}
+
+main #recipe-page > h2 {
+  -ms-flex-item-align: start;
+      align-self: flex-start;
+  margin-top: 4rem;
+  font-size: 2rem;
+}
+
+main #recipe-page #quick-info-container {
+  margin-top: 1%;
+  width: calc(100% - 5.2rem);
+  padding: 1.6rem 2.6rem;
+  background-color: #f6f4f8;
+  border-radius: 1.6rem;
+  font-size: 1.2rem;
+}
+
+main #recipe-page #quick-info-container > h2 {
+  margin: 0;
+}
+
+main #recipe-page #quick-info-container > div {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  margin-top: 3rem;
+}
+
+main #recipe-page #quick-info-container > div .spice-info,
+main #recipe-page #quick-info-container > div .sweet-info,
+main #recipe-page #quick-info-container > div .sour-info,
+main #recipe-page #quick-info-container > div .time-info,
+main #recipe-page #quick-info-container > div .difficulty-info {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  width: 5.4rem;
+  margin: 0 1rem;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  text-align: center;
+}
+
+main #recipe-page #quick-info-container > div .spice-info .info-wheel,
+main #recipe-page #quick-info-container > div .sweet-info .info-wheel,
+main #recipe-page #quick-info-container > div .sour-info .info-wheel,
+main #recipe-page #quick-info-container > div .time-info .info-wheel,
+main #recipe-page #quick-info-container > div .difficulty-info .info-wheel {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  height: 5rem;
+  width: 5rem;
+  border-radius: 50%;
+  color: #f0ecf0;
+}
+
+main #recipe-page #quick-info-container > div .spice-info .info-wheel *,
+main #recipe-page #quick-info-container > div .sweet-info .info-wheel *,
+main #recipe-page #quick-info-container > div .sour-info .info-wheel *,
+main #recipe-page #quick-info-container > div .time-info .info-wheel *,
+main #recipe-page #quick-info-container > div .difficulty-info .info-wheel * {
+  margin: 0;
+  padding: 0;
+}
+
+main #recipe-page #quick-info-container > div .spice-info .info-wheel.spice-wheel,
+main #recipe-page #quick-info-container > div .sweet-info .info-wheel.spice-wheel,
+main #recipe-page #quick-info-container > div .sour-info .info-wheel.spice-wheel,
+main #recipe-page #quick-info-container > div .time-info .info-wheel.spice-wheel,
+main #recipe-page #quick-info-container > div .difficulty-info .info-wheel.spice-wheel {
+  background-color: #ce8888;
+}
+
+main #recipe-page #quick-info-container > div .spice-info .info-wheel.sweet-wheel,
+main #recipe-page #quick-info-container > div .sweet-info .info-wheel.sweet-wheel,
+main #recipe-page #quick-info-container > div .sour-info .info-wheel.sweet-wheel,
+main #recipe-page #quick-info-container > div .time-info .info-wheel.sweet-wheel,
+main #recipe-page #quick-info-container > div .difficulty-info .info-wheel.sweet-wheel {
+  background-color: #9c9ce0;
+}
+
+main #recipe-page #quick-info-container > div .spice-info .info-wheel.sour-wheel,
+main #recipe-page #quick-info-container > div .sweet-info .info-wheel.sour-wheel,
+main #recipe-page #quick-info-container > div .sour-info .info-wheel.sour-wheel,
+main #recipe-page #quick-info-container > div .time-info .info-wheel.sour-wheel,
+main #recipe-page #quick-info-container > div .difficulty-info .info-wheel.sour-wheel {
+  background-color: #b2dab2;
+}
+
+main #recipe-page #quick-info-container > div .spice-info .info-wheel.time-wheel,
+main #recipe-page #quick-info-container > div .sweet-info .info-wheel.time-wheel,
+main #recipe-page #quick-info-container > div .sour-info .info-wheel.time-wheel,
+main #recipe-page #quick-info-container > div .time-info .info-wheel.time-wheel,
+main #recipe-page #quick-info-container > div .difficulty-info .info-wheel.time-wheel {
+  text-align: center;
+  background-color: rgba(100, 100, 100, 0.7);
+}
+
+main #recipe-page #quick-info-container > div .spice-info .info-wheel.time-wheel .mins,
+main #recipe-page #quick-info-container > div .sweet-info .info-wheel.time-wheel .mins,
+main #recipe-page #quick-info-container > div .sour-info .info-wheel.time-wheel .mins,
+main #recipe-page #quick-info-container > div .time-info .info-wheel.time-wheel .mins,
+main #recipe-page #quick-info-container > div .difficulty-info .info-wheel.time-wheel .mins {
+  font-size: 80%;
+}
+
+main #recipe-page #quick-info-container > div .spice-info .info-wheel.difficulty-wheel,
+main #recipe-page #quick-info-container > div .sweet-info .info-wheel.difficulty-wheel,
+main #recipe-page #quick-info-container > div .sour-info .info-wheel.difficulty-wheel,
+main #recipe-page #quick-info-container > div .time-info .info-wheel.difficulty-wheel,
+main #recipe-page #quick-info-container > div .difficulty-info .info-wheel.difficulty-wheel {
+  background-color: #e0e088;
+}
+
+main #recipe-page #ingredients-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  width: 100%;
+}
+
+main #recipe-page #ingredients-container .ingredient-panel,
+main #recipe-page #ingredients-container #alternative-container .alternative-panel {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  min-width: calc(50% - 1.4rem);
+  margin: 0.7rem;
+}
+
+main #recipe-page #ingredients-container .ingredient-panel .amount,
+main #recipe-page #ingredients-container .ingredient-panel .name,
+main #recipe-page #ingredients-container #alternative-container .alternative-panel .amount,
+main #recipe-page #ingredients-container #alternative-container .alternative-panel .name {
+  margin: 0;
+  padding: 1rem;
+  border-radius: 1rem;
+}
+
+main #recipe-page #ingredients-container .ingredient-panel .amount,
+main #recipe-page #ingredients-container #alternative-container .alternative-panel .amount {
+  margin-right: 0.4rem;
+  background-color: #eceaee;
+  white-space: nowrap;
+}
+
+main #recipe-page #ingredients-container .ingredient-panel .name,
+main #recipe-page #ingredients-container #alternative-container .alternative-panel .name {
+  background-color: #f6f4f8;
+  width: 100%;
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+main #recipe-page #ingredients-container .ingredient-panel .name span,
+main #recipe-page #ingredients-container #alternative-container .alternative-panel .name span {
+  color: #787878;
+}
+
+main #recipe-page #ingredients-container #alternative-container {
+  margin-left: 1.6rem;
+}
+
+main #recipe-page #directions-container .directions-panel {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  width: calc(100% - 0.4rem);
+  margin: 0.7rem 0;
+}
+
+main #recipe-page #directions-container .directions-panel .step,
+main #recipe-page #directions-container .directions-panel .content {
+  margin: 0;
+  padding: 1rem 2rem;
+  border-radius: 1rem;
+}
+
+main #recipe-page #directions-container .directions-panel .step {
+  margin-right: 0.4rem;
+  background-color: #eceaee;
+  white-space: nowrap;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+}
+
+main #recipe-page #directions-container .directions-panel .content {
+  background-color: #f6f4f8;
+  width: 100%;
+  font-size: 1.2rem;
+  text-align: justify;
 }
 
 main #fridge-page {

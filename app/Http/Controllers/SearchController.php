@@ -3,11 +3,8 @@
 namespace App\Http\Controllers;
 
 // Custom imports
-
-use App\Models\Allergen;
 use Illuminate\Http\Request;
-use App\Models\Ingredient;
-use App\Models\Recipe;
+use App\Models\{Ingredient, Recipe, Allergen};
 use Illuminate\Support\Facades\Auth;
 
 class SearchController extends Controller {
@@ -52,8 +49,10 @@ class SearchController extends Controller {
     public function allergen(Request $request) {
         // Check that the request is AJAX
         if ($request->ajax()) {
+            // Remove 's' at the end of the string (for plurals)
+            $searchStr = strtolower(substr($request->search, -1)) == 's' ? substr($request->search, 0, -1) : $request->search;
             // Get the results from the query
-            $results = Allergen::where("name", "LIKE", $request->search."%")
+            $results = Allergen::where("name", "LIKE", $searchStr."%")
                 ->whereNotIn('id', Auth::user()->profile->allergens->map(function ($item, $key) { return $item->id; }))
                 ->limit($this->pagination)->get();
             // return the paginated list of recipes matching the user's search
@@ -70,8 +69,10 @@ class SearchController extends Controller {
     public function ingredient(Request $request) {
         // Check that the request is AJAX
         if ($request->ajax()) {
+            // Remove 's' at the end of the string (for plurals)
+            $searchStr = strtolower(substr($request->search, -1)) == 's' ? substr($request->search, 0, -1) : $request->search;
             // Get the results from the query
-            $results = Ingredient::where("name", "LIKE", $request->search . "%")
+            $results = Ingredient::where("name", "LIKE", $searchStr."%")
                 ->whereNotIn('id', Auth::user()->fridge->ingredients->map(function ($item, $key) { return $item->id; }))
                 ->limit($this->pagination)->get();//->where('last_name', 'LIKE', $request->search . '%')->get();
             // return the paginated list of recipes matching the user's search

@@ -27,6 +27,8 @@ $(window).on("load, pageshow", function() {
                 }, transitionTime*2);
                 // Change the input value
                 $this.children().first().attr("value", value);
+                // Update the users preferences (if route = /Me)
+                if (window.location.href.endsWith('/Me')) updatePrefs();
             }
         });
     });
