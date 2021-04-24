@@ -23,7 +23,9 @@ Route::middleware(['guestorauthsetup'])->group(function () {
     Route::get('/Search', 'SearchController@search')->name('search');
 
     // Main feed / 'Lucky Dip' routes
-    Route::get('/IdeasBoard', 'RecipeController@index')->name('feed');
+    Route::get('/CookBook', 'RecipeController@index')->name('feed');
+    Route::get('/CookBook/Fetch', 'RecipeController@fetch');
+
     Route::get('/LuckyDip', 'RecipeController@surprise')->name('lucky_dip');
 
     // View Recipe route

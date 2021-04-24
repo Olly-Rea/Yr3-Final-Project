@@ -6,11 +6,8 @@
 
 @section('title')Recipe App - {{ $ingredient->name }}@endsection
 
-
 @section('content')
-
 <h1>{{ $ingredient->name }}</h1>
-
 <h2>Ingredient Stats:</h2>
 <div id="stats-container">
     <div>

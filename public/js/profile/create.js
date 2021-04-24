@@ -1,7 +1,6 @@
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  *     JQuery for adding profile information on creation     *
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-var slideTimeout = setTimeout(null);
 
 // Methods and Handlers to be called on or added to elements on page load/pageshow
 $(window).on("load, pageshow", function() {
@@ -31,34 +30,6 @@ $(window).on("load, pageshow", function() {
     });
     $("#prefs-form .nav-items h3.back").on("click", function() {
         changePage("#prefs-form", "#allergen-form", 2);
-    });
-
-    // Preference sliders
-    $(".slider-container").each(function(){
-        var $this = $(this);
-        $this.slider({
-            range: "min",
-            min: 0,
-            max: 10,
-            value: 5,
-            // Values to add smooth scroll
-            step: .0001,
-            animate: transitionTime,
-            slide: function(event, ui) {
-                // Clear the slideTimeout
-                clearTimeout(slideTimeout);
-            },
-            stop: function(event, ui) {
-                // Set the new value
-                value = Math.round(ui.value);
-                // Snap to position if user has stopped sliding (based on slider position)
-                slideTimeout = setTimeout(function () {
-                    $this.slider("value", value, "animate", transitionTime*2);
-                }, transitionTime*2);
-                // Change the input value
-                $this.children().first().attr("value", value);
-            }
-        });
     });
 
     // Fridge form "page"

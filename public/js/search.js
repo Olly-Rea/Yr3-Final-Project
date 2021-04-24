@@ -10,7 +10,7 @@ $(window).on("load, pageshow", function() {
     // Set the $searchBar variable
     $searchBar = $("#search-bar");
 
-    $searchBar.on("focus keyup keydown", function() {
+    $searchBar.on("keyup keydown", function() {
         // Clear previous Timeout if user is still typing
         clearTimeout(searchTimeout);
 
@@ -33,27 +33,43 @@ $(window).on("load, pageshow", function() {
                     url : "/Search",
                     data: {'search': $searchBar.val()},
                     success: function(data) {
+                        $("#results-container").slideDown(transitionTime);
                         setTimeout(function () {
-                            showOverlay();
                             $('#results-container').html(data);
-                            $("#results-container").fadeIn(transitionTime);
-                        }, transitionTime+1);
+                            $('.results-panel').fadeIn(transitionTime);
+                        }, transitionTime*1.1);
                     }
                 });
             }, 400);
         // Else reset the results output
         } else {
             // Hide any currently shown search-panels
-            $("#site-overlay, #results-container").fadeOut(transitionTime);
+            $("#results-container").slideUp(transitionTime);
             // Start the search Timeout
             searchTimeout = setTimeout(function () {
                 if ($('.results-panel').length == 0) {
-                    showOverlay();
-                    $("#results-container").fadeIn(menuTransitionTime);
+                    $("#results-container").slideDown(menuTransitionTime);
                 }
             }, transitionTime+1);
         }
     });
+
+    $searchBar.on("focus", function () {
+        if ($('.results-panel').length > 2 && $searchBar.val().length > 2) {
+            setTimeout(function () {
+                // Fade out the results container (if not already hidden)
+                $("#results-container").slideDown(transitionTime);
+            }, transitionTime);
+        }
+    })
+
+    $searchBar.on("focusout", function () {
+        setTimeout(function () {
+            // Fade out the results container (if not already hidden)
+            $("#results-container").fadeOut(transitionTime);
+        }, transitionTime);
+    })
+
 });
 
 

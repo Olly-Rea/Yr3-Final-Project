@@ -3,11 +3,16 @@
 
 main {
 
-    h2,
-    h3 {
+    > h2,
+    > h3 {
         user-select: none;
         color: $foreLight;
         text-align: center;
+    }
+
+    > h2 {
+        margin: 0;
+        margin-top: 2rem;
     }
 
     div.centered {
@@ -15,10 +20,18 @@ main {
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
+
+        h2,
+        h3 {
+            user-select: none;
+            color: $foreLight;
+            text-align: center;
+        }
+
     }
 
     .recipe-panel {
-        width: 100%;
+        width: calc(100% - 5.2rem);
         padding: 2.6rem;
         border-radius: $panelCorner;
         @include hasShadow();
@@ -106,8 +119,97 @@ main {
     }
 
     #cookbook-refresh {
+        @include flexDisplay(column, center, center);
+
         margin-top: 4rem;
+
+        height: 6rem;
+        width: 6rem;
+        border-radius: 50%;
+
+        background-color: $panelBckColor;
+
+        cursor: pointer;
+        transition: transform $transitionTime ease-in-out;
+
+        &:hover {
+            transform: scale(1.1);
+        }
+        &:active {
+            transform: scale(0.96);
+        }
+
+        &.active {
+            svg {
+                animation: rotate 2s ease infinite;
+            }
+        }
+
+        svg {
+            height: 50%;
+            width: 50%;
+
+            fill: $foreGray;
+        }
+
     }
 
 }
 
+@keyframes rotate {
+    100% {
+        transform: rotate(720deg);
+        transition: rotate(180deg);
+    }
+}
+
+// Maximum aspect ratio - mobile/portrait browsers
+@media (max-aspect-ratio: 12/10) {
+
+    .recipe-panel {
+        width: 80%;
+        padding: 2rem;
+
+        margin: 1.6rem 0;
+
+        .recipe-title-panel {
+            @include flexDisplay(row, center, center);
+            flex-wrap: wrap;
+
+            padding: 2.6rem;
+            padding-bottom: 0.4rem;
+
+            .recipe-title {
+                width: 100%;
+                * {
+                    width: 100%;
+                    text-align: center;
+                }
+            }
+
+            .spice-info,
+            .sweet-info,
+            .sour-info,
+            .time-info,
+            .difficulty-info {
+                margin-top: 1.6rem;
+                width: 4rem !important;
+
+                p {
+                    opacity: 0%;
+                    transition: opacity $transitionTime ease-in-out;
+                }
+                &:hover {
+                    p {
+                        opacity: 100%;
+                    }
+                }
+
+            }
+
+
+        }
+
+    }
+
+}

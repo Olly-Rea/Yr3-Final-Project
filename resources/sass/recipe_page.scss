@@ -140,13 +140,13 @@ main {
                     }
 
                     &.spice-wheel {
-                        background-color: rgba(200, 100, 100, 0.7);
+                        background-color: $spiceMuted;
                     }
                     &.sweet-wheel {
-                        background-color: rgba(100, 100, 200, 0.7);
+                        background-color: $sweetMuted;
                     }
                     &.sour-wheel {
-                        background-color: rgba(100, 200, 100, 0.7);
+                        background-color: $sourMuted;
                     }
                     &.time-wheel {
                         text-align: center;
@@ -155,10 +155,9 @@ main {
                         .mins {
                             font-size: 80%;
                         }
-
                     }
                     &.difficulty-wheel {
-                        background-color: rgba(200, 200, 100, 0.7);
+                        background-color: $diffColor;
                     }
                 }
 
@@ -235,6 +234,9 @@ main {
             .content {
                 background-color: $panelBckColor;
                 width: 100%;
+
+                font-size: 1.2rem;
+                text-align: justify;
             }
 
         }

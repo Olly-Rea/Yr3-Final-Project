@@ -420,7 +420,7 @@ input[type="checkbox"] {
 }
 
 .slider-container .slider-range {
-  height: 0.6rem;
+  height: 0.52rem;
   width: 100%;
   outline: none;
   border: none;
@@ -465,9 +465,9 @@ input[type="checkbox"] {
   position: absolute;
   display: block;
   border: 0;
-  border-radius: 50px;
+  border-radius: 5rem;
   background-position: 0 0;
-  height: 0.4rem;
+  height: 0.52rem;
 }
 
 .slider-container .min-amount {
@@ -479,10 +479,9 @@ input[type="checkbox"] {
   margin-left: 1.5rem !important;
 }
 
-body,
-html {
+html,
+body {
   margin: 0 !important;
-  height: 100vh;
   font: 12pt "C&L Regular";
   line-height: 1.2;
   color: #0a0a0a;
@@ -513,19 +512,19 @@ svg {
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  *               Main view-window properties               *
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+body {
+  min-height: 100vh;
+}
+
 body.no-scroll {
   overflow-y: hidden;
   padding-right: 1rem;
 }
 
 body.no-scroll nav {
-  width: calc(90% - 0.8rem);
+  width: calc(82% - 0.8rem);
   -webkit-transform: translateX(calc(-50% - 0.5rem));
           transform: translateX(calc(-50% - 0.5rem));
-}
-
-body.no-scroll #site-overlay {
-  padding-right: 0;
 }
 
 body nav {
@@ -549,7 +548,7 @@ body nav {
       -ms-flex-pack: justify;
           justify-content: space-between;
   height: 5rem;
-  width: 90%;
+  width: 82%;
   max-width: 1920px;
   -webkit-transition: background-color 0.14s ease-in-out;
   transition: background-color 0.14s ease-in-out;
@@ -590,13 +589,16 @@ body nav #nav-left {
 }
 
 body nav #nav-left #site-logo {
-  height: 4.4rem;
-  width: 4.4rem;
+  position: relative;
 }
 
 body nav #nav-left #site-logo svg {
-  height: 100%;
-  width: 100%;
+  position: relative;
+  left: 50%;
+  -webkit-transform: translateX(-50%);
+          transform: translateX(-50%);
+  height: 4.4rem;
+  width: 4.4rem;
   stroke: #282828;
   fill: #f894a4;
   cursor: pointer;
@@ -607,16 +609,42 @@ body nav #nav-left #site-logo svg {
 }
 
 body nav #nav-left #site-logo svg:hover {
-  -webkit-transform: scale(1.06);
-          transform: scale(1.06);
+  -webkit-transform: translateX(-50%) scale(1.06);
+          transform: translateX(-50%) scale(1.06);
+}
+
+body nav #nav-left #site-logo svg:hover + h3 {
+  opacity: 1;
 }
 
 body nav #nav-left #site-logo svg:active {
-  -webkit-transform: scale(0.94);
-          transform: scale(0.94);
+  -webkit-transform: translateX(-50%) scale(0.94);
+          transform: translateX(-50%) scale(0.94);
+}
+
+body nav #nav-left #site-logo h3 {
+  position: absolute;
+  left: 50%;
+  -webkit-transform: translateX(-50%);
+          transform: translateX(-50%);
+  margin: 0;
+  margin-top: 0.6rem;
+  font-size: 1.4rem;
+  white-space: nowrap;
+  text-align: center;
+  min-width: 5rem;
+  padding: 1rem;
+  border-radius: 1rem;
+  color: #f0ecf0;
+  background-color: rgba(0, 0, 0, 0.4);
+  pointer-events: none;
+  opacity: 0;
+  -webkit-transition: opacity 0.14s ease-in-out;
+  transition: opacity 0.14s ease-in-out;
 }
 
 body nav #nav-left #search-bar-container {
+  position: relative;
   margin-left: 2rem;
   width: 50%;
 }
@@ -650,7 +678,6 @@ body nav #nav-left #search-bar-container svg#search-icon:active {
 
 body nav #nav-left #search-bar-container input#search-bar {
   z-index: 2;
-  position: relative;
   text-indent: 3.6rem;
   font-size: 1.4rem;
   -webkit-box-shadow: 0 0 0.4rem 0 #a0a0a0;
@@ -663,8 +690,6 @@ body nav #nav-left #search-bar-container #results-container {
   top: 1.2rem;
   left: 0;
   padding-top: 3.2rem;
-  background-color: #eceaee;
-  border-radius: 1.6rem;
   min-height: 3.2rem;
   width: 100%;
 }
@@ -672,21 +697,36 @@ body nav #nav-left #search-bar-container #results-container {
 body nav #nav-left #search-bar-container #results-container > p {
   width: 100%;
   text-align: center;
+  background-color: #f0ecf0;
 }
 
 body nav #nav-left #search-bar-container #results-container .results-panel {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
   position: relative;
-  height: 3.2rem;
-  width: 100%;
-  background-color: #f1eff2;
+  width: calc(100% - 4rem);
+  padding: 1rem 2rem;
+  margin: 0.4rem 0;
+  background-color: #f0ecf0;
+  border-radius: 1.6rem;
+  -webkit-box-shadow: 0 0 0.4rem 0 #a0a0a0;
+          box-shadow: 0 0 0.4rem 0 #a0a0a0;
 }
 
 body nav #nav-left #search-bar-container #results-container .results-panel > h1,
 body nav #nav-left #search-bar-container #results-container .results-panel > p.label {
-  position: relative;
-  top: 50%;
-  -webkit-transform: translateY(-50%);
-          transform: translateY(-50%);
+  margin: 0;
 }
 
 body nav #nav-left #search-bar-container #results-container .results-panel > h1 {
@@ -896,9 +936,8 @@ body #site-overlay {
   z-index: 2;
   top: 0;
   left: 0;
-  padding-right: 1rem;
-  height: 100%;
-  width: 100%;
+  height: 100vh;
+  width: 100vw;
 }
 
 body #site-overlay #site-overlay-background {
@@ -1017,72 +1056,15 @@ body footer #footer-content a {
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  *        Media tags for different browser sizing          *
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-@media (max-aspect-ratio: 12 / 10) {
-  main {
-    width: 90%;
-    max-width: 100%;
-  }
-  .recipe-panel {
-    width: 80%;
-    padding: 2rem;
-    margin: 1.6rem 0;
-  }
-  .recipe-panel .recipe-title-panel {
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-orient: horizontal;
-    -webkit-box-direction: normal;
-        -ms-flex-direction: row;
-            flex-direction: row;
-    -webkit-box-align: center;
-        -ms-flex-align: center;
-            align-items: center;
-    -webkit-box-pack: center;
-        -ms-flex-pack: center;
-            justify-content: center;
-    -ms-flex-wrap: wrap;
-        flex-wrap: wrap;
-    padding: 2.6rem;
-    padding-bottom: 0.4rem;
-  }
-  .recipe-panel .recipe-title-panel .recipe-title {
-    width: 100%;
-  }
-  .recipe-panel .recipe-title-panel .recipe-title * {
-    width: 100%;
-    text-align: center;
-  }
-  .recipe-panel .recipe-title-panel .spice-info,
-  .recipe-panel .recipe-title-panel .sweet-info,
-  .recipe-panel .recipe-title-panel .sour-info,
-  .recipe-panel .recipe-title-panel .time-info,
-  .recipe-panel .recipe-title-panel .difficulty-info {
-    margin-top: 1.6rem;
-    width: 4rem !important;
-  }
-  .recipe-panel .recipe-title-panel .spice-info p,
-  .recipe-panel .recipe-title-panel .sweet-info p,
-  .recipe-panel .recipe-title-panel .sour-info p,
-  .recipe-panel .recipe-title-panel .time-info p,
-  .recipe-panel .recipe-title-panel .difficulty-info p {
-    opacity: 0%;
-    -webkit-transition: opacity 0.14s ease-in-out;
-    transition: opacity 0.14s ease-in-out;
-  }
-  .recipe-panel .recipe-title-panel .spice-info:hover p,
-  .recipe-panel .recipe-title-panel .sweet-info:hover p,
-  .recipe-panel .recipe-title-panel .sour-info:hover p,
-  .recipe-panel .recipe-title-panel .time-info:hover p,
-  .recipe-panel .recipe-title-panel .difficulty-info:hover p {
-    opacity: 100%;
-  }
-}
-
 @media only screen and (max-aspect-ratio: 12 / 10) {
   body.no-scroll {
     overflow: hidden;
     padding-right: 0;
+  }
+  body main,
+  body footer #footer-content {
+    max-width: none;
+    width: 92%;
   }
 }
 /*# sourceMappingURL=app.css.map */

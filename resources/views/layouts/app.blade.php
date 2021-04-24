@@ -11,7 +11,7 @@
         <!-- Styles -->
         @yield("styles")
         <!-- Referenced JQuery scripts -->
-        <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         @yield ('jquery')
         <!-- Scripts -->
         <script src="{{ asset('js/app.js') }}" defer></script>

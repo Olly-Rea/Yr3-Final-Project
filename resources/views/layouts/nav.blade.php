@@ -11,17 +11,22 @@
         <svg>
             <use xlink:href="{{ asset('images/graphics/logo.svg#icon') }}"></use>
         </svg>
+        @auth
+        <h3>Surprise me!</h3>
+        @else
+        <h3>Home</h3>
+        @endauth
     </a>
-    <form id="search-bar-container" action="">
+    <div id="search-bar-container">
         <div id="results-container" style="display: none"></div>
         <input id="search-bar" type="text" name="search" placeholder="I'm looking for..." onfocus="this.placeholder = ''" onfocusout="this.placeholder = 'I\'m looking for...'"/>
         <svg id="search-icon">
             <use xlink:href="{{ asset('images/graphics/search.svg#icon') }}"></use>
         </svg>
-    </form>
+    </div>
 </div>
 <div id="site-links">
-    <a @if(Request::is('IdeasBoard'))class="active"@else()href="{{ route('feed') }}"@endif><b>Home</b></a>
+    <a @if(Request::is('CookBook'))class="active"@else()href="{{ route('feed') }}"@endif><b>Home</b></a>
     @auth
     <a @if(Request::is('Me'))class="active"@else()href="{{ route('me') }}"@endif><b>My Profile</b></a>
     @else

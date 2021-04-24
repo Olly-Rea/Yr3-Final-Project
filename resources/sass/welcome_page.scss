@@ -1,76 +1,126 @@
 @import 'app';
 
-main {
+body {
+    main {
+        @include flexDisplay(column, center, center);
 
-    #quick-launch-categories {
-        @include flexDisplay(row, center, flex-start);
+        > h1 {
+            font-size: 4rem;
+            margin: 0;
+            margin-bottom: 2rem;
+        }
+        > p {
+            font-size: 2rem;
+            margin: 0;
+        }
 
-        margin: 6rem 0;
+        > h4 {
+            margin: 4rem 0;
+        }
 
-        width: 100%;
-
-        overflow-x: scroll;
-
-        .graphic-circle {
+        #search-bar-container {
             @include flexDisplay(column, center, center);
 
-            margin: 0 1rem;
+            position: relative;
 
-            flex-grow: 0;
-            flex-shrink: 0;
+            margin-top: 4rem;
 
-            height: 12rem;
-            width: 12rem;
-            border-radius: 50%;
-
-            background-color: $panelBckColor;
-
-            text-align: center;
-        }
-    }
-
-    #search-bar-container {
-        height: 3.2rem;
-        width: 50%;
-
-        svg#search-icon {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            left: 1rem;
-
-            z-index: 2;
-
-            height: 1.8rem;
-            width: 1.8rem;
-            stroke: $foreAccent;
-
-            cursor: pointer;
-
-            transition: transform $transitionTime ease-in-out;
-
-            &:hover {
-                transform: translateY(-50%) scale(1.06);
-            }
-            &:active {
-                transform: translateY(-50%) scale(0.94);
-            }
-        }
-
-        input#search-bar {
             width: 100%;
-            height: 100%;
 
-            border: none;
-            border-radius: $panelCorner;
+            > div {
+                position: relative;
+                width: 100%;
 
-            text-indent: 3.6rem;
-            font-size: 1.4rem;
-            font-weight: bold;
+                input#search-bar {
+                    text-indent: 3.6rem;
+                    font-size: 1.4rem;
 
-            @include hasShadow();
+                    @include hasShadow();
+                }
+                svg#search-icon {
+                    z-index: 2;
+
+                    position: absolute;
+                    top: 50%;
+                    transform: translateY(-50%);
+                    left: 1.2rem;
+
+                    height: 1.8rem;
+                    width: 1.8rem;
+                    stroke: $foreGray;
+
+                    cursor: pointer;
+
+                    transition: transform $transitionTime ease-in-out;
+
+                    &:hover {
+                        transform: translateY(-50%) scale(1.06);
+                    }
+                    &:active {
+                        transform: translateY(-50%) scale(0.94);
+                    }
+                }
+            }
+
+            #results-container {
+                z-index: 1;
+
+                position: relative;
+                top: 1.2rem;
+                left: 0;
+
+                padding: 2rem 0;
+
+                min-height: 3.2rem;
+                width: 100%;
+
+                > p {
+                    width: 100%;
+                    text-align: center;
+                }
+
+                .results-panel {
+                    @include flexDisplay(row, center, space-between);
+
+                    position: relative;
+
+                    width: calc(100% - 4rem);
+                    padding: 1rem 2rem;
+
+                    margin: 0.6rem 0;
+
+                    background-color: $backColor;
+                    border-radius: $panelCorner;
+
+                    @include hasShadow();
+
+                    > h1,
+                    > p.label {
+                        margin: 0;
+                    }
+
+                    > h1 {
+                        width: fit-content;
+                        left: 0;
+                    }
+
+                    > p.label {
+                        right: 0;
+
+                        font-size: 80%;
+                        color: $panelBckColor;
+
+                        background-color: $foreColor;
+                        padding: 0.32rem 0.4rem;
+                        border-radius: 0.32rem;
+                    }
+
+                }
+            }
+
         }
-    }
 
+    }
 }
+
 

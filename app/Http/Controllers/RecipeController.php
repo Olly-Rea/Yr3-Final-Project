@@ -19,25 +19,17 @@ class RecipeController extends Controller {
      * Method to show the User's Cookbook Recipes / Guest's Session Recipes
      */
     public function index(CookBookContainer $cookbook) {
-        $recipes = $cookbook->getRecipes();
-        return view('feed', ['recipes' => $recipes]);
+        return view('feed', ['recipes' => $cookbook->getRecipes()]);
     }
 
     /**
      * Method to fetch the next page of paginated data
      */
-    public function fetch(Request $request) {
+    public function fetch(Request $request, CookBookContainer $cookbook) {
         // Check that the request is ajax
         if ($request->ajax()) {
-            // Get the next page of paginated recipes
-            $recipes = Recipe::paginate($this->paginate);
-            // If $recipes != null and is > 0...
-            if($recipes != null && count($recipes) > 0) {
-                // ...render the recipes and return them to the feed
-                return view('components.recipe-panel', ['recipes' => $recipes])->render();
-            } else {
-                return null;
-            }
+            $cookbook->refresh(true);
+            return view('components.recipe-panel', ['recipes' => $cookbook->getRecipes()])->render();
         // Else return a 404 not found error
         } else {
             abort(404);
@@ -52,7 +44,6 @@ class RecipeController extends Controller {
         $ingredients = $recipe->ingredients()->with(['alternatives' => function ($query) use ($recipe) {
             $query->where('recipe_id', '=', $recipe->id);
         }])->get();
-
         // Check if a logged in User needs warning about possible allergens
         if (Auth::check()) {
             // Get Recipe Allergens
@@ -77,18 +68,23 @@ class RecipeController extends Controller {
      * Method to allow a user to be given a "surprise" recipe - personalised if user is logged in
      */
     public function surprise() {
+        // Start the query
+        $recipe = Recipe::all();
+        // Personalise the query to the User (if one logged in)
+        if (Auth::check()) {
+            // Check against user allergens (if any)
+            if(count(Auth::user()->profile->allergens) > 0) {
 
-        // Get a random recipe
-        $recipe = Recipe::all()->count() > 1 ? Recipe::all()->random(1) : Recipe::get();
+            }
+            // Check against user ingredients (if more than 3)
+            if(count(Auth::user()->fridge->ingredients) > 3) {
 
-        // Check to see if a User is logged in
-        if(count(Auth::user()->fridge->ingredients) == 0) {
-
-            return $this->show($recipe);
-
-        } else {
-            return $this->show($recipe);
+            }
         }
+        // get a random recipe from the query
+        $recipe = $recipe->random(1)->first();
+        // Return the recipe
+        return $this->show($recipe);
     }
 
     /**
@@ -100,6 +96,8 @@ class RecipeController extends Controller {
         // Return it to the view
         return view('ai-chef', ['recipe' => $recipe, 'user' => Auth::user()]);
     }
+
+
 
     /**
      * Method to create a new Recipe

@@ -3,12 +3,20 @@
 @section("styles")
 <link href="{{ asset('css/feed_page.css') }}" rel="stylesheet">
 @endsection
+@section('scripts')
+<script src="{{ asset('js/recipe/feed.js') }}"></script>
+@endsection
 
 @section('title')Ideas Board @endsection
 
 @section('content')
 
-@if(count($recipes))<h2>Some suggestions for you!</h2>@endif
+@if(count($recipes))
+<h2>Some suggestions for you!</h2>
+@auth
+<h3>- The following recipes have been selected specifically based on your indicated preferences -</h3>
+@endauth
+@endif
 @forelse($recipes as $recipe)
 <div class="recipe-panel">
     <div class="recipe-title-panel">
@@ -58,71 +66,11 @@
 </div>
 @endforelse
 
-@if(count($recipes) > 0)
-<button id="cookbook-refresh">Refresh</button>
-@endif
-{{-- <div _id="screen-split"></div>
-<nav>
-Authentication Link
-    <a href="#">
-        <div class="nav-link" >
-            {{ __('recipe Feed') }}
-        </div>
-    </a>
-    <a href="#">
-        <div class="nav-link" >
-            {{ __('Search') }}
-        </div>
-    </a>
-    @auth
-    <a href="#">
-        <div class="nav-link" >
-            {{ __('My recipes') }}
-        </div>
-    </a>
-    @else
-    <a href="{{ route('register') }}">
-        <div class="nav-link" >
-            {{ __('Sign Up') }}
-        </div>
-    </a>
-    @endauth
-</nav> --}}
-
-{{-- @guest
-    <a href="{{ route('login') }}">
-        <div class="nav-link" >
-            {{ __('Login') }}
-        </div>
-    </a>
-    @if (Route::has('register'))
-    <a href="{{ route('register') }}">
-        <div class="nav-link" >
-            {{ __('Register') }}
-        </div>
-    </a>
-    @endif
-    <div _id="or-container">
-        <div class="h-sep"></div>
-        <p>Or</p>
-        <div class="h-sep"></div>
-    </div>
-    <a href="{{ route('feed') }}">
-        <div class="nav-link" >
-            {{ __('Browse as Guest') }}
-        </div>
-    </a>
-@else
-<a class="nav-link" >
-    {{ Auth::user()->name }}
-</a>
-<div class="nav-link" >
-    <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementBy_id('logout-form').submit();">
-        {{ __('Logout') }}
-    </a>
-    <form _id="logout-form" action="{{ route('logout') }}" method="recipe" class="d-none" h_idden>
-        @csrf
-    </form>
+@if(count($recipes))
+<div id="cookbook-refresh">
+    <svg>
+        <use xlink:href="{{ asset('images/graphics/refresh.svg#icon') }}"></use>
+    </svg>
 </div>
-@endguest --}}
+@endif
 @endsection

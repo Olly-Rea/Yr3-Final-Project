@@ -5,6 +5,14 @@ body {
     nav {
         @include flexDisplay(row, center, flex-end);
 
+        #nav-left {
+            #site-logo {
+                svg {
+                    pointer-events: none;
+                }
+            }
+        }
+
         #site-links,
         #logout-link {
             @include flexDisplay(row, center, space-between);
@@ -127,62 +135,71 @@ body {
 
         #prefs-form {
 
-            label,
-            p {
-                margin: 0;
-            }
+            #sliders {
+                position: relative;
 
-            label {
-                margin-top: 2rem;
+                width: 100%;
 
-                font-size: 1.4rem;
-                font-weight: bold;
-            }
+                label,
+                p {
+                    margin: 0;
+                }
 
-            #spice-slider {
-                .ui-slider-handle {
-                    background: $spiceColor;
-                    &:active {
+                label {
+                    display:inline-block;
+                    margin-top: 2rem;
+
+                    font-size: 1.4rem;
+                    font-weight: bold;
+                }
+
+                #spice-slider {
+                    .ui-slider-handle {
                         background: $spiceColor;
+                        &:active {
+                            background: $spiceColor;
+                        }
+                    }
+                    .ui-slider-range {
+                        background: $spiceMuted;
                     }
                 }
-                .ui-slider-range {
-                    background: $spiceMuted;
-                }
-            }
-            #sweet-slider {
-                .ui-slider-handle {
-                    background: $sweetColor;
-                    &:active {
+                #sweet-slider {
+                    .ui-slider-handle {
                         background: $sweetColor;
+                        &:active {
+                            background: $sweetColor;
+                        }
+                    }
+                    .ui-slider-range {
+                        background: $sweetMuted;
                     }
                 }
-                .ui-slider-range {
-                    background: $sweetMuted;
-                }
-            }
-            #sour-slider {
-                .ui-slider-handle {
-                    background: $sourColor;
-                    &:active {
+                #sour-slider {
+                    .ui-slider-handle {
                         background: $sourColor;
+                        &:active {
+                            background: $sourColor;
+                        }
+                    }
+                    .ui-slider-range {
+                        background: $sourMuted;
                     }
                 }
-                .ui-slider-range {
-                    background: $sourMuted;
-                }
-            }
-            #diff-slider {
-                .ui-slider-handle {
-                    background: $diffColor;
-                    &:active {
+                #diff-slider {
+                    .ui-slider-handle {
                         background: $diffColor;
+                        &:active {
+                            background: $diffColor;
+                        }
+                    }
+                    .ui-slider-range {
+                        background: $diffMuted;
                     }
                 }
-                .ui-slider-range {
-                    background: $diffMuted;
-                }
             }
+
+
 
         }
 

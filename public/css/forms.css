@@ -420,7 +420,7 @@ input[type="checkbox"] {
 }
 
 .slider-container .slider-range {
-  height: 0.6rem;
+  height: 0.52rem;
   width: 100%;
   outline: none;
   border: none;
@@ -465,9 +465,9 @@ input[type="checkbox"] {
   position: absolute;
   display: block;
   border: 0;
-  border-radius: 50px;
+  border-radius: 5rem;
   background-position: 0 0;
-  height: 0.4rem;
+  height: 0.52rem;
 }
 
 .slider-container .min-amount {

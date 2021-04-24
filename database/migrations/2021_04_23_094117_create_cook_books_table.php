@@ -22,7 +22,6 @@ class CreateCookBooksTable extends Migration {
         Schema::create('cookbook_recipes', function (Blueprint $table) {
             $table->foreignId('cook_book_id')->references('id')->on('cook_books')->onDelete('cascade')->onUpdate('cascade');
             $table->foreignId('recipe_id')->references('id')->on('recipes')->onDelete('cascade')->onUpdate('cascade');
-            $table->unique('cook_book_id', 'recipe_id');
         });
     }
 

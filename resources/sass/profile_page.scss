@@ -3,10 +3,6 @@
 main {
     padding-top: 12rem;
 
-    h2 {
-        align-self: flex-start;
-    }
-
     > h1 {
         font-size: 4rem;
         margin: 1rem 0;
@@ -17,6 +13,11 @@ main {
         max-width: 20rem;
     }
 
+    > h2,
+    > p {
+        align-self: flex-start;
+    }
+
     > h2 {
         margin: 1rem 0;
 
@@ -25,12 +26,17 @@ main {
         }
     }
 
+    > p {
+        margin-top: -0.8rem;
+        margin-bottom: 1rem;
+        text-align: justify;
+    }
+
     #user-recipes,
     #user-ratings,
     #user-fridge,
     #user-allergens {
         width: 100%;
-        min-height: 4rem;
     }
 
     #about-user {
@@ -63,39 +69,109 @@ main {
         flex-wrap: wrap;
 
         .rating {
-            flex-grow: 1;
+            @include flexDisplay(row, flex-start, flex-start);
 
-            margin: 0.6rem;
+            margin: 0.6rem 0;
+
+            width: calc(100% - 1.2rem);
+
             padding: 1rem 0.6rem;
             background-color: $panelBckColor;
             border-radius: $smallRounded;
 
-            > h1,
-            > h4  {
-                margin-left: 0.8rem;
-            }
+            .section {
+                height: 100%;
 
-            > div {
-                @include flexDisplay(row, flex-start, center);
+                &:first-of-type {
+                    @include flexDisplay(row, center, center);
+                    width: 20%;
 
-                width: 100%;
+                    .out-of-five {
+                        position: relative;
 
-                > div {
-                    @include flexDisplay(column, center, center);
+                        margin: 3rem 0;
 
-                    margin: 0 0.6rem;
+                        width: 6rem;
+                        height: 6rem;
 
-                    width: 3.4rem;
-                    height: 3.4rem;
+                        svg,
+                        h3 {
+                            position: absolute;
+                            transform: translate(-50%, -50%);
+                        }
+                        h3 {
+                            margin: 0;
+                            top: 50%;
+                            left: 50%;
+                        }
+                        svg {
+                            top: 45%;
+                            left: 51%;
+                            width: 110%;
+                            height: 110%;
+                            fill: $diffMuted;
+                        }
+                    }
+                }
+                &:last-of-type {
+                    width: 80%;
 
-                    border-radius: 50%;
-                    background-color: $panelAccentColor;
-
-                    h3, h4 {
-                        margin: 0;
+                    > h1,
+                    > h4  {
+                        margin-left: 0.8rem;
                     }
 
+                    > div {
+                        @include flexDisplay(row, flex-start, flex-start);
+                        flex-wrap: wrap;
+
+                        width: 100%;
+
+                        .spice-wheel,
+                        .sweet-wheel,
+                        .sour-wheel,
+                        .time-wheel,
+                        .difficulty-wheel {
+                            margin: 0.6rem;
+
+                            h3, h4 {
+                                margin: 0;
+                            }
+                        }
+
+                        .spice-wheel,
+                        .sweet-wheel,
+                        .sour-wheel,
+                        .time-wheel,
+                        .difficulty-wheel {
+                            @include flexDisplay(column, center, center);
+                            border-radius: 50%;
+
+                            width: 3.6rem;
+                            height: 3.6rem;
+
+                            color: $panelBckColor;
+                        }
+
+                        .spice-wheel {
+                            background-color: $spiceMuted;
+                        }
+                        .sweet-wheel {
+                            background-color: $sweetMuted;
+                        }
+                        .sour-wheel {
+                            background-color: $sourMuted;
+                        }
+                        .time-wheel {
+                            background-color: rgba(100, 100, 100, 0.7);
+                        }
+                        .difficulty-wheel {
+                            background-color: $diffColor;
+                        }
+
+                    }
                 }
+
             }
 
         }
@@ -122,6 +198,75 @@ main {
             }
 
         }
+    }
+
+    #user-prefs {
+        width: 94%;
+
+        #sliders {
+            position: relative;
+
+            width: 100%;
+
+            label,
+            p {
+                margin: 0;
+            }
+
+            label {
+                display:inline-block;
+                margin-top: 2rem;
+
+                font-size: 1.4rem;
+                font-weight: bold;
+            }
+
+            #spice-slider {
+                .ui-slider-handle {
+                    background: $spiceColor;
+                    &:active {
+                        background: $spiceColor;
+                    }
+                }
+                .ui-slider-range {
+                    background: $spiceMuted;
+                }
+            }
+            #sweet-slider {
+                .ui-slider-handle {
+                    background: $sweetColor;
+                    &:active {
+                        background: $sweetColor;
+                    }
+                }
+                .ui-slider-range {
+                    background: $sweetMuted;
+                }
+            }
+            #sour-slider {
+                .ui-slider-handle {
+                    background: $sourColor;
+                    &:active {
+                        background: $sourColor;
+                    }
+                }
+                .ui-slider-range {
+                    background: $sourMuted;
+                }
+            }
+            #diff-slider {
+                .ui-slider-handle {
+                    background: $diffColor;
+                    &:active {
+                        background: $diffColor;
+                    }
+                }
+                .ui-slider-range {
+                    background: $diffMuted;
+                }
+            }
+        }
+
     }
 
     #user-fridge,
@@ -205,3 +350,17 @@ main {
     }
 
 }
+
+// // Maximum aspect ratio - for mobile/portrait browsers
+// @media only screen and (max-aspect-ratio: 12/10) {
+
+//     body {
+//         main {
+
+//             > p {
+//             }
+
+//         }
+//     }
+
+// }

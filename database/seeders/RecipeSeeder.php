@@ -107,11 +107,11 @@ class RecipeSeeder extends Seeder {
         // Seed Recipe Database
         foreach($recipes as $count => $recipe) {
 
-            // // DEBUG - skip previous recipes as they all seed successfully
-            // if ($count < 20000) continue;
+            // DEBUG - skip previous recipes as they all seed successfully
+            if ($count < 24000) continue;
 
-            // get the 'author' of the recipe
-            $author = User::inRandomOrder()->first();
+            // get the 'author' of the recipe (from first 400 generated users)
+            $author = User::all()->take(400)->random(1)->first();
 
             // Get each object from the list of ingredients
             $ingredients = get_object_vars($recipe->ingredients);
@@ -178,7 +178,7 @@ class RecipeSeeder extends Seeder {
                 // Create some 'ratings' for the recipe (keep between 10 and 64 to preserve some time)
                 for($i = 0, $range = random_int(10, 64); $i < $range; $i++) {
                     // Get a User (who is not the author or has already 'rated' this recipe)
-                    while(($userID = User::inRandomOrder()->first()->id) == $author->id || in_array($userID, $userIDs));
+                    while(($userID = User::all()->take(400)->random(1)->first()->id) == $author->id || in_array($userID, $userIDs));
                     // Add the $userID to the array
                     array_push($userIDs, $userID);
                     // Create the rating
@@ -216,8 +216,8 @@ class RecipeSeeder extends Seeder {
         DB::table('ratings')->delete();
 
         // The list of filenames to use
-        $fileNames = ['recipes_1.json','recipes_2.json','recipes_3.json','recipes_4 (wip).json'];
-        // $fileNames = ['recipes_2.json','recipes_3.json','recipes_4 (wip).json'];
+        // $fileNames = ['recipes_1.json','recipes_2.json','recipes_3.json','recipes_4 (wip).json'];
+        $fileNames = ['recipes_2.json','recipes_3.json','recipes_4 (wip).json'];
 
         // Loop through and seed from each JSON file provided
         foreach($fileNames as $fileName) {

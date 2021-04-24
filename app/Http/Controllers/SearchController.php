@@ -23,9 +23,12 @@ class SearchController extends Controller {
         // Check that the request is AJAX
         if ($request->ajax()) {
 
+            // Remove 's' at the end of the string (for plurals)
+            $searchStr = strtolower(substr($request->search, -1)) == 's' ? substr($request->search, 0, -1) : $request->search;
+
             // Get any relevent recipes/ingredients from the databases
-            $recipes = Recipe::where("name", "LIKE", "%".$request->search."%")->limit($this->pagination);//->where('last_name', 'LIKE', $request->search . '%')->get();
-            $ingredients = Ingredient::where("name", "LIKE", "%".$request->search . "%")->limit($this->pagination);//->where('last_name', 'LIKE', $request->search . '%')->get();
+            $recipes = Recipe::where("name", "LIKE", "%".$searchStr."%")->limit($this->pagination);
+            $ingredients = Ingredient::where("name", "LIKE", $searchStr."%")->limit($this->pagination);
 
             // Split the results based on the number of results returned per collection
             $recipeCount = (count($ingredients->get()) > 5) ? 5 : 10 - count($ingredients->get());
@@ -33,8 +36,6 @@ class SearchController extends Controller {
 
             // Get the top 10 results (merged / 'concatenated')
             $results = $recipes->paginate($recipeCount)->concat($ingredients->paginate($ingredCount));
-
-            // dd($results);
 
             // return the paginated list of recipes matching the user's search
             return view('components.search-result', ['results' => $results])->render();
@@ -51,11 +52,8 @@ class SearchController extends Controller {
     public function allergen(Request $request) {
         // Check that the request is AJAX
         if ($request->ajax()) {
-
-            // dd(Auth::user()->profile->allergens->map(function ($item, $key) { return $item->id; }));
-
             // Get the results from the query
-            $results = Allergen::where("name", "LIKE", "%".$request->search."%")
+            $results = Allergen::where("name", "LIKE", $request->search."%")
                 ->whereNotIn('id', Auth::user()->profile->allergens->map(function ($item, $key) { return $item->id; }))
                 ->limit($this->pagination)->get();
             // return the paginated list of recipes matching the user's search
@@ -73,7 +71,7 @@ class SearchController extends Controller {
         // Check that the request is AJAX
         if ($request->ajax()) {
             // Get the results from the query
-            $results = Ingredient::where("name", "LIKE", "%".$request->search . "%")
+            $results = Ingredient::where("name", "LIKE", $request->search . "%")
                 ->whereNotIn('id', Auth::user()->fridge->ingredients->map(function ($item, $key) { return $item->id; }))
                 ->limit($this->pagination)->get();//->where('last_name', 'LIKE', $request->search . '%')->get();
             // return the paginated list of recipes matching the user's search

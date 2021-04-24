@@ -11,6 +11,7 @@
 @section("scripts-app")
 <script src="{{ asset('js/profile/create.js') }}"></script>
 <script src="{{ asset('js/forms/shared.js') }}"></script>
+<script src="{{ asset('js/forms/sliders.js') }}"></script>
 <script src="{{ asset('js/forms/ingredientSearch.js') }}"></script>
 <script src="{{ asset('js/forms/allergenSearch.js') }}"></script>
 <script src="{{ asset('js/forms/profileImage.js') }}"></script>
@@ -22,11 +23,11 @@
 
 @section('nav')
 <div id="nav-left">
-    <a href="#" id="site-logo">
+    <div id="site-logo">
         <svg>
             <use xlink:href="{{ asset('images/graphics/logo.svg#icon') }}"></use>
         </svg>
-    </a>
+    </div>
 </div>
 <div id="site-links">
     <div id="progress"></div>
@@ -91,7 +92,6 @@
         <h1>Secondly, please indicate any allergens you wish to avoid</h1>
         <p>This is vital if you have any allergens you wish to avoid, as we will ensure to prevent recipes being shown to you that contain ingredients that are known to contain these allergens</p>
         <div id="allergen-search" class="search-bar">
-            <div id="results-container" style="display: none"></div>
             <input type="text" name="search" placeholder="Start typing to see results!" onfocus="this.placeholder = ''" onfocusout="this.placeholder = 'Start typing to see results!'"/>
         </div>
         <div id="profile-allergens" class="item-container">
@@ -112,8 +112,7 @@
     <div id="prefs-form" class="fullscreen" style="display:none">
         <h1>Just a couple more things...</h1>
         <p>Please indicate your food preferences here, this way we can better tailor your experience to recipes we know you'll like!</p>
-        <form action="{{ route('me.update') }}">
-            @csrf
+        <div id="sliders">
             <label for="spice_val">Spice</label>
             <p>Show me recipes with a spice rating up to this value:</p>
             <div id="spice-slider" class="slider-container">
@@ -138,7 +137,7 @@
                 <input type="number" name="diff_val" value="{{ old("diff_val") ? old("diff_val") : 5 }}" hidden>
                 <div id="diff-slider-range" class="slider-range"></div>
             </div>
-        </form>
+        </div>
         <div class="nav-items">
             <h3 class="back">Back</h3>
             <h3 class="next">Next</h3>
@@ -149,7 +148,6 @@
         <h1>...And lastly!</h1>
         <p>Please indicate the ingredients you currently have available to you, we will use these to help show you recipes that you can cook here and now!</p>
         <div id="ingredient-search" class="search-bar">
-            <div id="results-container" style="display: none"></div>
             <input id="ingredient-search" type="text" name="search" placeholder="Start typing to see results!" onfocus="this.placeholder = ''" onfocusout="this.placeholder = 'Start typing to see results!'"/>
         </div>
         <div id="fridge-ingredients" class="item-container">
