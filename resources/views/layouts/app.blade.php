@@ -29,6 +29,18 @@
         <main>
             @yield("content")
         </main>
+        <div id="notification-container">
+            @if (session()->has("success"))
+            <div class="success notify-panel">
+                <h2>Success!</h2><h3>{{ session("success") }}</h3>
+            </div>
+            @endif
+            @if ($errors->any())
+            <div class="error notify-panel">
+                <h2>Oh no!</h2><h3>An error occured: please check your input and try again</h3>
+            </div>
+            @endif
+        </div>
         <div id="site-overlay" style="display: none">
             <div id="site-overlay-background"></div>
             @auth

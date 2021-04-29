@@ -199,6 +199,28 @@ main {
 
         }
     }
+    #add-recipe {
+        align-self: flex-end;
+
+        margin-top: 1rem;
+        margin-right: 2rem;
+
+        h3 {
+            margin: 0;
+
+            padding: 1.2rem;
+            border-radius: $smallRounded;
+
+            cursor: pointer;
+
+            &:hover {
+                background-color: $backFocus;
+            }
+            &:active {
+                background-color: $backActive;
+            }
+        }
+    }
 
     #user-prefs {
         width: 94%;

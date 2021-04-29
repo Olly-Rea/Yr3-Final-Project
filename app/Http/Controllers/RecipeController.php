@@ -2,14 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\CookBookContainer;
-use App\MLContainer;
-use Illuminate\Http\Request;
-
 // Custom imports
-use Illuminate\Support\Facades\Auth;
-use App\Models\Recipe;
+use App\{CookbookContainer, MLContainer};
+use App\Models\{Recipe, Ingredient, Instruction};
+use Illuminate\Support\Facades\{Auth, Validator};
+use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Arr;
 
 class RecipeController extends Controller {
     // Number of items to show per page
@@ -18,18 +17,17 @@ class RecipeController extends Controller {
     /**
      * Method to show the User's Cookbook Recipes / Guest's Session Recipes
      */
-    public function index(CookBookContainer $cookbook) {
-        return view('feed', ['recipes' => $cookbook->getRecipes()]);
+    public function index(CookbookContainer $cookbook) {
+        return view('feed', ['recipes' => $cookbook->getRecipes(false)]);
     }
 
     /**
      * Method to fetch the next page of paginated data
      */
-    public function fetch(Request $request, CookBookContainer $cookbook) {
+    public function fetch(Request $request, CookbookContainer $cookbook) {
         // Check that the request is ajax
         if ($request->ajax()) {
-            $cookbook->refresh(true);
-            return view('components.recipe-panel', ['recipes' => $cookbook->getRecipes()])->render();
+            return view('components.recipe-panel', ['recipes' => $cookbook->getRecipes(true)])->render();
         // Else return a 404 not found error
         } else {
             abort(404);
@@ -58,15 +56,18 @@ class RecipeController extends Controller {
             $userAllergens = [];
         }
         //Return the recipe with it's included ingredients
-        return view('recipe', ['recipe' => $recipe, 'ingredients' => $ingredients, 'hasAllergens' => $userAllergens]);
+        return view('recipe.show', ['recipe' => $recipe, 'ingredients' => $ingredients, 'hasAllergens' => $userAllergens]);
     }
 
     /**
-     * Method to allow a user to be given a "surprise" recipe - personalised if user is logged in
+     * Method to allow a user to be given a 'surprise' recipe - personalised if user is logged in
      */
     public function surprise() {
         // Start the query
-        $recipes = Recipe::all();
+        $recipes = Recipe::with('ingredients');
+
+        // dd($recipes);
+
         // Personalise the query to the User (if one logged in)
         if (Auth::check()) {
             // Check against user allergens (if any)
@@ -74,16 +75,16 @@ class RecipeController extends Controller {
 
             }
             // Check against user ingredients (if more than 3)
-            $userIngredients = Auth::user()->fridge->ingredients;
+            $userIngredients = Auth::user()->fridge->ingredients->pluck('id');
             if (count($userIngredients) > 3) {
                 // Get recipes containing up to the number of the ingredients the user has
                 $recipes = $recipes->whereHas('ingredients', function (Builder $query) use ($userIngredients)  {
                     $query->whereIn('id', $userIngredients);
-                }, '<=', count($userIngredients));
+                }, '>=', 3);
             }
         }
         // get a random recipe from the query
-        $recipe = $recipes->random(1)->first();
+        $recipe = $recipes->inRandomOrder()->first();
         // Return the recipe
         return $this->show($recipe);
     }
@@ -98,22 +99,151 @@ class RecipeController extends Controller {
         return view('ai-chef', ['recipe' => $recipe, 'user' => Auth::user()]);
     }
 
-
     /**
-     * Method to create a new Recipe
+     * Method to create a new recipe
      */
     public function create() {
+        return view('recipe.edit');
+    }
 
+    /**
+     * Method to save the changes made to a recipe
+     */
+    public function save() {
 
+        // Create custom attribute names...
+        $attributeNames = array(
+            'name' => 'Recipe Name',
+            'serves' => 'Serves',
+            'ingredient' => 'Ingredients',
+            'direction' => 'Directions'
+        );
+
+        // ...And validate the data
+        $validator = Validator::make(request()->all(), [
+            'recipe_id' => ['integer'],
+            'name' => ['required', 'string', 'max:255'],
+            'serves' => ['required', 'integer'],
+            // Validate Ingredient array
+            'ingredient' => ['required'],
+            'ingredient.*.id' => ['required', 'integer'],
+            'ingredient.*.amount' => ['required', 'integer'],
+            'ingredient.*.measure' => ['required', 'string'],
+            // Validate Direction array
+            'direction' => ['required'],
+            'direction.*' => ['string', 'nullable'],
+        ], [], $attributeNames);
+
+        // Check if the validator is successful, and either...
+        if ($validator->fails()) {
+            // Output the fail message(s)
+            return back()
+                ->withErrors($validator)
+                ->withInput();
+        } else {
+
+            // Check if the recipe is an existing recipe
+            if (request()->has('recipe_id')) {
+                // Get the Recipe to use
+                $recipe = Recipe::where('id', request('recipe_id'))->first();
+            } else {
+                // Create the new Recipe (under the Auth Users ID)
+                $recipe = Recipe::create([
+                    'user_id' => Auth::id(),
+                    'name' => request('name'),
+                    'serves' => (request('serves') > 0) ? request('serves') : 1
+                ]);
+            }
+
+            // Clear all attached ingredients
+            $recipe->ingredients()->detach();
+            // Loop through each ingredient id
+            foreach(request('ingredient') as $ingred_info) {
+                // Get the ingredient to add
+                $ingredient = Ingredient::where('id', $ingred_info['id'])->first();
+                // Check to ensure the ingredient exists
+                if(isset($ingredient)) {
+                    // Add the ingredient
+                    $recipe->ingredients()->syncWithoutDetaching([
+                        $ingredient->id => ['misc_info' => '', 'amount' => $ingred_info['amount'], 'measure' => $ingred_info['measure']]
+                    ]);
+                }
+            }
+
+            // Clear the old directions
+            $recipe->instructions()->delete();
+            // Loop through and add each direction input
+            foreach(request('direction') as $direction) {
+                $recipe->instructions()->create([
+                    'content' => $direction
+                ]);
+            }
+
+            // Return the User Profile page
+            return redirect('/Me')->with('success', 'Recipe created successfully!');
+        }
 
     }
 
+    /**
+     * Method to edit a Recipe
+     */
+    public function edit(Recipe $recipe) {
+        // Check that the Recipe is owned by the current User
+        if (Auth::id() == $recipe->user_id) {
+            return view('recipe.edit', ['recipe' => $recipe]);
+        } else {
+            abort(403);
+        }
+    }
+
+    /**
+     * Method to delete a Recipe
+     */
+    public function delete(Recipe $recipe) {
+        // Check that the Recipe is owned by the current User
+        if (Auth::id() == $recipe->user_id) {
+            // Delete the recipe
+            $recipe->delete();
+            // Return the User Profile page
+            return redirect('/Me')->with('success', 'Recipe deleted successfully!');
+        } else {
+            abort(403);
+        }
+    }
+
+    /**
+     * Method to add an Ingredient input to the Recipe Form
+     */
+    public function addIngredient(Request $request) {
+        // Check that the request is ajax
+        if ($request->ajax()) {
+            // Get the ingredient to use
+            $ingredient = Ingredient::where('id', $request->id)->first();
+            if(isset($ingredient)) {
+                return view('components.ingredient-input', ['ingredient' => $ingredient, 'index' => $request->index])->render();
+            } else {
+                abort(404);
+            }
+        // Else return a 404 not found error
+        } else {
+            abort(404);
+        }
+    }
+
+    /**
+     * Method to add a Direction input to the Recipe Form
+     */
+    public function addDirection(Request $request) {
+        // Check that the request is ajax
+        if ($request->ajax()) {
+            return view('components.direction-input', ['index' => $request->index])->render();
+        // Else return a 404 not found error
+        } else {
+            abort(404);
+        }
+    }
+
 }
-
-// TODO Surprise me feature - based on User fridge
-
-// TODO Recommendations based on User preferences
-
-// TODO Warnings if Allergens/Traces contained in recipe
 
 // TODO Warnings if Recipe outside of Users normal taste preferences

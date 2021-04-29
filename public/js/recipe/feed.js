@@ -14,8 +14,10 @@ $(window).on("load, pageshow", function() {
             success: function(data) {
                 // Remove all existing recipe panels and add the new recipe panels
                 $(".recipe-panel").remove();
-                $("main").append(data);
-                $this.appendTo("main");
+                setTimeout(function () {
+                    $("main").append(data);
+                    $this.appendTo("main");
+                }, 1);
                 // Allow animation to play at least once
                 setTimeout(function () {
                     $this.removeClass("active");

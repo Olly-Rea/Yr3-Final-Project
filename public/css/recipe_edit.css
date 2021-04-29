@@ -1125,7 +1125,89 @@ body footer #footer-content a {
   }
 }
 
-body main {
+main form {
+  width: 100%;
+}
+
+main form #recipe-title {
+  margin: 2rem 0;
+  width: 100%;
+}
+
+main form #recipe-title input[type="text"],
+main form #recipe-title #serves > p {
+  margin: 0.5rem 0;
+}
+
+main form #recipe-title input[type="text"] {
+  font-size: 4rem;
+  font-weight: bold;
+  background-color: rgba(0, 0, 0, 0);
+  text-indent: 1rem;
+  margin-left: -1rem;
+  width: calc(100% + 1rem);
+  padding: 0.8rem 0;
+  border-radius: 1rem;
+}
+
+main form #recipe-title input[type="text"]:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+main form #recipe-title #serves {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  font-size: 1.6rem;
+  text-indent: 2rem;
+}
+
+main form #recipe-title #serves input[type="number"] {
+  height: -webkit-fit-content;
+  height: -moz-fit-content;
+  height: fit-content;
+  width: 3rem;
+  padding: 0.4rem;
+  margin: 0;
+  margin-left: 0.2rem;
+  text-indent: 0;
+  text-align: center;
+  background-color: rgba(0, 0, 0, 0);
+  border-radius: 0.6rem;
+}
+
+main form #recipe-title #serves input[type="number"]:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+main form #recipe-title #serves input[type="number"]::-webkit-outer-spin-button, main form #recipe-title #serves input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+main form #recipe-title #serves input[type="number"][type="number"] {
+  -moz-appearance: textfield;
+}
+
+main form > h2 {
+  -ms-flex-item-align: start;
+      align-self: flex-start;
+  margin-top: 4rem;
+  font-size: 2rem;
+}
+
+main form #ingredients,
+main form #directions {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -1136,12 +1218,59 @@ body main {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  width: 100%;
 }
 
-body main #message {
+main form #ingredients h1, main form #ingredients p {
+  -ms-flex-item-align: start;
+      align-self: flex-start;
+  margin: 0.2rem 0;
+}
+
+main form #ingredients .search-bar,
+main form #ingredients .item-container {
+  margin: 1rem 0;
+}
+
+main form #ingredients .search-bar {
+  width: calc(100% - 2rem);
+}
+
+main form #ingredients .item-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  min-height: calc(20vh - 4rem);
+  width: calc(100% - 4rem);
+  padding: 1rem;
+  background-color: #eceaee;
+  border-radius: 1.6rem;
+}
+
+main form #ingredients .item-container > p {
+  width: 100%;
+  -ms-flex-item-align: center;
+      -ms-grid-row-align: center;
+      align-self: center;
+  text-align: center;
+}
+
+main form #ingredients .item-container .item {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -1155,17 +1284,250 @@ body main #message {
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
+  margin: 0.6rem;
+  padding: 0 1.4rem;
+  cursor: pointer;
+  border-radius: 1rem;
+}
+
+main form #ingredients .item-container .item.selected {
+  background-color: rgba(248, 148, 165, 0.4) !important;
+}
+
+main form #ingredients .item-container .item.unselected {
+  background-color: #f6f4f8 !important;
+}
+
+main form #ingredients .ingredient-panel {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  width: 100%;
+  margin: 0.7rem 0;
+}
+
+main form #ingredients .ingredient-panel .amount,
+main form #ingredients .ingredient-panel .name {
+  margin: 0;
+  border-radius: 1rem;
+}
+
+main form #ingredients .ingredient-panel .amount {
+  width: 20%;
+  white-space: nowrap;
+}
+
+main form #ingredients .ingredient-panel .amount input {
+  margin: 0;
+  padding: 0 1rem;
+  width: calc(48% - 2rem);
+  text-indent: 0;
+  text-align: center;
+  background-color: #eceaee;
+}
+
+main form #ingredients .ingredient-panel .amount input:first-of-type {
+  border-radius: 1rem 0 0 1rem;
+}
+
+main form #ingredients .ingredient-panel .amount input:last-of-type {
+  border-radius: 0 1rem 1rem 0;
+  margin-right: 2rem;
+}
+
+main form #ingredients .ingredient-panel .amount input::-webkit-outer-spin-button, main form #ingredients .ingredient-panel .amount input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+main form #ingredients .ingredient-panel .amount input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+main form #ingredients .ingredient-panel .name {
+  background-color: #f6f4f8;
+  width: 68%;
+  padding: 1rem;
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+main form #ingredients .ingredient-panel .name span {
+  color: #787878;
+}
+
+main form #ingredients .ingredient-panel .remove {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  width: 7%;
+  height: 3.6rem;
+}
+
+main form #ingredients .ingredient-panel .remove svg {
+  stroke: #f894a4;
+  height: 60%;
+  width: 60%;
+  cursor: pointer;
+  -webkit-transition: stroke 0.14s ease-in-out, -webkit-transform 0.14s ease-in-out;
+  transition: stroke 0.14s ease-in-out, -webkit-transform 0.14s ease-in-out;
+  transition: transform 0.14s ease-in-out, stroke 0.14s ease-in-out;
+  transition: transform 0.14s ease-in-out, stroke 0.14s ease-in-out, -webkit-transform 0.14s ease-in-out;
+}
+
+main form #ingredients .ingredient-panel .remove svg:hover {
+  -webkit-transform: scale(1.1);
+          transform: scale(1.1);
+}
+
+main form #ingredients .ingredient-panel .remove svg:active {
+  -webkit-transform: scale(0.96);
+          transform: scale(0.96);
+  stroke: #f57d91;
+}
+
+main form #directions .placeholder {
+  width: calc(100% - 4rem);
+  padding: 1rem 2rem;
+  background-color: #f6f4f8;
+  font-size: 1.2rem;
+  text-align: center;
+  border-radius: 1rem;
+}
+
+main form #directions .direction-panel {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  width: calc(100% - 0.4rem);
+  margin: 0.7rem 0;
+}
+
+main form #directions .direction-panel .step,
+main form #directions .direction-panel .content {
+  margin: 0;
+  border-radius: 1rem;
+}
+
+main form #directions .direction-panel .step {
+  padding: 1rem 2rem;
+  margin-right: 0.4rem;
+  background-color: #eceaee;
+  white-space: nowrap;
   -webkit-user-select: none;
      -moz-user-select: none;
       -ms-user-select: none;
           user-select: none;
 }
 
-body main #message > div {
-  margin: 0 1rem;
-  width: 0.2rem;
-  height: 4rem;
-  border-radius: 4rem;
-  background-color: #b4b4b4;
+main form #directions .direction-panel .content {
+  background-color: #f6f4f8;
+  font-size: 1.2rem;
+  width: 83%;
+  text-align: justify;
 }
-/*# sourceMappingURL=errors.css.map */
+
+main form #directions .direction-panel .remove {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  width: 7%;
+  height: 3.6rem;
+}
+
+main form #directions .direction-panel .remove svg {
+  stroke: #f894a4;
+  height: 60%;
+  width: 60%;
+  cursor: pointer;
+  -webkit-transition: stroke 0.14s ease-in-out, -webkit-transform 0.14s ease-in-out;
+  transition: stroke 0.14s ease-in-out, -webkit-transform 0.14s ease-in-out;
+  transition: transform 0.14s ease-in-out, stroke 0.14s ease-in-out;
+  transition: transform 0.14s ease-in-out, stroke 0.14s ease-in-out, -webkit-transform 0.14s ease-in-out;
+}
+
+main form #directions .direction-panel .remove svg:hover {
+  -webkit-transform: scale(1.1);
+          transform: scale(1.1);
+}
+
+main form #directions .direction-panel .remove svg:active {
+  -webkit-transform: scale(0.96);
+          transform: scale(0.96);
+  stroke: #f57d91;
+}
+
+main form #directions #add-direction {
+  -ms-flex-item-align: end;
+      align-self: flex-end;
+  margin: 0;
+  margin-right: 2rem;
+  padding: 1rem 2rem;
+  border-radius: 1rem;
+  cursor: pointer;
+}
+
+main form #directions #add-direction:hover {
+  background-color: #e0e0e0;
+}
+
+main form #directions #add-direction:active {
+  background-color: #d8d8d8;
+}
+
+main #save {
+  margin: 0;
+  margin-top: 6rem;
+  padding: 1.2rem 2rem;
+  border-radius: 1rem;
+  cursor: pointer;
+}
+
+main #save:hover {
+  background-color: #e0e0e0;
+}
+
+main #save:active {
+  background-color: #d8d8d8;
+}
+/*# sourceMappingURL=recipe_edit.css.map */

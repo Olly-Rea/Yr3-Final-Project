@@ -13,27 +13,28 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+// Routes that can only be used by Auth users who have setup an account
+Route::middleware(['authsetup'])->group(function () {
+    // Route to display on first creation of a User
+    Route::get('/GetStarted', 'ProfileController@getStarted')->name('auth.setup');
 
-// Routes that can be used by guests or Auth users who have setup an account
-Route::middleware(['guestorauthsetup'])->group(function () {
-    // Welcome route
-    Route::get('/', 'StartController@start')->name('welcome');
+    // Routes to display, edit and delete the Auth user profile
+    Route::get('/Me', 'ProfileController@me')->name('me');
+    Route::post('/Me/update', 'ProfileController@update')->name('me.update');
+    Route::post('/Me/delete', 'ProfileController@delete')->name('me.delete');
 
-    // Main search bar results route
-    Route::get('/Search', 'SearchController@search')->name('search');
+    // Create/Edit Recipe form routes
+    Route::get('/Recipe/Create', 'RecipeController@create')->name('recipe.create');
+    Route::post('/Recipe/Save', 'RecipeController@save')->name('recipe.save');
+    Route::get('/Recipe/Add/Ingredient', 'RecipeController@addIngredient')->name('recipe.add.ingredient');
+    Route::get('/Recipe/Add/Direction', 'RecipeController@addDirection')->name('recipe.add.direction');
+    // Recipe Delete route
+    Route::get('/Recipe/{recipe}/Delete', 'RecipeController@delete')->name('recipe.delete');
+    // Recipe Edit route
+    Route::get('/Recipe/{recipe}/Edit', 'RecipeController@edit')->name('recipe.edit');
 
-    // Main feed / 'Lucky Dip' routes
-    Route::get('/CookBook', 'RecipeController@index')->name('feed');
-    Route::get('/CookBook/Fetch', 'RecipeController@fetch');
-
-    Route::get('/LuckyDip', 'RecipeController@surprise')->name('lucky_dip');
-
-    // View Recipe route
-    Route::get('/Recipe/{recipe}', 'RecipeController@show')->name('recipe');
-    // View Ingredient Data route
-    Route::get('/Ingredient/{ingredient}', 'IngredientController@show')->name('ingredient');
-    // View Profile routes
-    Route::get('/Profile/{user}', 'ProfileController@show')->name('profile');
+    // View results created by the AI chef
+    Route::get('/TheAiChef', 'RecipeController@showAI')->name('ai_chef');
 });
 
 // Routes that require an authorised account, however may not yet be setup
@@ -57,22 +58,25 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/Allergen/Remove', 'AllergenController@removeFrom')->name('allergen.remove');
 });
 
-// Routes that can only be used by Auth users who have setup an account
-Route::middleware(['authsetup'])->group(function () {
-    // Route to display on first creation of a User
-    Route::get('/GetStarted', 'ProfileController@getStarted')->name('auth.setup');
+// Routes that can be used by guests or Auth users who have setup an account
+Route::middleware(['guestorauthsetup'])->group(function () {
+    // Welcome route
+    Route::get('/', 'StartController@start')->name('welcome');
 
-    // Routes to display, edit and delete the Auth user profile
-    Route::get('/Me', 'ProfileController@me')->name('me');
-    Route::post('/Me/update', 'ProfileController@update')->name('me.update');
-    Route::post('/Me/delete', 'ProfileController@delete')->name('me.delete');
+    // Main search bar results route
+    Route::get('/Search', 'SearchController@search')->name('search');
 
-    // Routes to create and edit (and persist changes to) recipes
-    Route::get('/recipe/create', 'RecipeController@create')->name('recipe.create');
-    Route::post('/recipe/create', 'RecipeController@save')->name('recipe.save');
-    Route::get('/recipe/edit/{recipe}', 'RecipeController@edit')->name('recipe.edit');
-    Route::post('/recipe/edit/{recipe}', 'RecipeController@update')->name('recipe.update');
+    // Main feed / 'Lucky Dip' routes
+    Route::get('/CookBook', 'RecipeController@index')->name('feed');
+    Route::get('/CookBook/Fetch', 'RecipeController@fetch');
 
-    // View results created by the AI chef
-    Route::get('/TheAiChef', 'RecipeController@showAI')->name('ai_chef');
+    Route::get('/LuckyDip', 'RecipeController@surprise')->name('lucky_dip');
+
+    // View Recipe route
+    Route::get('/Recipe/{recipe}', 'RecipeController@show')->name('recipe');
+    // View Ingredient Data route
+    Route::get('/Ingredient/{ingredient}', 'IngredientController@show')->name('ingredient');
+    // View Profile routes
+    Route::get('/Profile/{user}', 'ProfileController@show')->name('profile');
 });
+

@@ -11,4 +11,4 @@ Homestead.yaml
 npm-debug.log
 yarn-error.log
 # Model is too large for git commit
-resources/scripts/ReInsGen.h5
+resources/scripts/saved_model

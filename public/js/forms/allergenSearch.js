@@ -7,7 +7,7 @@ $(window).on("load, pageshow", function() {
         // Get the current value from the search bar
         val = $(this).val();
         // get the results from the query
-        getResults("/Search/Allergen", val, $("#profile-allergens"))
+        getResults("/Search/Allergen", val, $("#profile-allergens"), 1)
     });
 
     // Item selection / deselection - Allergens

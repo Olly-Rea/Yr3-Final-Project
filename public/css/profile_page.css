@@ -818,11 +818,18 @@ body nav #site-links a:active {
 }
 
 body main,
-body footer #footer-content {
-  position: relative;
+body footer #footer-content,
+body #notification-container {
   left: 50%;
   -webkit-transform: translateX(-50%);
           transform: translateX(-50%);
+  width: 70%;
+  max-width: 960px;
+}
+
+body main,
+body footer #footer-content {
+  position: relative;
   width: 70%;
   max-width: 960px;
 }
@@ -930,6 +937,55 @@ body main .item-container .item.selected {
 
 body main .item-container .item.unselected {
   background-color: #f6f4f8 !important;
+}
+
+body #notification-container {
+  position: fixed;
+  top: 7.2rem;
+  z-index: 2;
+}
+
+body #notification-container .notify-panel {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  width: calc(100% - 4rem);
+  padding: 1rem 2rem;
+  border-radius: 1rem;
+}
+
+body #notification-container .notify-panel h2,
+body #notification-container .notify-panel h3 {
+  margin: 0;
+}
+
+body #notification-container .notify-panel h2 {
+  margin-right: 1rem;
+}
+
+body #notification-container .notify-panel h3 {
+  -webkit-transform: translateY(6%);
+          transform: translateY(6%);
+}
+
+body #notification-container .success {
+  color: #158a11;
+  background-color: rgba(88, 221, 95, 0.5);
+}
+
+body #notification-container .error {
+  color: #158a11;
+  background-color: rgba(88, 221, 95, 0.5);
 }
 
 body #site-overlay {
@@ -1342,6 +1398,28 @@ main #user-recipes .recipe-panel {
 
 main #user-recipes .recipe-panel h2, main #user-recipes .recipe-panel p {
   margin: 0.2rem;
+}
+
+main #add-recipe {
+  -ms-flex-item-align: end;
+      align-self: flex-end;
+  margin-top: 1rem;
+  margin-right: 2rem;
+}
+
+main #add-recipe h3 {
+  margin: 0;
+  padding: 1.2rem;
+  border-radius: 1rem;
+  cursor: pointer;
+}
+
+main #add-recipe h3:hover {
+  background-color: #e0e0e0;
+}
+
+main #add-recipe h3:active {
+  background-color: #d8d8d8;
 }
 
 main #user-prefs {

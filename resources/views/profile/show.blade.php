@@ -63,6 +63,10 @@
     <p>@if(Request::is('Me'))You haven't @else{{ $user->profile->first_name }} hasn't @endif()made any recipes yet!</p>
     @endforelse
 </div>
+<a href="{{ route('recipe.create') }}" id="add-recipe">
+    <h3>Create New</h3>
+</a>
+
 <h2>@if(Request::is('Me'))My @else{{ $user->profile->first_name }}'s @endif()latest ratings</h2>
 <div id="user-ratings">
     {{-- Show the 5 most recent --}}
@@ -135,7 +139,6 @@
         </div>
     </div>
 </div>
-
 
 <h2>My Fridge</h2>
 <div id="user-fridge">

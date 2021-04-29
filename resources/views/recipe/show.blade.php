@@ -4,6 +4,12 @@
 <link href="{{ asset('css/recipe_page.css') }}" rel="stylesheet">
 @endsection
 
+@if(Auth::check() && $recipe->user_id == Auth::id())
+@section("scripts")
+<script src="{{ asset('js/recipe/delete.js') }}"></script>
+@endsection
+@endif
+
 @section('title')Recipe App - {{ $recipe->name }}@endsection
 
 @section('content')
@@ -91,7 +97,7 @@
     @endforeach
 </div>
 
-<h2>Instructions:</h2>
+<h2>Directions:</h2>
 <div id="directions-container">
     @foreach($recipe->instructions as $key => $instruction)
     <div class="directions-panel">
@@ -100,10 +106,26 @@
     </div>
     @endforeach
 </div>
+
+@if(Auth::check() && $recipe->user_id == Auth::id())
+<div id="content-controls">
+    <a href="{{ route('recipe.edit', $recipe->id) }}" id="edit"><b>Edit</b></a>
+    <h3 id="delete"><b>Delete</b></h3>
+</div>
+@endif
+
 @endsection
 
 {{-- Site overlay for review form --}}
 @section('site-overlay')
+@if(Auth::check() && $recipe->user_id == Auth::id())
+<div id="delete" class="prompt hidden" style="display: none">
+    <h1>Are you sure?</h1>
+    <p class="message">Deleting a Recipe cannot be undone!</p>
+    <a href="{{ route('recipe.delete', $recipe->id) }}" id="edit"><button>Yep!</button></a>
+    <p class="close-prompt">Whoops! Not yet</p>
+</div>
+@else
 <div id="ratings-form">
     <h1>Please take a couple seconds to review this recipe!</h1>
     <form action="">
@@ -111,4 +133,5 @@
     </form>
     <p>Not now</p>
 </div>
+@endif
 @endsection

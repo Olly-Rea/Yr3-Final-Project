@@ -7,7 +7,7 @@ $(window).on("load, pageshow", function() {
         // Get the current value from the search bar
         val = $(this).val();
         // get the results from the query
-        getResults("/Search/Ingredient", val, $("#fridge-ingredients"))
+        getResults("/Search/Ingredient", val, $("#fridge-ingredients"), 1)
     });
 
     // Item selection / deselection - Fridge Ingredients

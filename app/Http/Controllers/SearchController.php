@@ -72,9 +72,12 @@ class SearchController extends Controller {
             // Remove 's' at the end of the string (for plurals)
             $searchStr = strtolower(substr($request->search, -1)) == 's' ? substr($request->search, 0, -1) : $request->search;
             // Get the results from the query
-            $results = Ingredient::where("name", "LIKE", $searchStr."%")
-                ->whereNotIn('id', Auth::user()->fridge->ingredients->map(function ($item, $key) { return $item->id; }))
-                ->limit($this->pagination)->get();//->where('last_name', 'LIKE', $request->search . '%')->get();
+            $results = Ingredient::where("name", "LIKE", $searchStr."%");
+            // Check if the results should exclude ingredients the User has
+            if ($request->forUser) {
+                $results = $results->whereNotIn('id', Auth::user()->fridge->ingredients->map(function ($item, $key) { return $item->id; }));
+            }
+            $results = $results->limit($this->pagination)->get();
             // return the paginated list of recipes matching the user's search
             return view('components.item-container', ['results' => $results])->render();
         // Else return a 404 not found error

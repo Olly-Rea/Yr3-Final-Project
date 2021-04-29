@@ -1,0 +1,350 @@
+@import 'app';
+
+main {
+
+    form {
+        width: 100%;
+
+        #recipe-title {
+            margin: 2rem 0;
+
+            width: 100%;
+
+            input[type="text"],
+            #serves > p {
+                margin: 0.5rem 0;
+            }
+
+            input[type="text"] {
+                font-size: 4rem;
+                font-weight: bold;
+                background-color: rgba(0, 0, 0, 0);
+
+                text-indent: 1rem;
+                margin-left: -1rem;
+
+                width: calc(100% + 1rem);
+
+                padding: 0.8rem 0;
+                border-radius: $smallRounded;
+
+                &:hover {
+                    background-color: rgba(0, 0, 0, 0.05);
+                }
+            }
+
+            #serves {
+                @include flexDisplay(row, flex-start, flex-start);
+                font-size: 1.6rem;
+                text-indent: 2rem;
+
+                input[type="number"] {
+
+                    height: fit-content;
+                    width: 3rem;
+
+                    padding: 0.4rem;
+                    margin: 0;
+                    margin-left: 0.2rem;
+
+                    text-indent: 0;
+                    text-align: center;
+
+                    background-color: rgba(0, 0, 0, 0);
+                    border-radius: 0.6rem;
+
+                    &:hover {
+                        background-color: rgba(0, 0, 0, 0.05);
+                    }
+
+                    // Remove number incrementers
+                    &::-webkit-outer-spin-button,
+                    &::-webkit-inner-spin-button {
+                        -webkit-appearance: none;
+                        margin: 0;
+                    }
+                    &[type="number"] {
+                        -moz-appearance: textfield;
+                    }
+
+                }
+
+            }
+
+        }
+
+        > h2 {
+            align-self: flex-start;
+            margin-top: 4rem;
+
+            font-size: 2rem;
+        }
+
+        #ingredients,
+        #directions {
+            @include flexDisplay(column, center, flex-start);
+
+            width: 100%;
+        }
+
+        #ingredients {
+
+            h1, p {
+                align-self: flex-start;
+                margin: 0.2rem 0;
+            }
+
+            .search-bar,
+            .item-container {
+                margin: 1rem 0;
+            }
+
+            .search-bar {
+                width: calc(100% - 2rem);
+            }
+            .item-container {
+                @include flexDisplay(row, flex-start, flex-start);
+                flex-wrap: wrap;
+
+                min-height: calc(20vh - 4rem);
+                width: calc(100% - 4rem);
+
+                padding: 1rem;
+
+                background-color: $panelAccentColor;
+                border-radius: $panelCorner;
+
+                > p {
+                    width: 100%;
+
+                    align-self: center;
+                    text-align: center;
+                }
+
+                .item {
+                    @include flexDisplay(row, center, center);
+                    // flex-grow: 1;
+
+                    margin: 0.6rem;
+                    padding: 0 1.4rem;
+
+                    cursor: pointer;
+
+                    border-radius: $smallRounded;
+
+                    &.selected {
+                        background-color: $accentFaint !important;
+                    }
+                    &.unselected {
+                        background-color: $panelBckColor !important;
+                    }
+                }
+
+
+
+            }
+
+            .ingredient-panel {
+                @include flexDisplay(row, flex-start, space-between);
+
+                width: 100%;
+
+                margin: 0.7rem 0;
+
+                .amount,
+                .name {
+                    margin: 0;
+                    border-radius: $smallRounded;
+                }
+                .amount {
+                    width: 20%;
+
+                    white-space: nowrap;
+
+                    input {
+                        margin: 0;
+                        padding: 0 1rem;
+
+                        width: calc(48% - 2rem);
+                        text-indent: 0;
+                        text-align: center;
+
+                        background-color: $panelAccentColor;
+
+                        &:first-of-type {
+                            border-radius: $smallRounded 0 0 $smallRounded;
+                        }
+                        &:last-of-type {
+                            border-radius: 0 $smallRounded $smallRounded 0;
+                            margin-right: 2rem;
+                        }
+
+                        // Remove number incrementers
+                        &::-webkit-outer-spin-button,
+                        &::-webkit-inner-spin-button {
+                            -webkit-appearance: none;
+                            margin: 0;
+                        }
+                        &[type="number"] {
+                            -moz-appearance: textfield;
+                        }
+
+                    }
+
+                }
+                .name {
+                    background-color: $panelBckColor;
+                    width: 68%;
+
+                    padding: 1rem;
+
+                    font-size: 1.2rem;
+                    font-weight: bold;
+
+                    span {
+                        color: $foreGray;
+                    }
+                }
+
+                .remove {
+                    @include flexDisplay(row, center, center);
+
+                    width: 7%;
+                    height: 3.6rem;
+
+                    svg {
+                        stroke: $accentColor;
+                        height: 60%;
+                        width: 60%;
+
+                        cursor: pointer;
+
+                        transition: transform $transitionTime ease-in-out,
+                                    stroke $transitionTime ease-in-out;
+
+                        &:hover {
+                            transform: scale(1.1);
+                        }
+                        &:active {
+                            transform: scale(0.96);
+                            stroke: $accentDark;
+                        }
+                    }
+
+                }
+
+            }
+
+        }
+
+        #directions {
+
+            .placeholder {
+                width: calc(100% - 4rem);
+                padding: 1rem 2rem;
+
+                background-color: $panelBckColor;
+
+                font-size: 1.2rem;
+                text-align: center;
+
+                border-radius: $smallRounded;
+            }
+
+            .direction-panel {
+                @include flexDisplay(row, flex-start, space-between);
+
+                width: calc(100% - 0.4rem);
+
+                margin: 0.7rem 0;
+
+                .step,
+                .content {
+                    margin: 0;
+                    border-radius: $smallRounded;
+                }
+
+                .step {
+                    padding: 1rem 2rem;
+                    margin-right: 0.4rem;
+                    background-color: $panelAccentColor;
+                    white-space: nowrap;
+                    user-select: none;
+                }
+                .content {
+                    background-color: $panelBckColor;
+                    font-size: 1.2rem;
+                    width: 83%;
+                    text-align: justify;
+                }
+
+                .remove {
+                    @include flexDisplay(row, center, center);
+
+                    width: 7%;
+                    height: 3.6rem;
+
+                    svg {
+                        stroke: $accentColor;
+                        height: 60%;
+                        width: 60%;
+
+                        cursor: pointer;
+
+                        transition: transform $transitionTime ease-in-out,
+                                    stroke $transitionTime ease-in-out;
+
+                        &:hover {
+                            transform: scale(1.1);
+                        }
+                        &:active {
+                            transform: scale(0.96);
+                            stroke: $accentDark;
+                        }
+                    }
+
+                }
+
+            }
+
+            #add-direction {
+                align-self: flex-end;
+
+                margin: 0;
+                margin-right: 2rem;
+
+                padding: 1rem 2rem;
+                border-radius: $smallRounded;
+
+                cursor: pointer;
+
+                &:hover {
+                    background-color: $backFocus;
+                }
+                &:active {
+                    background-color: $backActive;
+                }
+            }
+        }
+    }
+
+
+
+    #save {
+        margin: 0;
+        margin-top: 6rem;
+
+        padding: 1.2rem 2rem;
+        border-radius: $smallRounded;
+
+        cursor: pointer;
+
+        &:hover {
+            background-color: $backFocus;
+        }
+        &:active {
+            background-color: $backActive;
+        }
+    }
+
+}

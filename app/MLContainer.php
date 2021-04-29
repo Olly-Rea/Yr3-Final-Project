@@ -24,16 +24,20 @@ class MLContainer {
         $ingredients = Auth::user()->fridge->ingredients->pluck('name');
         // If the users fridge is not empty AND has 5 or more ingredients
         if (!is_null($ingredients) && count($ingredients) >= 5) {
-            // // Run the TF model python script
-            // $command = escapeshellcmd('python ../resources/scripts/use_model.py '. escapeshellarg(json_encode($ingredients)));
+
             // // Get the recipe
-            // $this->recipe = json_decode(shell_exec($command));
+            // $this->recipe = Recipe::inRandomOrder()->first();
 
+            // Run the TF model python script
+            $command = escapeshellcmd('python ../resources/scripts/use_model.py ' . escapeshellarg(json_encode($ingredients)));
             // Get the recipe
-            $this->recipe = Recipe::inRandomOrder()->first();
+            $directions = json_decode(shell_exec($command));
 
-            // // dump the recipe for us to view
-            // dd($this->recipe);
+            // Create a temporary recipe collection
+            $this->recipe = collect(['ingredients' => $ingredients, 'directions' => $directions]);
+
+            // dump the recipe for us to view
+            dd($this->recipe->instructions);
         }
     }
 

@@ -14,5 +14,11 @@ $(window).on("load, pageshow", function() {
         $("#logout.prompt").fadeOut(transitionTime);
         hideOverlay();
     });
+
+    // Fade out any notifications after 2 seconds
+    setTimeout(function () {
+        $(".notify-panel").fadeOut(transitionTime);
+    }, 2000);
+
 });
 

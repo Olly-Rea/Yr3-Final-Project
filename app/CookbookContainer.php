@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Builder;
 use App\Models\Recipe;
 
-class CookBookContainer {
+class CookbookContainer {
 
     /**
      * Create a new container instance.
@@ -25,7 +25,8 @@ class CookBookContainer {
     /**
      * Method to show the generated recipe
      */
-    public function getRecipes() {
+    public function getRecipes($refresh) {
+        if ($refresh) $this->refresh($refresh);
         if (Auth::check()) {
             // Return the current users cookbook
             return Auth::user()->cookbook->recipes;
@@ -106,7 +107,6 @@ class CookBookContainer {
 
         // dd(DB::getQueryLog()); // Show results of log
 
-        // dd($recipes);
 
         Auth::user()->cookbook->recipes()->sync($recipes);
         // Update the cookbook last_updated time

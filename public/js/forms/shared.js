@@ -1,6 +1,6 @@
 
 // Method to get the search results from the allergen/ingredient search bars
-function getResults(url, val, $resultContainer) {
+function getResults(url, val, $resultContainer, forUser) {
     // Prevent spacebar input until other characters have been typed
     if(val.length == 0) {
         var e = window.event || e;
@@ -17,17 +17,16 @@ function getResults(url, val, $resultContainer) {
             $.ajax({
                 type : "GET",
                 url : url,
-                data: {"search": val},
+                data: {
+                    "search": val,
+                    "forUser": forUser
+                },
                 success: function(data) {
                     // Hide the initial message
                     $resultContainer.find("p.initial-msg").fadeOut(transitionTime);
                     hideUnselected();
                     // Check to see if the "no results" message is shown
                     if (data == "<p class=\"nothing\">Nothing matches that search!</p>") {
-                        //  && $resultContainer.find("p.nothing").length == 0) {
-
-                        console.log(data);
-
                         setTimeout(function () {
                             $resultContainer.append(data);
                         }, transitionTime+1);
@@ -38,7 +37,6 @@ function getResults(url, val, $resultContainer) {
                             $resultContainer.append(data);
                         }, transitionTime+1);
                     }
-
                 }
             });
         }, 400);
