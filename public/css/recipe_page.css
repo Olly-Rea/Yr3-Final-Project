@@ -782,6 +782,7 @@ body nav #site-links a {
   padding: 0 1.2rem;
   margin: 0 0.5rem;
   border-radius: 1rem;
+  white-space: nowrap;
   -webkit-user-select: none;
      -moz-user-select: none;
       -ms-user-select: none;
@@ -1118,10 +1119,35 @@ body footer #footer-content a {
     overflow: hidden;
     padding-right: 0;
   }
+  body nav {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+  }
+  body nav #nav-left {
+    margin-bottom: 1rem;
+    width: 100%;
+  }
+  body nav #nav-left #search-bar-container {
+    width: 80%;
+  }
   body main,
   body footer #footer-content {
     max-width: none;
     width: 92%;
+  }
+  body footer #footer-content {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+  }
+  body footer #footer-content p, body footer #footer-content a {
+    margin: 1rem 0;
   }
 }
 
@@ -1273,6 +1299,8 @@ main #quick-info-container > div {
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
   margin-top: 3rem;
 }
 
@@ -1538,5 +1566,34 @@ main #directions-container .directions-panel .content {
   width: 100%;
   font-size: 1.2rem;
   text-align: justify;
+}
+
+@media only screen and (max-aspect-ratio: 12 / 10) {
+  main #recipe-title-container {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    -webkit-box-pack: start;
+        -ms-flex-pack: start;
+            justify-content: flex-start;
+  }
+  main #recipe-title-container #recipe-title {
+    width: 94%;
+    max-width: none;
+  }
+  main #recipe-title-container #recipe-title > p {
+    margin-bottom: 1rem;
+  }
+  main #recipe-title-container #author-info {
+    max-width: none;
+    margin-bottom: 4rem;
+  }
 }
 /*# sourceMappingURL=recipe_page.css.map */

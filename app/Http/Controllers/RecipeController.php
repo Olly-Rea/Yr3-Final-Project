@@ -149,6 +149,11 @@ class RecipeController extends Controller {
             if (request()->has('recipe_id')) {
                 // Get the Recipe to use
                 $recipe = Recipe::where('id', request('recipe_id'))->first();
+                // Update the Recipe info
+                $recipe->update([
+                    'name' => request('name'),
+                    'serves' => (request('serves') > 0) ? request('serves') : 1 
+                ]);
             } else {
                 // Create the new Recipe (under the Auth Users ID)
                 $recipe = Recipe::create([

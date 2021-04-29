@@ -271,6 +271,7 @@ body {
                 margin: 0 0.5rem;
                 border-radius: $smallRounded;
 
+                white-space: nowrap;
                 user-select: none;
 
                 &#require-register {
@@ -566,11 +567,36 @@ body {
             padding-right: 0;
         }
 
+        nav {
+            flex-direction: column;
+
+            #nav-left {
+                margin-bottom: 1rem;
+                width: 100%;
+
+                #search-bar-container {
+                    width: 80%;
+                }
+            }
+
+        }
+
         main,
         footer #footer-content {
             max-width: none;
             width: 92%;
         }
+
+        footer #footer-content {
+            flex-direction: column;
+            justify-content: center;
+
+            p, a {
+                margin: 1rem 0;
+            }
+
+        }
+
     }
 
 }

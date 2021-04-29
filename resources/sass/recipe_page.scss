@@ -109,6 +109,7 @@ main {
 
         > div {
             @include flexDisplay(row, flex-start, center);
+            flex-wrap: wrap;
 
             margin-top: 3rem;
 
@@ -278,5 +279,29 @@ main {
 
 }
 
+// Maximum aspect ratio - for mobile/portrait browsers
+@media only screen and (max-aspect-ratio: 12/10) {
 
+    main {
+        #recipe-title-container {
+            @include flexDisplay(column, center, flex-start);
+
+            #recipe-title {
+                width: 94%;
+                max-width: none;
+
+                > p {
+                    margin-bottom: 1rem;
+                }
+            }
+
+            #author-info {
+                max-width: none;
+                margin-bottom: 4rem;
+            }
+        }
+    }
+
+
+}
 
