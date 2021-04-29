@@ -41,7 +41,7 @@ $(window).on("load, pageshow", function() {
     // Item selection / deselection - Fridge Ingredients
     $("#add-direction").on("click", function() {
         // Get the position to use for the direction
-        index = ($("#directions .placeholder").length > 0) ? 1 : $("#directions").children().length;
+        index = ($("#directions .placeholder").is(":visible")) ? 1 : $("#directions").children().length - 1;
         // Perform the ajax request
         $.ajax({
             type : "GET",

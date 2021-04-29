@@ -105,9 +105,9 @@
 
 <h2>Directions:</h2>
 <div id="directions-container">
-    @foreach($recipe->instructions as $key => $instruction)
+    @foreach($recipe->instructions as $index => $instruction)
     <div class="directions-panel">
-        <h3 class="step">{{ $key }}</h3>
+        <h3 class="step">{{ $index + 1 }}</h3>
         <p class="content">{{ $instruction->content }}</p>
     </div>
     @endforeach

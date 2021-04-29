@@ -84,7 +84,7 @@
         @if(isset($recipe))
             @foreach($recipe->instructions as $index => $instruction)
             <div class="direction-panel">
-                <h3 class="step">{{ $index }}</h3>
+                <h3 class="step">{{ $index+1 }}</h3>
                 <input type="text" name="instruction[{{ $index }}]" class="content" value="{{ $instruction->content }}" placeholder="Start typing your direction here..." onfocus="this.placeholder = ''" onfocusout="this.placeholder = 'Start typing your direction here...'">
                 <div class="remove">
                     <svg>
@@ -97,7 +97,7 @@
             @if(old('instruction') != null)
                 @foreach(old('instruction') as $index => $instruction)
                 <div class="direction-panel">
-                    <h3 class="step">{{ $index }}</h3>
+                    <h3 class="step">{{ $index + 1 }}</h3>
                     <input type="text" name="instruction[{{ $index }}]" class="content" value="{{ $instruction->content }}" placeholder="Start typing your direction here..." onfocus="this.placeholder = ''" onfocusout="this.placeholder = 'Start typing your direction here...'">
                     <div class="remove">
                         <svg>
