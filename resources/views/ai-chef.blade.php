@@ -14,14 +14,17 @@
 @endsection
 
 @section('content')
+<h1>Please Note!</h1>
+<h3>Sadly, due to technical limitations, the TensorFlow model cannot be run here.</h3>
+<h3>Instead, please enjoy some generations we made earlier:</h3>
 <div id="recipe-page" @if(is_null($recipe))style="display:none"@endif>
     <h2>Ingredients:</h2>
     <div id="ingredients-container">
     @if(!is_null($recipe))
         @foreach($recipe->ingredients as $ingredient)
             <div class="ingredient-panel">
-                <h3 class="amount">@if($ingredient->pivot->measure != ""){{ $ingredient->pivot->amount }} {{ $ingredient->pivot->measure }}@else{{ $ingredient->pivot->amount }}@endif</h3>
-                <a href="{{ route('ingredient', $ingredient->id) }}" class="name">{{ $ingredient->name }}@if($ingredient->pivot->misc_info != "") <span>({{ $ingredient->pivot->misc_info }})</span>@endif</a>
+                {{-- <h3 class="amount">@if($ingredient->pivot->measure != ""){{ $ingredient->pivot->amount }} {{ $ingredient->pivot->measure }}@else{{ $ingredient->pivot->amount }}@endif</h3> --}}
+                <a class="name">{{ $ingredient->name }}</a>
                 @if(count($ingredient->alternatives))<p>Alternatives!</p>@endif
             </div>
         @endforeach
@@ -38,7 +41,7 @@
         @endforeach
     @endif
     </div>
-    <div id="rating-panel">
+    {{-- <div id="rating-panel">
         <div id="spice-rating">
             <input type="number" name="spice_val">
         </div>
@@ -51,7 +54,7 @@
         <div id="diff-rating">
             <input type="number" name="spice_val">
         </div>
-    </div>
+    </div> --}}
 </div>
 <div id="fridge-page" @if(!is_null($recipe))style="display: none"@endif>
     <h2>You need at least 5 ingredients in your firdge to use the AI chef!</h2>

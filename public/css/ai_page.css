@@ -1157,12 +1157,23 @@ main {
   min-height: auto;
 }
 
-main h1 {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  -webkit-transform: translate(-50%, -50%);
-          transform: translate(-50%, -50%);
+main > h1,
+main > h3 {
+  -ms-flex-item-align: start;
+      align-self: flex-start;
+}
+
+main > h1 {
+  font-size: 3.2rem;
+  margin: 2.4rem 0;
+}
+
+main > h3 {
+  margin: 0;
+}
+
+main > h3:last-of-type {
+  margin-top: 1rem;
 }
 
 main #recipe-page,

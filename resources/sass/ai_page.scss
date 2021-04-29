@@ -6,11 +6,22 @@ main {
     height: 100vh;
     min-height: auto;
 
-    h1 {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
+    > h1,
+    > h3 {
+        align-self: flex-start;
+    }
+
+    > h1 {
+        font-size: 3.2rem;
+        margin: 2.4rem 0;
+    }
+
+    > h3 {
+        margin: 0;
+
+        &:last-of-type {
+            margin-top: 1rem;
+        }
     }
 
     #recipe-page,
