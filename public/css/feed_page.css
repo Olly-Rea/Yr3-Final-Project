@@ -984,8 +984,8 @@ body #notification-container .success {
 }
 
 body #notification-container .error {
-  color: #158a11;
-  background-color: rgba(88, 221, 95, 0.5);
+  color: #8a1111;
+  background-color: rgba(221, 88, 88, 0.5);
 }
 
 body #site-overlay {

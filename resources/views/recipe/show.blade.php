@@ -80,9 +80,15 @@
     @foreach($ingredients as $ingredient)
         <div class="ingredient-panel">
             <h3 class="amount">@if($ingredient->pivot->measure != ""){{ $ingredient->pivot->amount }} {{ $ingredient->pivot->measure }}@else{{ $ingredient->pivot->amount }}@endif</h3>
-            {{-- <h3 class="name">{{ $ingredient->name }}@if($ingredient->pivot->misc_info != "") <span>({{ $ingredient->pivot->misc_info }})</span>@endif</h3> --}}
-            <a href="{{ route('ingredient', $ingredient->id) }}" class="name">{{ $ingredient->name }}@if($ingredient->pivot->misc_info != "") <span>({{ $ingredient->pivot->misc_info }})</span>@endif</a>
-
+            @php
+                if($ingredient->pivot->measure == "" && $ingredient->pivot->amount > 1) {
+                    $ingredName = (substr($ingredient->name, strlen($ingredient->name)-1) != "s")
+                        ? $ingredient->name.'s' : $ingredient->name;
+                } else {
+                    $ingredName = $ingredient->name;
+                }
+            @endphp
+            <a href="{{ route('ingredient', $ingredient->id) }}" class="name">{{ $ingredName }}@if($ingredient->pivot->misc_info != "") <span>({{ $ingredient->pivot->misc_info }})</span>@endif</a>
             @if(count($ingredient->alternatives))<p>Alternatives!</p>@endif
         </div>
         @forelse($ingredient->alternatives as $alternative)

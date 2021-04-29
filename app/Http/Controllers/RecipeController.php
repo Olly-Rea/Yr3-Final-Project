@@ -116,7 +116,7 @@ class RecipeController extends Controller {
             'name' => 'Recipe Name',
             'serves' => 'Serves',
             'ingredient' => 'Ingredients',
-            'direction' => 'Directions'
+            'instruction' => 'Instructions'
         );
 
         // ...And validate the data
@@ -128,14 +128,17 @@ class RecipeController extends Controller {
             'ingredient' => ['required'],
             'ingredient.*.id' => ['required', 'integer'],
             'ingredient.*.amount' => ['required', 'integer'],
-            'ingredient.*.measure' => ['required', 'string'],
-            // Validate Direction array
-            'direction' => ['required'],
-            'direction.*' => ['string', 'nullable'],
+            'ingredient.*.measure' => ['string', 'nullable'],
+            // Validate Instruction array
+            'instruction' => ['required'],
+            'instruction.*' => ['string', 'nullable'],
         ], [], $attributeNames);
 
         // Check if the validator is successful, and either...
         if ($validator->fails()) {
+
+            dd($validator);
+
             // Output the fail message(s)
             return back()
                 ->withErrors($validator)
@@ -165,17 +168,21 @@ class RecipeController extends Controller {
                 if(isset($ingredient)) {
                     // Add the ingredient
                     $recipe->ingredients()->syncWithoutDetaching([
-                        $ingredient->id => ['misc_info' => '', 'amount' => $ingred_info['amount'], 'measure' => $ingred_info['measure']]
+                        $ingredient->id => [
+                            'misc_info' => '',
+                            'amount' => $ingred_info['amount'],
+                            'measure' => $ingred_info['measure']
+                        ]
                     ]);
                 }
             }
 
-            // Clear the old directions
+            // Clear the old instructions
             $recipe->instructions()->delete();
-            // Loop through and add each direction input
-            foreach(request('direction') as $direction) {
+            // Loop through and add each instruction input
+            foreach(request('instruction') as $instruction) {
                 $recipe->instructions()->create([
-                    'content' => $direction
+                    'content' => $instruction
                 ]);
             }
 
@@ -232,7 +239,7 @@ class RecipeController extends Controller {
     }
 
     /**
-     * Method to add a Direction input to the Recipe Form
+     * Method to add a Instruction input to the Recipe Form
      */
     public function addDirection(Request $request) {
         // Check that the request is ajax

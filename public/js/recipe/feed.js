@@ -25,9 +25,8 @@ $(window).on("load, pageshow", function() {
                     $this.css("pointer-events", "auto");
                 }, 2000);
             }, error: function(data) {
-
+                // Log error (DEBUG)
                 console.log(data);
-
                 // Allow animation to play at least once
                 setTimeout(function () {
                     $this.removeClass("active");

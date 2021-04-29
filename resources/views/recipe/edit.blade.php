@@ -39,22 +39,42 @@
             <p class="initial-msg">Use the search bar to start adding ingredients to the recipe!</p>
         </div>
         @if(isset($recipe))
-        @foreach($recipe->ingredients as $index => $ingredient)
-        {{-- <h3 class="name">{{ $ingredient->name }}@if($ingredient->pivot->misc_info != "") <span>({{ $ingredient->pivot->misc_info }})</span>@endif</h3> --}}
-        <div class="ingredient-panel">
-            <input type="number" name="ingredient[{{ $index }}][id]" value="{{ $ingredient->id }}" hidden>
-            <div class="amount">
-                <input type="number" name="ingredient[{{ $index }}][amount]" maxlength="4" value="{{ $ingredient->pivot->amount }}">
-                <input type="text" name="ingredient[{{ $index }}][measure]" maxlength="10" value="{{ $ingredient->pivot->measure }}">
+            @foreach($recipe->ingredients as $index => $ingredient)
+            {{-- <h3 class="name">{{ $ingredient->name }}@if($ingredient->pivot->misc_info != "") <span>({{ $ingredient->pivot->misc_info }})</span>@endif</h3> --}}
+            <div class="ingredient-panel">
+                <input type="number" name="ingredient[{{ $index }}][id]" value="{{ $ingredient->id }}" hidden readonly>
+                <input type="text" name="ingredient[{{ $index }}][name]" value="{{ $ingredient->name }}" hidden readonly>
+                <div class="amount">
+                    <input type="number" name="ingredient[{{ $index }}][amount]" maxlength="4" value="{{ $ingredient->pivot->amount }}">
+                    <input type="text" name="ingredient[{{ $index }}][measure]" maxlength="10" value="{{ $ingredient->pivot->measure }}">
+                </div>
+                <h3 class="name">{{ $ingredient->name }}</h3>
+                <div class="remove">
+                    <svg>
+                        <use xlink:href="{{ asset('images/graphics/remove.svg#icon') }}"></use>
+                    </svg>
+                </div>
             </div>
-            <h3 class="name">{{ $ingredient->name }}</h3>
-            <div class="remove">
-                <svg>
-                    <use xlink:href="{{ asset('images/graphics/remove.svg#icon') }}"></use>
-                </svg>
-            </div>
-        </div>
-        @endforeach
+            @endforeach
+        @else
+            @if(old('ingredient') != null)
+                @foreach(old('ingredient') as $index => $ingredient)
+                <div class="ingredient-panel">
+                    <input type="number" name="ingredient[{{ $index }}][id]" value="{{ $ingredient['id'] }}" hidden readonly>
+                    <input type="text" name="ingredient[{{ $index }}][name]" value="{{ $ingredient['name'] }}" hidden readonly>
+                    <div class="amount">
+                        <input type="number" name="ingredient[{{ $index }}][amount]" maxlength="4" value="{{ $ingredient['amount'] }}">
+                        <input type="text" name="ingredient[{{ $index }}][measure]" maxlength="10" value="{{ $ingredient['measure'] }}">
+                    </div>
+                    <h3 class="name">{{ $ingredient['name'] }}</h3>
+                    <div class="remove">
+                        <svg>
+                            <use xlink:href="{{ asset('images/graphics/remove.svg#icon') }}"></use>
+                        </svg>
+                    </div>
+                </div>
+                @endforeach
+            @endif
         @endif
     </div>
     @if ($errors->has('ingredient'))<p class="form-error-msg">{{ $errors->first('ingredient') }}</p> @endif
@@ -65,7 +85,7 @@
             @foreach($recipe->instructions as $index => $instruction)
             <div class="direction-panel">
                 <h3 class="step">{{ $index }}</h3>
-                <input type="text" name="direction[{{ $index }}]" class="content" value="{{ $instruction->content }}" placeholder="Start typing your direction here..." onfocus="this.placeholder = ''" onfocusout="this.placeholder = 'Start typing your direction here...'">
+                <input type="text" name="instruction[{{ $index }}]" class="content" value="{{ $instruction->content }}" placeholder="Start typing your direction here..." onfocus="this.placeholder = ''" onfocusout="this.placeholder = 'Start typing your direction here...'">
                 <div class="remove">
                     <svg>
                         <use xlink:href="{{ asset('images/graphics/remove.svg#icon') }}"></use>
@@ -73,6 +93,20 @@
                 </div>
             </div>
             @endforeach
+        @else
+            @if(old('instruction') != null)
+                @foreach(old('instruction') as $index => $instruction)
+                <div class="direction-panel">
+                    <h3 class="step">{{ $index }}</h3>
+                    <input type="text" name="instruction[{{ $index }}]" class="content" value="{{ $instruction->content }}" placeholder="Start typing your direction here..." onfocus="this.placeholder = ''" onfocusout="this.placeholder = 'Start typing your direction here...'">
+                    <div class="remove">
+                        <svg>
+                            <use xlink:href="{{ asset('images/graphics/remove.svg#icon') }}"></use>
+                        </svg>
+                    </div>
+                </div>
+                @endforeach
+            @endif
         @endif
         <p class="placeholder" @if(isset($recipe) && count($recipe->instructions))style="display: none"@endif>Press "Add" to start adding directions!</p>
         <h3 id="add-direction">Add</h3>
