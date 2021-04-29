@@ -15,8 +15,8 @@
 
 @section('content')
 <h1>Please Note!</h1>
-<h3>Sadly, due to technical limitations, the TensorFlow model cannot be run here.</h3>
-<h3>Instead, please enjoy some generations we made earlier:</h3>
+<h3>Sadly, due to technical limitations, the TensorFlow model could not be deployed here for this demo.</h3>
+<h3>Instead, please enjoy some generations we made earlier!</h3>
 <div id="recipe-page" @if(is_null($recipe))style="display:none"@endif>
     <h2>Ingredients:</h2>
     <div id="ingredients-container">
