@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section("styles")
-<link href="{{ asset('css/get_started.css') }}" rel="stylesheet">
+<link href="{{ secure_asset('css/get_started.css') }}" rel="stylesheet">
 @endsection
 
 @section('jquery')
@@ -9,12 +9,12 @@
 @endsection
 
 @section("scripts-app")
-<script src="{{ asset('js/profile/create.js') }}"></script>
-<script src="{{ asset('js/forms/shared.js') }}"></script>
-<script src="{{ asset('js/forms/sliders.js') }}"></script>
-<script src="{{ asset('js/forms/ingredientSearch.js') }}"></script>
-<script src="{{ asset('js/forms/allergenSearch.js') }}"></script>
-<script src="{{ asset('js/forms/profileImage.js') }}"></script>
+<script src="{{ secure_asset('js/profile/create.js') }}"></script>
+<script src="{{ secure_asset('js/forms/shared.js') }}"></script>
+<script src="{{ secure_asset('js/forms/sliders.js') }}"></script>
+<script src="{{ secure_asset('js/forms/ingredientSearch.js') }}"></script>
+<script src="{{ secure_asset('js/forms/allergenSearch.js') }}"></script>
+<script src="{{ secure_asset('js/forms/profileImage.js') }}"></script>
 @endsection
 
 @section('title')
@@ -25,7 +25,7 @@
 <div id="nav-left">
     <div id="site-logo">
         <svg>
-            <use xlink:href="{{ asset('images/graphics/logo.svg#icon') }}"></use>
+            <use xlink:href="{{ secure_asset('images/graphics/logo.svg#icon') }}"></use>
         </svg>
     </div>
 </div>
@@ -61,7 +61,7 @@
                         <input type="file" name="profile_image" accept=".jpg, .jpeg, .png, .bmp" hidden>
                         <span>
                             <svg>
-                                <use xlink:href="{{ asset('images/graphics/pen.svg#icon') }}"></use>
+                                <use xlink:href="{{ secure_asset('images/graphics/pen.svg#icon') }}"></use>
                             </svg>
                         </span>
                     </label>

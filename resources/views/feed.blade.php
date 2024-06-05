@@ -1,10 +1,10 @@
 @extends('layouts.nav')
 
 @section("styles")
-<link href="{{ asset('css/feed_page.css') }}" rel="stylesheet">
+<link href="{{ secure_asset('css/feed_page.css') }}" rel="stylesheet">
 @endsection
 @section('scripts')
-<script src="{{ asset('js/recipe/feed.js') }}"></script>
+<script src="{{ secure_asset('js/recipe/feed.js') }}"></script>
 @endsection
 
 @section('title')Ideas Board @endsection
@@ -20,7 +20,7 @@
     <div class="recipe-title-panel">
         <div class="star-rating">
             <svg>
-                <use xlink:href="{{ asset('images/graphics/star.svg#icon') }}"></use>
+                <use xlink:href="{{ secure_asset('images/graphics/star.svg#icon') }}"></use>
             </svg>
             <h3>{{ round($recipe->ratings->avg('out_of_five'), 1) }}</h3>
         </div>
@@ -73,7 +73,7 @@
 @if(count($recipes))
 <div id="cookbook-refresh">
     <svg>
-        <use xlink:href="{{ asset('images/graphics/refresh.svg#icon') }}"></use>
+        <use xlink:href="{{ secure_asset('images/graphics/refresh.svg#icon') }}"></use>
     </svg>
 </div>
 @endif

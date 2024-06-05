@@ -1,13 +1,13 @@
 @extends('layouts.nav')
 
 @section("styles")
-<link href="{{ asset('css/recipe_edit.css') }}" rel="stylesheet">
+<link href="{{ secure_asset('css/recipe_edit.css') }}" rel="stylesheet">
 @endsection
 
 @section('scripts')
-<script src="{{ asset('js/forms/shared.js') }}"></script>
-<script src="{{ asset('js/forms/sliders.js') }}"></script>
-<script src="{{ asset('js/recipe/edit.js') }}"></script>
+<script src="{{ secure_asset('js/forms/shared.js') }}"></script>
+<script src="{{ secure_asset('js/forms/sliders.js') }}"></script>
+<script src="{{ secure_asset('js/recipe/edit.js') }}"></script>
 @endsection
 
 @section('title')Recipe App - {{ isset($recipe) ? $recipe->name : "Untitled" }}@endsection
@@ -51,7 +51,7 @@
                 <h3 class="name">{{ $ingredient->name }}</h3>
                 <div class="remove">
                     <svg>
-                        <use xlink:href="{{ asset('images/graphics/remove.svg#icon') }}"></use>
+                        <use xlink:href="{{ secure_asset('images/graphics/remove.svg#icon') }}"></use>
                     </svg>
                 </div>
             </div>
@@ -69,7 +69,7 @@
                     <h3 class="name">{{ $ingredient['name'] }}</h3>
                     <div class="remove">
                         <svg>
-                            <use xlink:href="{{ asset('images/graphics/remove.svg#icon') }}"></use>
+                            <use xlink:href="{{ secure_asset('images/graphics/remove.svg#icon') }}"></use>
                         </svg>
                     </div>
                 </div>
@@ -88,7 +88,7 @@
                 <input type="text" name="instruction[{{ $index }}]" class="content" value="{{ $instruction->content }}" placeholder="Start typing your direction here..." onfocus="this.placeholder = ''" onfocusout="this.placeholder = 'Start typing your direction here...'">
                 <div class="remove">
                     <svg>
-                        <use xlink:href="{{ asset('images/graphics/remove.svg#icon') }}"></use>
+                        <use xlink:href="{{ secure_asset('images/graphics/remove.svg#icon') }}"></use>
                     </svg>
                 </div>
             </div>
@@ -101,7 +101,7 @@
                     <input type="text" name="instruction[{{ $index }}]" class="content" value="{{ $instruction->content }}" placeholder="Start typing your direction here..." onfocus="this.placeholder = ''" onfocusout="this.placeholder = 'Start typing your direction here...'">
                     <div class="remove">
                         <svg>
-                            <use xlink:href="{{ asset('images/graphics/remove.svg#icon') }}"></use>
+                            <use xlink:href="{{ secure_asset('images/graphics/remove.svg#icon') }}"></use>
                         </svg>
                     </div>
                 </div>

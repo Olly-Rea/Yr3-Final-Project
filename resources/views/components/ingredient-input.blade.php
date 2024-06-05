@@ -8,7 +8,7 @@
     <h3 class="name">{{ $ingredient->name }}</h3>
     <div class="remove">
         <svg>
-            <use xlink:href="{{ asset('images/graphics/remove.svg#icon') }}"></use>
+            <use xlink:href="{{ secure_asset('images/graphics/remove.svg#icon') }}"></use>
         </svg>
     </div>
 </div>

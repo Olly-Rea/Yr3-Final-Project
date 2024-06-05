@@ -1,7 +1,7 @@
 @extends('layouts.nav')
 
 @section("styles")
-<link href="{{ asset('css/profile_page.css') }}" rel="stylesheet">
+<link href="{{ secure_asset('css/profile_page.css') }}" rel="stylesheet">
 @endsection
 
 @if(Request::is('Me'))
@@ -9,12 +9,12 @@
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 @endsection
 @section('scripts')
-<script src="{{ asset('js/forms/shared.js') }}"></script>
-<script src="{{ asset('js/forms/sliders.js') }}"></script>
-<script src="{{ asset('js/forms/ingredientSearch.js') }}"></script>
-<script src="{{ asset('js/forms/allergenSearch.js') }}"></script>
-<script src="{{ asset('js/forms/profileImage.js') }}"></script>
-<script src="{{ asset('js/profile/update.js') }}"></script>
+<script src="{{ secure_asset('js/forms/shared.js') }}"></script>
+<script src="{{ secure_asset('js/forms/sliders.js') }}"></script>
+<script src="{{ secure_asset('js/forms/ingredientSearch.js') }}"></script>
+<script src="{{ secure_asset('js/forms/allergenSearch.js') }}"></script>
+<script src="{{ secure_asset('js/forms/profileImage.js') }}"></script>
+<script src="{{ secure_asset('js/profile/update.js') }}"></script>
 @endsection
 @endif
 
@@ -34,7 +34,7 @@
                 <input type="file" name="profile_image" accept=".jpg, .jpeg, .png, .bmp" hidden>
                 <span>
                     <svg>
-                        <use xlink:href="{{ asset('images/graphics/pen.svg#icon') }}"></use>
+                        <use xlink:href="{{ secure_asset('images/graphics/pen.svg#icon') }}"></use>
                     </svg>
                 </span>
             </label>
@@ -75,7 +75,7 @@
         <div class="section">
             <div class="out-of-five">
                 <svg>
-                    <use xlink:href="{{ asset('images/graphics/star.svg#icon') }}"></use>
+                    <use xlink:href="{{ secure_asset('images/graphics/star.svg#icon') }}"></use>
                 </svg>
                 <h3>{{ $rating->out_of_five }}</h3>
             </div>

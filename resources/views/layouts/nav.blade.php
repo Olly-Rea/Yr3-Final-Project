@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('scripts-app')
-<script src="{{ asset('js/search.js') }}" defer></script>
+<script src="{{ secure_asset('js/search.js') }}" defer></script>
 @yield('scripts')
 @endsection
 
@@ -9,7 +9,7 @@
 <div id="nav-left">
     <a href="@auth{{ route('lucky_dip') }}@else()/@endauth" id="site-logo">
         <svg>
-            <use xlink:href="{{ asset('images/graphics/logo.svg#icon') }}"></use>
+            <use xlink:href="{{ secure_asset('images/graphics/logo.svg#icon') }}"></use>
         </svg>
         @auth
         <h3>Surprise me!</h3>
@@ -21,7 +21,7 @@
         <div id="results-container" style="display: none"></div>
         <input id="search-bar" type="text" name="search" placeholder="I'm looking for..." onfocus="this.placeholder = ''" onfocusout="this.placeholder = 'I\'m looking for...'"/>
         <svg id="search-icon">
-            <use xlink:href="{{ asset('images/graphics/search.svg#icon') }}"></use>
+            <use xlink:href="{{ secure_asset('images/graphics/search.svg#icon') }}"></use>
         </svg>
     </div>
 </div>

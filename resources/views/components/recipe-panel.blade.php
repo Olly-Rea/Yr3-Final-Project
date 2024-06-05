@@ -3,7 +3,7 @@
     <div class="recipe-title-panel">
         <div class="star-rating">
             <svg>
-                <use xlink:href="{{ asset('images/graphics/star.svg#icon') }}"></use>
+                <use xlink:href="{{ secure_asset('images/graphics/star.svg#icon') }}"></use>
             </svg>
             <h3>{{ round($recipe->ratings->avg('out_of_five'), 1) }}</h3>
         </div>

@@ -1,7 +1,7 @@
 @extends('layouts.nav')
 
 @section("styles")
-<link href="{{ asset('css/ai_page.css') }}" rel="stylesheet">
+<link href="{{ secure_asset('css/ai_page.css') }}" rel="stylesheet">
 @endsection
 
 @section('title')
@@ -9,8 +9,8 @@
 @endsection
 
 @section('scripts-app')
-<script src="{{ asset('js/forms/shared.js') }}"></script>
-<script src="{{ asset('js/forms/ingredientSearch.js') }}"></script>
+<script src="{{ secure_asset('js/forms/shared.js') }}"></script>
+<script src="{{ secure_asset('js/forms/ingredientSearch.js') }}"></script>
 @endsection
 
 @section('content')

@@ -1,11 +1,11 @@
 @extends('layouts.app')
 
 @section("styles")
-<link href="{{ asset('css/welcome_page.css') }}" rel="stylesheet">
+<link href="{{ secure_asset('css/welcome_page.css') }}" rel="stylesheet">
 @endsection
 @section('scripts-app')
-<script src="{{ asset('js/welcome.js') }}"></script>
-<script src="{{ asset('js/search.js') }}"></script>
+<script src="{{ secure_asset('js/welcome.js') }}"></script>
+<script src="{{ secure_asset('js/search.js') }}"></script>
 @endsection
 
 @section('title')Recipe App @endsection
@@ -14,7 +14,7 @@
 <div id="nav-left">
     <a href="@auth{{ route('lucky_dip') }}@else(){{ route('register') }}@endauth" id="site-logo">
         <svg>
-            <use xlink:href="{{ asset('images/graphics/logo.svg#icon') }}"></use>
+            <use xlink:href="{{ secure_asset('images/graphics/logo.svg#icon') }}"></use>
         </svg>
         @auth
         <h3>Surprise me!</h3>
@@ -42,7 +42,7 @@
     <div>
         <input id="search-bar" type="text" name="search" placeholder="Search for something specific here!" onfocus="this.placeholder = ''" onfocusout="this.placeholder = 'Start typing to see results!'"/>
         <svg id="search-icon">
-            <use xlink:href="{{ asset('images/graphics/search.svg#icon') }}"></use>
+            <use xlink:href="{{ secure_asset('images/graphics/search.svg#icon') }}"></use>
         </svg>
     </div>
     <div id="results-container" style="display: none"></div>

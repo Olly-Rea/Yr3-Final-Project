@@ -1,7 +1,7 @@
 @extends('layouts.nav')
 
 @section("styles")
-<link href="{{ asset('css/ingredient_page.css') }}" rel="stylesheet">
+<link href="{{ secure_asset('css/ingredient_page.css') }}" rel="stylesheet">
 @endsection
 
 @section('title')Recipe App - {{ $ingredient->name }}@endsection

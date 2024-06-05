@@ -1,12 +1,12 @@
 @extends('layouts.nav')
 
 @section("styles")
-<link href="{{ asset('css/recipe_page.css') }}" rel="stylesheet">
+<link href="{{ secure_asset('css/recipe_page.css') }}" rel="stylesheet">
 @endsection
 
 @if(Auth::check() && $recipe->user_id == Auth::id())
 @section("scripts")
-<script src="{{ asset('js/recipe/delete.js') }}"></script>
+<script src="{{ secure_asset('js/recipe/delete.js') }}"></script>
 @endsection
 @endif
 

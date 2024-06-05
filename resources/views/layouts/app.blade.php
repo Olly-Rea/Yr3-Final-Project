@@ -14,11 +14,11 @@
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         @yield ('jquery')
         <!-- Scripts -->
-        <script src="{{ asset('js/app.js') }}" defer></script>
+        <script src="{{ secure_asset('js/app.js') }}" defer></script>
         @auth
-        <script src="{{ asset('js/auth.js') }}" defer></script>
+        <script src="{{ secure_asset('js/auth.js') }}" defer></script>
         @else
-        <script src="{{ asset('js/guest.js') }}" defer></script>
+        <script src="{{ secure_asset('js/guest.js') }}" defer></script>
         @endauth
         @yield("scripts-app")
     </head>

@@ -3,7 +3,7 @@
     <input type="text" name="instruction[{{ $index }}]" class="content" placeholder="Start typing your direction here..." onfocus="this.placeholder = ''" onfocusout="this.placeholder = 'Start typing your direction here...'">
     <div class="remove">
         <svg>
-            <use xlink:href="{{ asset('images/graphics/remove.svg#icon') }}"></use>
+            <use xlink:href="{{ secure_asset('images/graphics/remove.svg#icon') }}"></use>
         </svg>
     </div>
 </div>

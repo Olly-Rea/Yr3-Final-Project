@@ -1,7 +1,7 @@
 @extends('layouts.nav')
 
 @section("styles")
-<link href="{{ asset('css/errors.css') }}" rel="stylesheet">
+<link href="{{ secure_asset('css/errors.css') }}" rel="stylesheet">
 @endsection
 
 @section('content')

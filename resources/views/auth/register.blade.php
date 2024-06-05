@@ -1,7 +1,7 @@
 @extends("layouts.app")
 
 @section("styles")
-<link href="{{ asset('css/access_page.css') }}" rel="stylesheet">
+<link href="{{ secure_asset('css/access_page.css') }}" rel="stylesheet">
 @endsection
 
 @section("title")Register @endsection
@@ -10,7 +10,7 @@
 <div id="nav-left">
     <a href="/" id="site-logo">
         <svg>
-            <use xlink:href="{{ asset('images/graphics/logo.svg#icon') }}"></use>
+            <use xlink:href="{{ secure_asset('images/graphics/logo.svg#icon') }}"></use>
         </svg>
         <h3>Home</h3>
     </a>
