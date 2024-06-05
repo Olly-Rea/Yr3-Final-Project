@@ -1,4 +1,4 @@
-FROM php:8.0-apache
+FROM php:8.3-apache
 
 RUN echo "ServerName uni-project" >> /etc/apache2/apache2.conf
 
@@ -22,13 +22,18 @@ RUN sed -ri -e 's!/var/www/!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/apache2.conf
 WORKDIR /var/www/html
 
 # Copy the application code
-COPY . .
+COPY --chown=www:www . .
 
 # Install composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
 # Install project dependencies
-RUN composer install
+RUN composer install --optimize-autoloader --no-dev
+
+# Optimise Laravel framework
+RUN php artisan config:cache
+RUN php artisan route:cache
+RUN php artisan view:cache
 
 # Set permissions
 RUN chown -R www-data:www-data ./storage ./bootstrap/cache

@@ -1,38 +1,37 @@
 {
-    "name": "laravel/laravel",
+    "name": "ollyrea/3rd_year_project",
     "type": "project",
-    "description": "The Laravel Framework.",
+    "description": "My 3rd-year project at Swansea University",
     "keywords": [
         "framework",
         "laravel"
     ],
     "license": "MIT",
     "require": {
-        "php": "^8.0",
-        "fideloper/proxy": "^4.4",
+        "php": "^8.3",
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.0.1",
-        "laravel/framework": "^8.12",
+        "laravel/framework": "^9.0",
         "laravel/jetstream": "^1.6",
         "laravel/sanctum": "^2.6",
         "laravel/tinker": "^2.5",
         "livewire/livewire": "^2.0"
     },
     "require-dev": {
-        "facade/ignition": "^2.5",
         "fakerphp/faker": "^1.9.1",
+        "friendsofphp/php-cs-fixer": "^3.58",
         "mockery/mockery": "^1.4.2",
-        "nunomaduro/collision": "^5.0",
-        "phpunit/phpunit": "^9.3.3"
+        "nunomaduro/collision": "^6.1",
+        "phpunit/phpunit": "^9.3.3",
+        "spatie/laravel-ignition": "^1.0"
     },
     "config": {
         "platform": {
-            "php": "8.0.0"
+            "php": "8.3"
         },
         "optimize-autoloader": true,
         "preferred-install": "dist",
-        "sort-packages": true,
-        "platform-check": false
+        "sort-packages": true
     },
     "extra": {
         "laravel": {
