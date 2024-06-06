@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Profile extends Model
 {
@@ -30,13 +32,15 @@ class Profile extends Model
     ];
 
     // User Model relationship
-    public function user() {
-        return $this->hasOne('App\Models\User');
+    public function user(): HasOne
+    {
+        return $this->hasOne(User::class);
     }
 
     // Allergen model relationship
-    public function allergens() {
-        return $this->belongsToMany('App\Models\Allergen', 'profile_allergens');
+    public function allergens(): BelongsToMany
+    {
+        return $this->belongsToMany(Allergen::class, 'profile_allergens');
     }
 
 }

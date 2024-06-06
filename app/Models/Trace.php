@@ -5,7 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Trace extends Model {
+class Trace extends Model
+{
     use HasFactory;
 
     // State a lack of timestamps
@@ -21,8 +22,9 @@ class Trace extends Model {
     ];
 
     // Ingredient Model relationship
-    public function ingredients() {
-        return $this->belongsToMany('App\Models\Ingredient', 'ingredient_traces');
+    public function ingredients()
+    {
+        return $this->belongsToMany(Ingredient::class, 'ingredient_traces');
     }
 
 }

@@ -3,19 +3,18 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-
-// Custom imports
-use App\Models\{User, Ingredient};
+use App\Models\User;
 use Illuminate\Support\Facades\DB;
 
-class UserSeeder extends Seeder {
+class UserSeeder extends Seeder
+{
     /**
      * Run the database seeds.
      *
      * @return void
      */
-    public function run() {
-
+    public function run()
+    {
         // Remove all Users, Profiles, and Fridges (needed while debugging)
         DB::table('users')->delete();
         DB::table('profiles')->delete();
@@ -23,10 +22,12 @@ class UserSeeder extends Seeder {
         DB::table('fridge_ingredients')->delete();
 
         // Seed User Database
-        User::factory(400)
-            ->hasProfile(1)
-            ->hasFridge(1)
-            ->hasCookBook(1)
-            ->create();
+        DB::transaction(function () {
+            User::factory(env('NUMBER_OF_USERS'))
+                ->hasProfile(1)
+                ->hasFridge(1)
+                ->hasCookBook(1)
+                ->create();
+        });
     }
 }

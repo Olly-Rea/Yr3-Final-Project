@@ -25,7 +25,7 @@ class CreateRecipesTable extends Migration {
         // Create the pivot table for recipe_ingredients
         Schema::create('recipe_ingredients', function (Blueprint $table) {
             $table->foreignId('recipe_id')->references('id')->on('recipes')->onDelete('cascade')->onUpdate('cascade');
-            $table->foreignId('ingred_id')->references('id')->on('ingredients')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreignId('ingredient_id')->references('id')->on('ingredients')->onDelete('cascade')->onUpdate('cascade');
             $table->string('misc_info')->nullable();
             $table->double('amount');
             $table->string('measure')->nullable();
@@ -33,9 +33,9 @@ class CreateRecipesTable extends Migration {
         // Create the pivot table for "alternative" ingredients
         Schema::create('alternatives', function (Blueprint $table) {
             $table->foreignId('recipe_id')->references('id')->on('recipes')->onDelete('cascade')->onUpdate('cascade');
-            $table->foreignId('ingred_id')->references('id')->on('ingredients')->onDelete('cascade')->onUpdate('cascade');
-            $table->foreignId('altrnt_id')->references('id')->on('ingredients')->onDelete('cascade')->onUpdate('cascade');
-            $table->unique(['recipe_id', 'ingred_id', 'altrnt_id']);
+            $table->foreignId('ingredient_id')->references('id')->on('ingredients')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreignId('alternative_id')->references('id')->on('ingredients')->onDelete('cascade')->onUpdate('cascade');
+            $table->unique(['recipe_id', 'ingredient_id', 'alternative_id']);
             // Add additional information to the pairing
             $table->string('misc_info')->nullable();
             $table->double('amount')->nullable();

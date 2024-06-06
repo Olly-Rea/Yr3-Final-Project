@@ -4,8 +4,10 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
-class Allergen extends Model {
+class Allergen extends Model
+{
     use HasFactory;
 
     // State a lack of timestamps
@@ -21,8 +23,9 @@ class Allergen extends Model {
     ];
 
     // Ingredient Model relationship
-    public function ingredients() {
-        return $this->belongsToMany('App\Models\Ingredient', 'ingredient_allergens');
+    public function ingredients(): BelongsToMany
+    {
+        return $this->belongsToMany(Ingredient::class, 'ingredient_allergens');
     }
 
 }

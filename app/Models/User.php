@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Fortify\TwoFactorAuthenticatable;
@@ -13,7 +15,8 @@ use Laravel\Sanctum\HasApiTokens;
 // Custom Import
 use App\Http\Controllers\ProfileController;
 
-class User extends Authenticatable {
+class User extends Authenticatable
+{
     use HasApiTokens;
     use HasFactory;
     use HasProfilePhoto;
@@ -61,32 +64,38 @@ class User extends Authenticatable {
     ];
 
     // Profile Model relationship
-    public function profile() {
-        return $this->hasOne('App\Models\Profile');
+    public function profile(): HasOne
+    {
+        return $this->hasOne(Profile::class);
     }
 
     // Fridge Model relationship
-    public function fridge() {
-        return $this->hasOne('App\Models\Fridge');
+    public function fridge(): HasOne
+    {
+        return $this->hasOne(Fridge::class);
     }
 
     // CookBook Model relationship
-    public function cookbook() {
-        return $this->hasOne('App\Models\CookBook');
+    public function cookbook(): HasOne
+    {
+        return $this->hasOne(CookBook::class);
     }
 
     // Recipe Model relationship
-    public function recipes() {
-        return $this->hasMany('App\Models\Recipe');
+    public function recipes(): HasMany
+    {
+        return $this->hasMany(Recipe::class);
     }
 
     // Rating Model relationship
-    public function ratings() {
-        return $this->hasMany('App\Models\Rating')->orderBy('created_at');
+    public function ratings(): HasMany
+    {
+        return $this->hasMany(Rating::class)->orderBy('created_at');
     }
 
     // Function to call on the profile loadImage method
-    public function profileImage() {
+    public function profileImage()
+    {
         return ProfileController::loadImage($this->profile->id);
     }
 

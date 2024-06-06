@@ -4,8 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class Recipe extends Model {
+class Recipe extends Model
+{
     use HasFactory;
 
     /**
@@ -20,33 +24,37 @@ class Recipe extends Model {
     ];
 
     // User Model relationship
-    public function user() {
-        return $this->belongsTo('App\Models\User');
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
     }
 
     // Ingredient Model relationship
-    public function ingredients() {
-        return $this->belongsToMany('App\Models\Ingredient', 'recipe_ingredients', 'recipe_id', 'ingred_id')
+    public function ingredients(): BelongsToMany
+    {
+        return $this->belongsToMany(Ingredient::class, 'recipe_ingredients', 'recipe_id', 'ingredient_id')
             ->withPivot('misc_info', 'amount', 'measure');
     }
 
     // Instruction Model relationship
-    public function instructions() {
-        return $this->hasMany('App\Models\Instruction');
+    public function instructions(): HasMany
+    {
+        return $this->hasMany(Instruction::class);
     }
 
     // Rating Model relationship
-    public function ratings() {
-        return $this->hasMany('App\Models\Rating');
+    public function ratings(): HasMany
+    {
+        return $this->hasMany(Rating::class);
     }
 
     // // Method to get any allergens a Recipe might contain
     // public function allergens() {
-    //     return $this->hasManyThrough('App\Models\Allergen', 'App\Models\Ingredient');
+    //     return $this->hasManyThrough(Allergen::class, Ingredient::class);
     // }
     // // Method to get any traces a Recipe might contain
     // public function traces() {
-    //     return $this->hasManyThrough('App\Models\Trace', 'App\Models\Ingredient');
+    //     return $this->hasManyThrough(Trace::class, Ingredient::class);
     // }
 
 }

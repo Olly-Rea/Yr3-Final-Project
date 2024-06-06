@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Instruction extends Model
 {
@@ -18,8 +19,9 @@ class Instruction extends Model
     ];
 
     // Recipe Model relationship
-    public function recipe() {
-        return $this->belongsTo('App\Models\Recipe');
+    public function recipe(): BelongsTo
+    {
+        return $this->belongsTo(Recipe::class);
     }
 
 }

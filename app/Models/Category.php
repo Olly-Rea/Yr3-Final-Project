@@ -4,8 +4,10 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\MorphToMany;
 
-class Category extends Model {
+class Category extends Model
+{
     use HasFactory;
 
     // State a lack of timestamps
@@ -20,16 +22,17 @@ class Category extends Model {
         'name'
     ];
 
-    // // Ingredient Model relationship
-    // public function ingredients() {
-    //     return $this->belongsToMany('App\Models\Ingredient');
-    // }
-
     /**
-     * Parent model relationship
+     * Ingredient Model relationship
      */
-    public function categorical() {
-        return $this->morphTo();
+    public function ingredients(): MorphToMany
+    {
+        return $this->morphToMany(
+            related: Ingredient::class,
+            name: 'categorical',
+            foreignPivotKey: 'category_id',
+            relatedPivotKey: 'categorical_id',
+            inverse: true
+        );
     }
-
 }
