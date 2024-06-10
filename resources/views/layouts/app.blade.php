@@ -65,7 +65,7 @@
         </div>
         <footer>
             <div id="footer-content">
-                <p>{{ number_format(App\Models\Recipe::all()->count()) }} recipes in our database so far!</p>
+                <p>{{ App\Http\Controllers\RecipeController::count() }} recipes in our database so far!</p>
                 <a href="https://ollyrea.co.uk" target="_blank">Olly Rea - 950659</a>
             </div>
         </footer>

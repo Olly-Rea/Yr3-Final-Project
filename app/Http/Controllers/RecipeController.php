@@ -4,11 +4,11 @@ namespace App\Http\Controllers;
 
 // Custom imports
 use App\{CookbookContainer, MLContainer};
-use App\Models\{Recipe, Ingredient, Instruction};
+use App\Models\{Recipe, Ingredient};
 use Illuminate\Support\Facades\{Auth, Validator};
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Cache;
 
 class RecipeController extends Controller {
     // Number of items to show per page
@@ -254,6 +254,18 @@ class RecipeController extends Controller {
         } else {
             abort(404);
         }
+    }
+
+    /**
+     * Return the total number of stored recipes (cached to reduce MySQL overhead)
+     * 
+     * @return string
+     */
+    public static function count(): string
+    {
+        return Cache::remember('recipe_count', 60, function () {
+            return number_format(Recipe::count());
+        });
     }
 
 }

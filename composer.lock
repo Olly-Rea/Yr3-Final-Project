@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b7f731aa8fcd4be149629ef8e7426692",
+    "content-hash": "7794c264b69a040e638a5829727acb3d",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -1287,16 +1287,16 @@
         },
         {
             "name": "jaybizzle/crawler-detect",
-            "version": "v1.2.118",
+            "version": "v1.2.119",
             "source": {
                 "type": "git",
                 "url": "https://github.com/JayBizzle/Crawler-Detect.git",
-                "reference": "9b8912ac5b78b780a0ead552b4c3dc9ddfdea4fd"
+                "reference": "275002e22b0333c15a7c6792fdae5d5deefc9ef0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/JayBizzle/Crawler-Detect/zipball/9b8912ac5b78b780a0ead552b4c3dc9ddfdea4fd",
-                "reference": "9b8912ac5b78b780a0ead552b4c3dc9ddfdea4fd",
+                "url": "https://api.github.com/repos/JayBizzle/Crawler-Detect/zipball/275002e22b0333c15a7c6792fdae5d5deefc9ef0",
+                "reference": "275002e22b0333c15a7c6792fdae5d5deefc9ef0",
                 "shasum": ""
             },
             "require": {
@@ -1333,9 +1333,9 @@
             ],
             "support": {
                 "issues": "https://github.com/JayBizzle/Crawler-Detect/issues",
-                "source": "https://github.com/JayBizzle/Crawler-Detect/tree/v1.2.118"
+                "source": "https://github.com/JayBizzle/Crawler-Detect/tree/v1.2.119"
             },
-            "time": "2024-04-23T17:07:05+00:00"
+            "time": "2024-06-07T07:58:43+00:00"
         },
         {
             "name": "jenssegers/agent",
@@ -3146,6 +3146,68 @@
             "time": "2022-06-13T21:57:56+00:00"
         },
         {
+            "name": "predis/predis",
+            "version": "v3.0.0-alpha1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/predis/predis.git",
+                "reference": "cf28b2a9975e9310a3192f0b72d7f1060b280db5"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/predis/predis/zipball/cf28b2a9975e9310a3192f0b72d7f1060b280db5",
+                "reference": "cf28b2a9975e9310a3192f0b72d7f1060b280db5",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.2 || ^8.0"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "^3.3",
+                "phpstan/phpstan": "^1.9",
+                "phpunit/phpcov": "^6.0 || ^8.0",
+                "phpunit/phpunit": "^8.0 || ~9.4.4"
+            },
+            "suggest": {
+                "ext-relay": "Faster connection with in-memory caching (>=0.6.2)"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Predis\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Till Krüss",
+                    "homepage": "https://till.im",
+                    "role": "Maintainer"
+                }
+            ],
+            "description": "A flexible and feature-complete Redis client for PHP.",
+            "homepage": "http://github.com/predis/predis",
+            "keywords": [
+                "nosql",
+                "predis",
+                "redis"
+            ],
+            "support": {
+                "issues": "https://github.com/predis/predis/issues",
+                "source": "https://github.com/predis/predis/tree/v3.0.0-alpha1"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/sponsors/tillkruss",
+                    "type": "github"
+                }
+            ],
+            "time": "2024-01-19T16:57:22+00:00"
+        },
+        {
             "name": "psr/clock",
             "version": "1.0.0",
             "source": {
@@ -3559,16 +3621,16 @@
         },
         {
             "name": "psy/psysh",
-            "version": "v0.12.3",
+            "version": "v0.12.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/bobthecow/psysh.git",
-                "reference": "b6b6cce7d3ee8fbf31843edce5e8f5a72eff4a73"
+                "reference": "2fd717afa05341b4f8152547f142cd2f130f6818"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/bobthecow/psysh/zipball/b6b6cce7d3ee8fbf31843edce5e8f5a72eff4a73",
-                "reference": "b6b6cce7d3ee8fbf31843edce5e8f5a72eff4a73",
+                "url": "https://api.github.com/repos/bobthecow/psysh/zipball/2fd717afa05341b4f8152547f142cd2f130f6818",
+                "reference": "2fd717afa05341b4f8152547f142cd2f130f6818",
                 "shasum": ""
             },
             "require": {
@@ -3632,9 +3694,9 @@
             ],
             "support": {
                 "issues": "https://github.com/bobthecow/psysh/issues",
-                "source": "https://github.com/bobthecow/psysh/tree/v0.12.3"
+                "source": "https://github.com/bobthecow/psysh/tree/v0.12.4"
             },
-            "time": "2024-04-02T15:57:53+00:00"
+            "time": "2024-06-10T01:18:23+00:00"
         },
         {
             "name": "ralouphie/getallheaders",
@@ -7461,16 +7523,16 @@
         },
         {
             "name": "phpstan/phpstan",
-            "version": "1.11.3",
+            "version": "1.11.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan.git",
-                "reference": "e64220a05c1209fc856d58e789c3b7a32c0bb9a5"
+                "reference": "9100a76ce8015b9aa7125b9171ae3a76887b6c82"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/e64220a05c1209fc856d58e789c3b7a32c0bb9a5",
-                "reference": "e64220a05c1209fc856d58e789c3b7a32c0bb9a5",
+                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/9100a76ce8015b9aa7125b9171ae3a76887b6c82",
+                "reference": "9100a76ce8015b9aa7125b9171ae3a76887b6c82",
                 "shasum": ""
             },
             "require": {
@@ -7515,7 +7577,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2024-05-31T13:53:37+00:00"
+            "time": "2024-06-06T12:19:22+00:00"
         },
         {
             "name": "phpunit/php-code-coverage",

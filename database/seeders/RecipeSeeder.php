@@ -3,12 +3,11 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use App\Models\{Ingredient, Instruction, Rating, User, Recipe};
-use Illuminate\Support\Facades\{DB, File};
+use App\Models\{Ingredient, Instruction, Rating, Recipe};
+use Illuminate\Support\Facades\DB;
 
 class RecipeSeeder extends Seeder
 {
-
     // DEBUG variables
     private $ingred_count = 0;
     private $successes = 0;
