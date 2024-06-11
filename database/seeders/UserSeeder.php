@@ -2,8 +2,8 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Seeder;
 use App\Models\User;
+use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
 class UserSeeder extends Seeder
@@ -13,7 +13,7 @@ class UserSeeder extends Seeder
      *
      * @return void
      */
-    public function run()
+    public function run(): void
     {
         // Remove all Users, Profiles, and Fridges (needed while debugging)
         DB::table('users')->delete();
@@ -22,7 +22,7 @@ class UserSeeder extends Seeder
         DB::table('fridge_ingredients')->delete();
 
         // Seed User Database
-        DB::transaction(function () {
+        DB::transaction(function (): void {
             User::factory(env('NUMBER_OF_USERS'))
                 ->hasProfile(1)
                 ->hasFridge(1)

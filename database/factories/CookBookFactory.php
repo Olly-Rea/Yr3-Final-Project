@@ -5,7 +5,8 @@ namespace Database\Factories;
 use App\Models\CookBook;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-class CookBookFactory extends Factory {
+class CookBookFactory extends Factory
+{
     /**
      * The name of the factory's corresponding model.
      *
@@ -18,10 +19,10 @@ class CookBookFactory extends Factory {
      *
      * @return array
      */
-    public function definition()
+    public function definition(): array
     {
         return [
-            'last_updated' => $this->faker->dateTimeBetween($startDate = '-1 weeks', $endDate = '-1 days')
+            'last_updated' => $this->faker->dateTimeBetween($startDate = '-1 weeks', $endDate = '-1 days'),
         ];
     }
 }

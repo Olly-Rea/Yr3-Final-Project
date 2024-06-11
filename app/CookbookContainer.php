@@ -2,63 +2,72 @@
 
 namespace App;
 
-use Illuminate\Http\Request;
-use Illuminate\Queue\Middleware\RateLimited;
-
-// Custom imports
+use App\Models\Recipe;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Database\Eloquent\Builder;
-use App\Models\Recipe;
 
-class CookbookContainer {
-
+class CookbookContainer
+{
     /**
      * Create a new container instance.
      *
      * @return void
      */
-    public function __construct() {
+    public function __construct()
+    {
         $this->refresh(false);
     }
 
     /**
-     * Method to show the generated recipe
+     * Method to show the generated recipe.
+     *
+     * @param mixed $refresh
      */
-    public function getRecipes($refresh) {
-        if ($refresh) $this->refresh($refresh);
+    public function getRecipes($refresh)
+    {
+        if ($refresh) {
+            $this->refresh($refresh);
+        }
         if (Auth::check()) {
             // Return the current users cookbook
             return Auth::user()->cookbook->recipes;
         } else {
             // Return the guests temporary cookbook
-            return $_SESSION["recipes"];
+            return $_SESSION['recipes'];
         }
     }
 
     /**
-     * Method to refresh the list of recipes shown
+     * Method to refresh the list of recipes shown.
+     *
+     * @param mixed $forceRefresh
      */
-    public function refresh($forceRefresh) {
+    public function refresh($forceRefresh): void
+    {
         // Check if a user is logged in
-        if(Auth::check()) {
+        if (Auth::check()) {
             // Check if the user has request a refresh OR if the cookbook was last updated over a week ago (OR if the cookbook is empty)
-            if ($forceRefresh || (Auth::user()->cookbook->last_updated < date("Y-m-d", strtotime("-7 days")) || count(Auth::user()->cookbook->recipes) == 0))
+            if ($forceRefresh || (Auth::user()->cookbook->last_updated < date('Y-m-d', strtotime('-7 days')) || \count(Auth::user()->cookbook->recipes) === 0)) {
                 $this->getPersonalised();
+            }
         } else {
             // Start a session (if one has not already been started)
-            if (session_status() === PHP_SESSION_NONE) session_start();
+            if (session_status() === PHP_SESSION_NONE) {
+                session_start();
+            }
             // Check if the user has request a refresh OR if no recipes currently added to recipes (OR if 'recipes' is empty)
-            if ($forceRefresh || !isset($_SESSION["recipes"]) || count($_SESSION["recipes"]) == 0 ) {
+            if ($forceRefresh || !isset($_SESSION['recipes']) || \count($_SESSION['recipes']) === 0) {
                 $this->getRandom();
             }
         }
     }
 
     /**
-     * Method to get new recipes (based on user prefs)
+     * Method to get new recipes (based on user prefs).
      */
-    public function getPersonalised() {
+    public function getPersonalised(): void
+    {
         // Get the Users fridge ingredients and preferences
         $userIngredients = Auth::user()->fridge->ingredients->pluck('id');
         $userPrefs = Auth::user()->profile;
@@ -69,18 +78,18 @@ class CookbookContainer {
         // Eager load the Recipes relations
         $recipes = Recipe::with('ingredients', 'ratings');
         // Filter out recipes not matching User preferences (not quite a boolean AND, but does try and match the closest recipes to user prefs)
-        $recipes = $recipes->whereHas('ratings', function (Builder $query) use ($userPrefs) {
-            $query->where(function ($q) {$q->selectRaw('AVG(spice_value)');}, '<=', $userPrefs->spice_pref)
-                ->where(function ($q) {$q->selectRaw('AVG(sweet_value)');}, '<=', $userPrefs->sweet_pref)
-                ->where(function ($q) {$q->selectRaw('AVG(sour_value)');}, '<=', $userPrefs->sour_pref)
-                ->where(function ($q) {$q->selectRaw('AVG(difficulty_value)');}, '<=', $userPrefs->diff_pref);
+        $recipes = $recipes->whereHas('ratings', function (Builder $query) use ($userPrefs): void {
+            $query->where(function ($q): void {$q->selectRaw('AVG(spice_value)'); }, '<=', $userPrefs->spice_pref)
+                ->where(function ($q): void {$q->selectRaw('AVG(sweet_value)'); }, '<=', $userPrefs->sweet_pref)
+                ->where(function ($q): void {$q->selectRaw('AVG(sour_value)'); }, '<=', $userPrefs->sour_pref)
+                ->where(function ($q): void {$q->selectRaw('AVG(difficulty_value)'); }, '<=', $userPrefs->diff_pref);
         });
         // If the User has more than 3 ingredients in their fridge, execute this part of the query
-        if (count($userIngredients) > 3) {
+        if (\count($userIngredients) > 3) {
             // Get recipes containing up to the number of the ingredients the user has
-            $recipes = $recipes->whereHas('ingredients', function (Builder $query) use ($userIngredients)  {
+            $recipes = $recipes->whereHas('ingredients', function (Builder $query) use ($userIngredients): void {
                 $query->whereIn('id', $userIngredients);
-            }, '<=', count($userIngredients));
+            }, '<=', \count($userIngredients));
         }
 
         // // Filter out any recipes containing the Users allergens first
@@ -107,19 +116,18 @@ class CookbookContainer {
 
         // dd(DB::getQueryLog()); // Show results of log
 
-
         Auth::user()->cookbook->recipes()->sync($recipes);
         // Update the cookbook last_updated time
         Auth::user()->cookbook()->update([
-            'last_updated' => date('Y-m-d H:i:s')
+            'last_updated' => date('Y-m-d H:i:s'),
         ]);
     }
 
     /**
-     * Method to get recipes at random for a Guest User
+     * Method to get recipes at random for a Guest User.
      */
-    public function getRandom() {
-        $_SESSION["recipes"] = Recipe::all()->count() > 7 ? Recipe::all()->random(7) : Recipe::get();
+    public function getRandom(): void
+    {
+        $_SESSION['recipes'] = Recipe::all()->count() > 7 ? Recipe::all()->random(7) : Recipe::get();
     }
-
 }

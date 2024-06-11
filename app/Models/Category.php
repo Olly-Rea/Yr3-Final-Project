@@ -19,11 +19,11 @@ class Category extends Model
      * @var array
      */
     protected $fillable = [
-        'name'
+        'name',
     ];
 
     /**
-     * Ingredient Model relationship
+     * Ingredient Model relationship.
      */
     public function ingredients(): MorphToMany
     {

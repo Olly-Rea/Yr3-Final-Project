@@ -2,15 +2,19 @@
 
 namespace Database\Seeders;
 
+use App\Models\Allergen;
+use App\Models\Category;
+use App\Models\Ingredient;
+use App\Models\Label;
+use App\Models\Trace;
 use Illuminate\Database\Seeder;
-// Custom imports
-use App\Models\{Ingredient, Label, Category, Allergen, Trace};
-use Illuminate\Support\Facades\{DB, File};
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\File;
 
 class IngredientSeeder extends Seeder
 {
     /**
-     * Create the array of related data or add to existing field
+     * Create the array of related data or add to existing field.
      *
      * @return void
      */
@@ -19,17 +23,17 @@ class IngredientSeeder extends Seeder
         if ($mapAssociative) {
             $ingredientID = ['ingredient_id' => $ingredientID];
         }
-        if (!array_key_exists($key, $array)) {
+        if (!\array_key_exists($key, $array)) {
             $array[$key] = [$ingredientID];
         } else {
-            if (!in_array($ingredientID, $array[$key])) {
+            if (!\in_array($ingredientID, $array[$key])) {
                 $array[$key][] = $ingredientID;
             }
         }
     }
 
     /**
-     * Seed the database in chunks
+     * Seed the database in chunks.
      *
      * @return void
      */
@@ -42,11 +46,11 @@ class IngredientSeeder extends Seeder
     }
 
     /**
-     * Perform an array map on the relation arrays and seed the databases with them
+     * Perform an array map on the relation arrays and seed the databases with them.
      */
     private function mapAndSeedRelation(array $array, string $model): void
     {
-        $relationNames = array_map(fn($val) => ['name' => $val], array_keys($array));
+        $relationNames = array_map(fn ($val) => ['name' => $val], array_keys($array));
         $this->seedDatabase($relationNames, $model);
     }
 
@@ -81,7 +85,7 @@ class IngredientSeeder extends Seeder
                 'sugars_100g' => $ingredient->sugars_100g,
                 'proteins_100g' => $ingredient->proteins_100g,
                 'fiber_100g' => $ingredient->fiber_100g,
-                'salt_100g' => $ingredient->salt_100g
+                'salt_100g' => $ingredient->salt_100g,
             ];
             // Check for (and add) allergens
             foreach ($ingredient->allergens as $allergen) {
@@ -110,30 +114,28 @@ class IngredientSeeder extends Seeder
         }
 
         // Start a DB transaction
-        DB::transaction(function () use ($ingredients, $allergens, $traces, $labels, $categories) {
+        DB::transaction(function () use ($ingredients, $allergens, $traces, $labels, $categories): void {
             $this->seedDatabase($ingredients, Ingredient::class);
             // Seed and map allergen relations
             $this->mapAndSeedRelation($allergens, Allergen::class);
-            Allergen::each(function ($allergen) use ($allergens) {
+            Allergen::each(function ($allergen) use ($allergens): void {
                 $allergen->ingredients()->attach($allergens[$allergen->name]);
             });
             // Seed and map trace relations
             $this->mapAndSeedRelation($traces, Trace::class);
-            Trace::each(function ($trace) use ($traces) {
+            Trace::each(function ($trace) use ($traces): void {
                 $trace->ingredients()->attach($traces[$trace->name]);
             });
             // Seed and map label relations
             $this->mapAndSeedRelation($labels, Label::class);
-            Label::each(function ($label) use ($labels) {
+            Label::each(function ($label) use ($labels): void {
                 $label->ingredients()->sync($labels[$label->name]);
             });
             // Seed and map category relations
             $this->mapAndSeedRelation($categories, Category::class);
-            Category::each(function ($category) use ($categories) {
+            Category::each(function ($category) use ($categories): void {
                 $category->ingredients()->sync($categories[$category->name]);
             });
         });
-
     }
-
 }

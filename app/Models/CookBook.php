@@ -20,7 +20,7 @@ class CookBook extends Model
      * @var array
      */
     protected $fillable = [
-        'last_updated'
+        'last_updated',
     ];
 
     // User Model relationship
@@ -34,5 +34,4 @@ class CookBook extends Model
     {
         return $this->belongsToMany(Recipe::class, 'cookbook_recipes');
     }
-
 }

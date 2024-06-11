@@ -4,18 +4,17 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-// Custom import
-use Illuminate\Support\Facades\DB;
-
-class CreateIngredientsTable extends Migration {
+class CreateIngredientsTable extends Migration
+{
     /**
      * Run the migrations.
      *
      * @return void
      */
-    public function up() {
+    public function up(): void
+    {
         // Create the table for ingredients
-        Schema::create('ingredients', function (Blueprint $table) {
+        Schema::create('ingredients', function (Blueprint $table): void {
             $table->id();
             // Ingredient name
             $table->string('name');

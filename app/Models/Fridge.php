@@ -21,7 +21,7 @@ class Fridge extends Model
      */
     protected $fillable = [
         'user_id',
-        'name'
+        'name',
     ];
 
     // User Model relationship
@@ -36,5 +36,4 @@ class Fridge extends Model
         return $this->belongsToMany(Ingredient::class, 'fridge_ingredients')
             ->withPivot('amount', 'measure');
     }
-
 }

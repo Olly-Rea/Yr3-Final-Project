@@ -18,7 +18,7 @@ class Trace extends Model
      * @var array
      */
     protected $fillable = [
-        'name'
+        'name',
     ];
 
     // Ingredient Model relationship
@@ -26,5 +26,4 @@ class Trace extends Model
     {
         return $this->belongsToMany(Ingredient::class, 'ingredient_traces');
     }
-
 }

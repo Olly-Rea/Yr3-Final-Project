@@ -21,7 +21,7 @@ class Characteristic extends Model
     protected $fillable = [
         'name',
         'description',
-        'intensity' // TODO Put in pivot table (and find way to access)
+        'intensity', // TODO Put in pivot table (and find way to access)
     ];
 
     // Ingredient Model relationship
@@ -29,5 +29,4 @@ class Characteristic extends Model
     {
         return $this->belongsToMany(Ingredient::class);
     }
-
 }

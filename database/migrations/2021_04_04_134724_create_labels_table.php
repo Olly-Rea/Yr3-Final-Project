@@ -4,21 +4,23 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateLabelsTable extends Migration {
+class CreateLabelsTable extends Migration
+{
     /**
      * Run the migrations.
      *
      * @return void
      */
-    public function up() {
+    public function up(): void
+    {
         // Create the table for data labels
-        Schema::create('labels', function (Blueprint $table) {
+        Schema::create('labels', function (Blueprint $table): void {
             $table->id();
             $table->string('name');
         });
 
         // Create the pivot table for morphable 'labelables'
-        Schema::create('labelables', function (Blueprint $table) {
+        Schema::create('labelables', function (Blueprint $table): void {
             $table->foreignId('label_id')->references('id')->on('labels')->onDelete('cascade')->onUpdate('cascade');
             $table->morphs('labelable'); // Recipe or Ingredient
             $table->unique(['label_id', 'labelable_id']);

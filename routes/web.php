@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 // Routes that can only be used by Auth users who have setup an account
-Route::middleware(['authsetup'])->group(function () {
+Route::middleware(['authsetup'])->group(function (): void {
     // Route to display on first creation of a User
     Route::get('/GetStarted', 'ProfileController@getStarted')->name('auth.setup');
 
@@ -38,7 +38,7 @@ Route::middleware(['authsetup'])->group(function () {
 });
 
 // Routes that require an authorised account, however may not yet be setup
-Route::middleware(['auth'])->group(function () {
+Route::middleware(['auth'])->group(function (): void {
     // Individual item search routes
     Route::get('/Search/Ingredient', 'SearchController@ingredient')->name('search.ingredient');
     // Route::get('/Search/Recipe', 'SearchController@recipe')->name('search.recipe');
@@ -59,7 +59,7 @@ Route::middleware(['auth'])->group(function () {
 });
 
 // Routes that can be used by guests or Auth users who have setup an account
-Route::middleware(['guestorauthsetup'])->group(function () {
+Route::middleware(['guestorauthsetup'])->group(function (): void {
     // Welcome route
     Route::get('/', 'StartController@start')->name('welcome');
 
@@ -79,4 +79,3 @@ Route::middleware(['guestorauthsetup'])->group(function () {
     // View Profile routes
     Route::get('/Profile/{user}', 'ProfileController@show')->name('profile');
 });
-

@@ -5,7 +5,8 @@ namespace Database\Factories;
 use App\Models\Profile;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-class ProfileFactory extends Factory {
+class ProfileFactory extends Factory
+{
     /**
      * The name of the factory's corresponding model.
      *
@@ -18,7 +19,7 @@ class ProfileFactory extends Factory {
      *
      * @return array
      */
-    public function definition()
+    public function definition(): array
     {
         return [
             // Generate User name
@@ -28,7 +29,7 @@ class ProfileFactory extends Factory {
             'spice_pref' => 5,
             'sweet_pref' => 5,
             'sour_pref' => 5,
-            'diff_pref' => 5
+            'diff_pref' => 5,
         ];
     }
 }

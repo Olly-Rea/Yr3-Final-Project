@@ -13,9 +13,14 @@ class Instruction extends Model
     // State a lack of timestamps
     public $timestamps = false;
 
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
     protected $fillable = [
         'recipe_id',
-        'content'
+        'content',
     ];
 
     // Recipe Model relationship
@@ -23,5 +28,4 @@ class Instruction extends Model
     {
         return $this->belongsTo(Recipe::class);
     }
-
 }

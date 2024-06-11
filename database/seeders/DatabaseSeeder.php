@@ -4,15 +4,16 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 
-class DatabaseSeeder extends Seeder {
-
+class DatabaseSeeder extends Seeder
+{
     /**
      * Seed the application's database.
      *
      * @return void
      */
-    public function run() {
-        echo("\n");
+    public function run(): void
+    {
+        echo "\n";
 
         // Call on Ingredient Seeder
         $this->call(IngredientSeeder::class);
@@ -27,5 +28,4 @@ class DatabaseSeeder extends Seeder {
         // Call on Recipe Seeder
         $this->call(RecipeSeeder::class);
     }
-
 }

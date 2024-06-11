@@ -11,9 +11,9 @@ class CreateInstructionsTable extends Migration
      *
      * @return void
      */
-    public function up()
+    public function up(): void
     {
-        Schema::create('instructions', function (Blueprint $table) {
+        Schema::create('instructions', function (Blueprint $table): void {
             $table->id();
             $table->foreignId('recipe_id')->references('id')->on('recipes')->onDelete('cascade')->onUpdate('cascade');
             $table->text('content');
@@ -25,7 +25,7 @@ class CreateInstructionsTable extends Migration
      *
      * @return void
      */
-    public function down()
+    public function down(): void
     {
         Schema::dropIfExists('instructions');
     }

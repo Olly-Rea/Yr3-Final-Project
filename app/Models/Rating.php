@@ -25,7 +25,7 @@ class Rating extends Model
         'difficulty_value',
         'time_taken',
         // 'Overall feeling' rating
-        'out_of_five'
+        'out_of_five',
     ];
 
     // User Model relationship
@@ -39,5 +39,4 @@ class Rating extends Model
     {
         return $this->belongsTo(Recipe::class);
     }
-
 }

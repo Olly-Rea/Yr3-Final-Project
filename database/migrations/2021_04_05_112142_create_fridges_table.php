@@ -4,20 +4,22 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateFridgesTable extends Migration {
+class CreateFridgesTable extends Migration
+{
     /**
      * Run the migrations.
      *
      * @return void
      */
-    public function up() {
-        Schema::create('fridges', function (Blueprint $table) {
+    public function up(): void
+    {
+        Schema::create('fridges', function (Blueprint $table): void {
             $table->id();
             $table->foreignId('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
             $table->string('name');
         });
         // Create the pivot table for fridge_ingredients
-        Schema::create('fridge_ingredients', function (Blueprint $table) {
+        Schema::create('fridge_ingredients', function (Blueprint $table): void {
             $table->foreignId('fridge_id')->references('id')->on('fridges')->onDelete('cascade')->onUpdate('cascade');
             $table->foreignId('ingredient_id')->references('id')->on('ingredients')->onDelete('cascade')->onUpdate('cascade');
             $table->double('amount');
@@ -30,7 +32,8 @@ class CreateFridgesTable extends Migration {
      *
      * @return void
      */
-    public function down() {
+    public function down(): void
+    {
         Schema::dropIfExists('fridges');
     }
 }

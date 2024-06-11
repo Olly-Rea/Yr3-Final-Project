@@ -5,12 +5,13 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class AllergenController extends Controller {
-
+class AllergenController extends Controller
+{
     /**
-     * Method to add a known allergen to a User's profile
+     * Method to add a known allergen to a User's profile.
      */
-    public function addTo(Request $request) {
+    public function addTo(Request $request): void
+    {
         // Check that the request is ajax
         if ($request->ajax()) {
             // Attach the new allergen to the User's allergens
@@ -21,9 +22,10 @@ class AllergenController extends Controller {
     }
 
     /**
-     * Method to remove a known allergen from a User's profile
+     * Method to remove a known allergen from a User's profile.
      */
-    public function removeFrom(Request $request) {
+    public function removeFrom(Request $request): void
+    {
         // Check that the request is ajax
         if ($request->ajax()) {
             // Attach the new allergen to the User's allergens
@@ -32,5 +34,4 @@ class AllergenController extends Controller {
             abort(404);
         }
     }
-
 }

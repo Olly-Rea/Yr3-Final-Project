@@ -2,21 +2,21 @@
 
 namespace App\Http\Controllers;
 
-// Custom imports
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class FridgeController extends Controller {
-
+class FridgeController extends Controller
+{
     /**
-     * Method to update the name of a User's fridge
+     * Method to update the name of a User's fridge.
      */
-    public function updateName(Request $request) {
+    public function updateName(Request $request): void
+    {
         // Check that the request is ajax
         if ($request->ajax()) {
             // Update the fridge name
             Auth::user()->fridge->update([
-                'name' => $request->name
+                'name' => $request->name,
             ]);
         // Else return a 404 not found error
         } else {
@@ -25,9 +25,10 @@ class FridgeController extends Controller {
     }
 
     /**
-     * Method to add an ingredient to the Auth User's fridge
+     * Method to add an ingredient to the Auth User's fridge.
      */
-    public function addTo(Request $request) {
+    public function addTo(Request $request): void
+    {
         // Check that the request is ajax
         if ($request->ajax()) {
             // Add the new ingredient
@@ -39,9 +40,10 @@ class FridgeController extends Controller {
     }
 
     /**
-     * Method to remove an ingredient from the Auth User's fridge
+     * Method to remove an ingredient from the Auth User's fridge.
      */
-    public function removeFrom(Request $request) {
+    public function removeFrom(Request $request): void
+    {
         // Check that the request is ajax
         if ($request->ajax()) {
             // Remove the ingredient
@@ -53,17 +55,17 @@ class FridgeController extends Controller {
     }
 
     /**
-     * Method to update an ingredient in the Auth User's fridge
+     * Method to update an ingredient in the Auth User's fridge.
      */
-    public function update(Request $request) {
+    public function update(Request $request): void
+    {
         // Check that the request is ajax
         if ($request->ajax()) {
             // update the existing ingredient
-            Auth::user()->fridge->ingredients()->updateExistingPivot($request->id, ['amount' => $request->amount, 'measure' =>$request->measure]);
+            Auth::user()->fridge->ingredients()->updateExistingPivot($request->id, ['amount' => $request->amount, 'measure' => $request->measure]);
         // Else return a 404 not found error
         } else {
             abort(404);
         }
     }
-
 }

@@ -11,8 +11,9 @@ class CreateRatingsTable extends Migration
      *
      * @return void
      */
-    public function up() {
-        Schema::create('ratings', function (Blueprint $table) {
+    public function up(): void
+    {
+        Schema::create('ratings', function (Blueprint $table): void {
             $table->id();
             // ID of user and recipe
             $table->foreignId('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
@@ -37,7 +38,8 @@ class CreateRatingsTable extends Migration
      *
      * @return void
      */
-    public function down() {
+    public function down(): void
+    {
         Schema::dropIfExists('ratings');
     }
 }

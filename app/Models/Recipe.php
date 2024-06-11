@@ -20,7 +20,7 @@ class Recipe extends Model
     protected $fillable = [
         'user_id',
         'name',
-        'serves'
+        'serves',
     ];
 
     // User Model relationship
@@ -56,5 +56,4 @@ class Recipe extends Model
     // public function traces() {
     //     return $this->hasManyThrough(Trace::class, Ingredient::class);
     // }
-
 }

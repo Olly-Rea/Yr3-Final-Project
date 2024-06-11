@@ -5,7 +5,8 @@ namespace Database\Factories;
 use App\Models\Fridge;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-class FridgeFactory extends Factory {
+class FridgeFactory extends Factory
+{
     /**
      * The name of the factory's corresponding model.
      *
@@ -18,10 +19,10 @@ class FridgeFactory extends Factory {
      *
      * @return array
      */
-    public function definition()
+    public function definition(): array
     {
         return [
-            'name' => 'Default'
+            'name' => 'Default',
         ];
     }
 }

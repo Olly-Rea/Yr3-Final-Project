@@ -25,7 +25,7 @@ class Ingredient extends Model
     ];
 
     protected $casts = [
-        'references' => 'array'
+        'references' => 'array',
     ];
 
     // Ingredient (alternative) Model relationship
@@ -39,6 +39,7 @@ class Ingredient extends Model
     {
         return $this->morphToMany(Category::class, 'categorical');
     }
+
     // 'Label' Model relationship
     public function labels(): MorphToMany
     {
@@ -73,5 +74,4 @@ class Ingredient extends Model
     // public function fridges() {
     //     return $this->belongsToMany(Fridge::class, 'fridge_ingredients');
     // }
-
 }

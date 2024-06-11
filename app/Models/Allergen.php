@@ -19,7 +19,7 @@ class Allergen extends Model
      * @var array
      */
     protected $fillable = [
-        'name'
+        'name',
     ];
 
     // Ingredient Model relationship
@@ -27,5 +27,4 @@ class Allergen extends Model
     {
         return $this->belongsToMany(Ingredient::class, 'ingredient_allergens');
     }
-
 }

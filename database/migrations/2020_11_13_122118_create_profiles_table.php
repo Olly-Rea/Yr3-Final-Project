@@ -11,9 +11,9 @@ class CreateProfilesTable extends Migration
      *
      * @return void
      */
-    public function up()
+    public function up(): void
     {
-        Schema::create('profiles', function (Blueprint $table) {
+        Schema::create('profiles', function (Blueprint $table): void {
             $table->id();
             $table->foreignId('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
             // Profile contains User's name
@@ -32,7 +32,8 @@ class CreateProfilesTable extends Migration
      *
      * @return void
      */
-    public function down() {
+    public function down(): void
+    {
         Schema::dropIfExists('profiles');
     }
 }

@@ -28,7 +28,7 @@ class Profile extends Model
         'spice_pref',
         'sweet_pref',
         'sour_pref',
-        'diff_pref'
+        'diff_pref',
     ];
 
     // User Model relationship
@@ -42,5 +42,4 @@ class Profile extends Model
     {
         return $this->belongsToMany(Allergen::class, 'profile_allergens');
     }
-
 }
