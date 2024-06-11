@@ -64,6 +64,9 @@
         ],
         "post-create-project-cmd": [
             "@php artisan key:generate --ansi"
+        ],
+        "php-cs-fixer": [
+            "./vendor/friendsofphp/php-cs-fixer/php-cs-fixer fix -vvv --show-progress=dots"
         ]
     }
 }
