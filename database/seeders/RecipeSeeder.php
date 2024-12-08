@@ -79,9 +79,7 @@ class RecipeSeeder extends Seeder
                     $matchPercent = 1 - \strlen(str_replace(strtolower($match), '', strtolower($name))) / \strlen($name);
                     // if so, make it the new 'best match'
                     if ($matchPercent > $bestPercent) {
-                        ray($name, $id, $match);
-
-                        $bestFitID = $id;
+                        $bestFitID = $id + 1;
                         $bestPercent = $matchPercent;
                     }
                 }
@@ -148,7 +146,7 @@ class RecipeSeeder extends Seeder
                 // Add the ingredient to the 'ingredients' array
                 $ingredients[] = [
                     'recipe_id' => $recipeID,
-                    'ingredient_id' => $bestFitID,
+                    'ingredient_id' => $bestFitID + 1,
                     'misc_info' => $primaryData['misc_info'],
                     'amount' => $primaryData['amount'],
                     'measure' => $primaryData['measure'],
@@ -275,12 +273,12 @@ class RecipeSeeder extends Seeder
             // Seed recipes
             $this->seedDatabase($recipesToSeed, Recipe::class);
             // Seed the recipe ingredients pivot table
-            DB::statement('SET FOREIGN_KEY_CHECKS=0;');
             $ingredientChunks = collect($ingredientsToSeed)->chunk(1000);
+            DB::statement('ALTER TABLE recipe_ingredients DROP CONSTRAINT recipe_ingredients_ingredient_id_foreign;');
             foreach ($ingredientChunks as $chunk) {
                 DB::table('recipe_ingredients')->insert($chunk->toArray());
             }
-            DB::statement('SET FOREIGN_KEY_CHECKS=1;');
+            DB::statement('ALTER TABLE recipe_ingredients ADD CONSTRAINT recipe_ingredients_ingredient_id_foreign FOREIGN KEY (ingredient_id) REFERENCES ingredients(id);');
             // Seed recipe instructions and ratings
             $this->seedDatabase($instructionsToSeed, Instruction::class);
             $this->seedDatabase($ratingsToSeed, Rating::class);
@@ -295,6 +293,7 @@ class RecipeSeeder extends Seeder
     public function run(): void
     {
         // Remove all recipes (needed while debugging)
+        echo "  Dropping existing data from DBs... \n";
         DB::table('recipes')->delete();
         DB::table('recipe_ingredients')->delete();
         DB::table('ratings')->delete();
