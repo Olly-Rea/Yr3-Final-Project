@@ -44,7 +44,7 @@ class RecipeSeeder extends Seeder
         static $ingredients, $ingredientsFlipped;
         $ingredients ??= array_map(
             fn ($ingredient) => $ingredient['name'],
-            Ingredient::select('name')->get()->toArray()
+            Ingredient::orderBy('id')->select('name')->get()->toArray()
         );
         $ingredientsFlipped ??= array_flip($ingredients);
 
